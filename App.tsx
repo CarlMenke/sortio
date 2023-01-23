@@ -15,7 +15,11 @@ import {
 function App(): JSX.Element {
 
   return (
-    <View>Hello</View>
+    <View>
+      <Text>
+        Hello
+      </Text>
+    </View>
   );
 }
 
