@@ -12,9 +12,7 @@ const firebaseConfig = {
     measurementId: "G-MMVBX19GJB"
 };
 
-
 const firebase = initializeApp(firebaseConfig);
 const auth = getAuth()
-module.exports = { firebase, auth }
 
-console.log("firebase before export:", firebase)
+module.exports = { firebase, auth }

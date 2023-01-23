@@ -21,39 +21,16 @@ export default function StartScreen() {
     console.log("auth after import::", auth)
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      console.log("user:",user)
+      const user = userCredential.user
+      console.log("user")
+
+      //user is now authenticated and signed in
+      //you must now add their information to the firestore under the uid which can be obtained by using signinWithEmailAndPassword
     })
-    .catch((error) => {
-      console.log(error)
-    })
-    // fiebase
-    // .createUserWithEmailAndPassword(email, password)
-    // .then((response) => {
-    //     const uid = response.user.uid
-    //     const data = {
-    //         id: uid,
-    //         email,
-    //         fullName,
-    //     };
-    //     const usersRef = firebase.firestore().collection('users')
-    //     usersRef
-    //         .doc(uid)
-    //         .set(data)
-    //         .then(() => {
-    //             console.log('user duccessfully added:', data)
-    //         })
-    //         .catch((error) => {
-    //             alert(error)
-    //         });
-    // })
-    // .catch((error) => {
-    //     alert(error)
-    // });
   }
 
   const login = () => {
-
+    //use signinWithEmailAndPassword to retrieve their uid then use the uid to retrieve their data
   }
 
   const toggleMethod = () => {
