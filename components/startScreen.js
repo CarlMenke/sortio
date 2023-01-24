@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import { useState  } from 'react';
+import { useEffect, useState  } from 'react';
 import { db, auth }   from '../firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore"
 
 export default function StartScreen() {
 
@@ -11,6 +11,7 @@ export default function StartScreen() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [displayMessage, setDisplayMessage] = useState("")
+  const [user, setUser] = useState(null)
   const [header, setHeader] = useState({
     header1: "Welcome,",
     header2: "create an account below.",
@@ -18,13 +19,23 @@ export default function StartScreen() {
     method: 'signup'
   })
 
+  useEffect(()=> {
+    onAuthStateChanged(auth,(user) => {
+      if(user){
+        setUser(user)
+        console.log(user)
+      }else{
+        setUser(null)
+      }
+    })
+  }, [])
+
   const signup = async () => {
     createUserWithEmailAndPassword(auth, email, password)
     .then( async (userCredential) => {
       return  {
         uid:userCredential.user.uid,
         userData: {
-            idToken: await userCredential.user.getIdToken(),
             first: firstName,
             last: lastName,
             email: email
@@ -32,20 +43,30 @@ export default function StartScreen() {
         }
     }).then(async (response)=>{
       try{
-        const docRef = await setDoc(doc(db, 'users', response.uid ), response.userData)
-        console.log("docRef:", docRef)
+        await setDoc(doc(db, 'users', response.uid ), response.userData)
       }catch (error) {
-        console.log("error: ",error)
+        console.log("error: ", error)
       }
+    }).catch((error) => {
+      console.log('error:', error)
     })
   }
 
   const login = () => {
     signInWithEmailAndPassword(auth, email, password)
     .then( async (userCredential) => {
-      console.log(userCredential.user)
+      const user = await getDoc(doc(db, 'users', userCredential.user.uid))
+      if(user.exists()){
+        setUser(user.data())
+        console.log(user.data())
+      }else{
+        setDisplayMessage("Invalid Credentials")
+      }
     })
   }
+
+//the functions above are good but you need to think about why it doesnt automatically store a user in the firestore and look into using firebases preset methods for handeling a users
+// information. Use the get user profile and stuff, then only store the busniess, menu and inventory items in the first store.
 
   const toggleMethod = () => {
     if(header.method === "signup"){
@@ -197,6 +218,7 @@ export default function StartScreen() {
                 <TextInput 
                 style = {styles.input}          
                 onChangeText = {setPassword}
+                secureTextEntry={true}
                 value = {password}
                 placeholder = "Password"/>
             </View>
