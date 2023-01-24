@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useState  } from 'react';
-import { firebase, auth}   from '../firebaseConfig';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { db, auth }   from '../firebaseConfig';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore"
 
 export default function StartScreen() {
 
@@ -18,19 +19,32 @@ export default function StartScreen() {
   })
 
   const signup = async () => {
-    console.log("auth after import::", auth)
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user
-      console.log("user")
-
-      //user is now authenticated and signed in
-      //you must now add their information to the firestore under the uid which can be obtained by using signinWithEmailAndPassword
+    .then( async (userCredential) => {
+      return  {
+        uid:userCredential.user.uid,
+        userData: {
+            idToken: await userCredential.user.getIdToken(),
+            first: firstName,
+            last: lastName,
+            email: email
+          }
+        }
+    }).then(async (response)=>{
+      try{
+        const docRef = await setDoc(doc(db, 'users', response.uid ), response.userData)
+        console.log("docRef:", docRef)
+      }catch (error) {
+        console.log("error: ",error)
+      }
     })
   }
 
   const login = () => {
-    //use signinWithEmailAndPassword to retrieve their uid then use the uid to retrieve their data
+    signInWithEmailAndPassword(auth, email, password)
+    .then( async (userCredential) => {
+      console.log(userCredential.user)
+    })
   }
 
   const toggleMethod = () => {
