@@ -1,17 +1,17 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useEffect, useState  } from 'react';
-import { db, auth }   from '../firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore"
+import { useDispatch } from 'react-redux'
+import { setAuthentication } from '../redux/actions'
+import { signup, login } from '../firebaseFunctions'
+import { auth }   from '../firebaseConfig';
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function StartScreen() {
-
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [displayMessage, setDisplayMessage] = useState("")
-  const [user, setUser] = useState(null)
   const [header, setHeader] = useState({
     header1: "Welcome,",
     header2: "create an account below.",
@@ -19,54 +19,22 @@ export default function StartScreen() {
     method: 'signup'
   })
 
+  const dispatch = useDispatch()
+  const setAuthenticationAction = (isAuthenticated) => dispatch(setAuthentication(isAuthenticated))
+
   useEffect(()=> {
     onAuthStateChanged(auth,(user) => {
+      //you can set loading animation to start here
       if(user){
-        setUser(user)
-        console.log(user)
+        setAuthenticationAction(true)
       }else{
-        setUser(null)
+        setAuthenticationAction(false)
       }
     })
   }, [])
 
-  const signup = async () => {
-    createUserWithEmailAndPassword(auth, email, password)
-    .then( async (userCredential) => {
-      return  {
-        uid:userCredential.user.uid,
-        userData: {
-            first: firstName,
-            last: lastName,
-            email: email
-          }
-        }
-    }).then(async (response)=>{
-      try{
-        await setDoc(doc(db, 'users', response.uid ), response.userData)
-      }catch (error) {
-        console.log("error: ", error)
-      }
-    }).catch((error) => {
-      console.log('error:', error)
-    })
-  }
-
-  const login = () => {
-    signInWithEmailAndPassword(auth, email, password)
-    .then( async (userCredential) => {
-      const user = await getDoc(doc(db, 'users', userCredential.user.uid))
-      if(user.exists()){
-        setUser(user.data())
-        console.log(user.data())
-      }else{
-        setDisplayMessage("Invalid Credentials")
-      }
-    })
-  }
-
 //the functions above are good but you need to think about why it doesnt automatically store a user in the firestore and look into using firebases preset methods for handeling a users
-// information. Use the get user profile and stuff, then only store the busniess, menu and inventory items in the first store.
+//information. Use the get user profile and stuff, then only store the busniess, menu and inventory items in the first store.
 
   const toggleMethod = () => {
     if(header.method === "signup"){
@@ -180,7 +148,6 @@ export default function StartScreen() {
     if(header.method === "signup"){
       return (
         <View style={styles.container}>
-
             <View style={styles.header}>
               <Text style={styles.header1}>{header.header1}</Text>
               <Text style={styles.header2}>{header.header2}</Text>
@@ -226,14 +193,13 @@ export default function StartScreen() {
             <View>
                 <Button
                 style = {styles.button}
-                onPress = {signup}
+                onPress = {()=>{signup(email, password)}}
                 title = "Enter" />
                 <Button
                 style = {styles.button}
                 onPress = {toggleMethod}
                 title = "I Already Have An Account." />
             </View>
-
         </View>
       )
     }else{
@@ -241,8 +207,8 @@ export default function StartScreen() {
         <View style={styles.container}>
             <Text style={styles.displayMessage}>{displayMessage}</Text>
             <View style={styles.header}>
-            <Text style={styles.header1}>{header.header1}</Text>
-            <Text style={styles.header2}>{header.header2}</Text>
+              <Text style={styles.header1}>{header.header1}</Text>
+              <Text style={styles.header2}>{header.header2}</Text>
             </View>
             <View style = {styles.loginInputs}>
               <Text style = {styles.header3}>{header.header3}</Text>
@@ -260,7 +226,7 @@ export default function StartScreen() {
             </View>
             <Button
               style = {styles.button}
-              onPress = {login}
+              onPress = {()=>{login(email, password)}}
               title = "Enter" />
             <Button
               style = {styles.button}
