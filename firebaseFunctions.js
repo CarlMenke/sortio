@@ -3,9 +3,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { 
     doc, 
     setDoc, 
-    getDoc, 
-    collection, 
-    addDoc
+    getDoc
 } from "firebase/firestore"
 
 const handleError = (error) => {

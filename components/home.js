@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View} from 'react-native';
 import BusinessForm from '../forms/business';
 
 export default function Home() {

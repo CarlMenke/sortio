@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import { useEffect, useState  } from 'react';
-import { useDispatch } from 'react-redux'
+import { useState  } from 'react';
 import { createBusiness, joinBusiness } from '../firebaseFunctions'
-export default function BusinessForm(props) {
 
+
+export default function BusinessForm(props) {
     const [businessName, setBusinessName] = useState("")
     const [businessCode, setBusinessCode] = useState("")
     const [header, setHeader] = useState({
@@ -12,10 +12,7 @@ export default function BusinessForm(props) {
         method1: 'Create',
         method2: 'Join Business',
         function: createBusiness
-      })
-
-    const dispatch = useDispatch()
-    const setAuthenticationAction = (isAuthenticated) => dispatch(setAuthentication(isAuthenticated))
+    })
 
     const toggleMethod = () => {
         if(header.method1 === "Create"){
