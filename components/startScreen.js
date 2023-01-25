@@ -35,6 +35,8 @@ export default function StartScreen() {
 
 //the functions above are good but you need to think about why it doesnt automatically store a user in the firestore and look into using firebases preset methods for handeling a users
 //information. Use the get user profile and stuff, then only store the busniess, menu and inventory items in the first store.
+//possibly add barcode scanner
+
 
   const toggleMethod = () => {
     if(header.method === "signup"){
