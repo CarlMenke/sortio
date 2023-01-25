@@ -193,7 +193,7 @@ export default function StartScreen() {
             <View>
                 <Button
                 style = {styles.button}
-                onPress = {()=>{signup(email, password)}}
+                onPress = {()=>{signup(email, password, firstName, lastName)}}
                 title = "Enter" />
                 <Button
                 style = {styles.button}
