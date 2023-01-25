@@ -1,15 +1,18 @@
 import { db, auth }   from './firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore"
 
 const handleError = (error) => {
     console.log(error)
 }
 
-const signup = async (email, password) => {
+const signup = async (email, password, firstName, lastName) => {
     createUserWithEmailAndPassword(auth, email, password)
-    .then(() => {
-        //you can set loading animation to start here
+    .then((result) => {
+        result.user.updateProfile({
+            displayName: `${firstName} ${lastName}`
+        })
+        //you can start loading animation to start here
     }).catch((error) => {
         handleError(error)
     })
@@ -18,7 +21,7 @@ const signup = async (email, password) => {
 const login = async (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
     .then(() => {
-        //you can set loading animation to start here
+        //you can start loading animation to start here
     }).catch((error)=>{
         handleError(error)
     })
