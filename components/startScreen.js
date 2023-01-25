@@ -1,5 +1,8 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useEffect, useState  } from 'react';
+import { useDispatch } from 'react-redux'
+import { setAuthentication } from '../redux/actions'
+
 import { db, auth }   from '../firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore"
@@ -19,49 +22,38 @@ export default function StartScreen() {
     method: 'signup'
   })
 
+  const dispatch = useDispatch()
+  const setAuthenticationAction = (isAuthenticated) => dispatch(setAuthentication(isAuthenticated))
+
   useEffect(()=> {
     onAuthStateChanged(auth,(user) => {
+      //you can set loading animation to start here
       if(user){
-        setUser(user)
-        console.log(user)
+        setAuthenticationAction(true)
       }else{
-        setUser(null)
+        setAuthenticationAction(false)
       }
     })
   }, [])
 
+  const handleError = (error) => {
+    console.log(error)
+  }
   const signup = async () => {
     createUserWithEmailAndPassword(auth, email, password)
-    .then( async (userCredential) => {
-      return  {
-        uid:userCredential.user.uid,
-        userData: {
-            first: firstName,
-            last: lastName,
-            email: email
-          }
-        }
-    }).then(async (response)=>{
-      try{
-        await setDoc(doc(db, 'users', response.uid ), response.userData)
-      }catch (error) {
-        console.log("error: ", error)
-      }
+    .then(() => {
+      //you can set loading animation to start here
     }).catch((error) => {
-      console.log('error:', error)
+      handleError(error)
     })
   }
 
   const login = () => {
     signInWithEmailAndPassword(auth, email, password)
-    .then( async (userCredential) => {
-      const user = await getDoc(doc(db, 'users', userCredential.user.uid))
-      if(user.exists()){
-        setUser(user.data())
-        console.log(user.data())
-      }else{
-        setDisplayMessage("Invalid Credentials")
-      }
+    .then(() => {
+      //you can set loading animation to start here
+    }).catch((error)=>{
+      handleError(error)
     })
   }
 

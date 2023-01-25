@@ -1,9 +1,13 @@
 import React from 'react';
-import StartScreen from './components/startScreen';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import Navigation from './components/Navigation';
 
 function App(): JSX.Element {
   return (
-    <StartScreen/>
+    <Provider store = {store}>
+      <Navigation/>
+    </Provider>
   );
 }
 
