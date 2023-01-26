@@ -48,6 +48,7 @@ const createBusiness = async (businessName, businessCode) => {
             inventoryItems: {}
         }
         await setDoc(doc(db, 'businesses', businessName), data)
+        await addBusinessToUser(businessName)
         return {
             status: true,
             message: "Business Created"
@@ -80,6 +81,7 @@ const joinBusiness = async (businessName, businessCode) => {
             }else{
                 businessData.users.push(auth.currentUser.uid)
                 await setDoc(doc(db, 'businesses', businessName), businessData)
+                await addBusinessToUser(businessName)
                 return {
                     status: true,
                     message: "Joined Business"
@@ -89,10 +91,39 @@ const joinBusiness = async (businessName, businessCode) => {
     }
 }
 
+const addBusinessToUser = async (businessName) => {
+    const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", auth.currentUser.uid))
+    if(usersBusinessesRef.exists()){
+        const usersBusinessesData = usersBusinessesRef.data()
+        usersBusinessesData.businesses.push(businessName)
+        await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid), usersBusinessesData)
+    }else{
+        await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid),{businesses : [businessName] })
+    }
+}
+
+const getCurrentUsersBusinesses = async () => {
+    console.log("start of getCurrentUsersBusinesses")
+    const usersBusinessesRef = await getDoc(doc(db, 'usersBusinesses', auth.currentUser.uid))
+    console.log("inside getCurrentUseresBusinesses:", usersBusinessesRef.exists())
+    if(usersBusinessesRef.exists()){
+        const usersBusinessesData = usersBusinessesRef.data()
+        return usersBusinessesData.businesses
+    }else{
+        return []
+    }
+}
+
+const createIngredient = async (ingredientName, amountValue, amountUnit, usedInMenuItems) => {
+    console.log(ingredientName, amountUnit,amountValue, usedInMenuItems )
+    return "inside create Ingredients"
+}
 module.exports = {
     signup,
     login,
     createBusiness,
-    joinBusiness
+    joinBusiness,
+    createIngredient,
+    getCurrentUsersBusinesses
 }
 

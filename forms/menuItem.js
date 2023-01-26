@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useState  } from 'react';
-import { setNavState } from '../redux/actions';
-import { useDispatch } from 'react-redux';
 import { createBusiness, joinBusiness } from '../firebaseFunctions'
 
 
@@ -15,9 +13,6 @@ export default function BusinessForm(props) {
         method2: 'Join Business',
         function: createBusiness
     })
-
-    const dispatch = useDispatch()
-    const setNavStateAction = (navState) => dispatch(setNavState(navState))
 
     const toggleMethod = () => {
         if(header.method1 === "Create"){
@@ -39,18 +34,6 @@ export default function BusinessForm(props) {
         }
       }
 
-    const handleSubmit =  async () => {
-        const response = await header.function(businessName, businessCode)
-        if(response.status){
-            setNavStateAction({
-                screen:"home",
-                payload: null
-            })
-        }else{
-            console.log(response)
-        }
-    }
- 
     const styles = StyleSheet.create({
         container: {
             height:"100%",
@@ -79,7 +62,7 @@ export default function BusinessForm(props) {
             </View>
 
             <View>
-                <Text>Business Code: </Text>
+                <Text>Business Password: </Text>
                 <TextInput 
                     style = {styles.input}
                     onChangeText = {setBusinessCode}
@@ -90,7 +73,7 @@ export default function BusinessForm(props) {
             <View>
                 <Button
                     style = {styles.button}
-                    onPress = {handleSubmit}
+                    onPress = {async ()=>{console.log(await header.function(businessName, businessCode))}}
                     title = {header.method1} />
                 <Button
                     style = {styles.button}

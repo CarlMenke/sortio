@@ -1,17 +1,31 @@
-import { SET_AUTHENTICATION } from './actions'
+import { 
+    SET_AUTHENTICATION,
+    SET_NAVSTATE
+} from './actions'
 
 const initialState = {
-    isAuthenticated : false
+    isAuthenticated : false,
+    navState : {
+        screen : "home",
+        payload : null
+    }
 }
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+
         case SET_AUTHENTICATION :
-            console.log(action.payload)
             return {
                 ...state,
                 isAuthenticated: action.payload
             }
+
+        case SET_NAVSTATE : 
+            return {
+                ...state,
+                navState : action.payload 
+            }
+            
         default: 
             return state
     }

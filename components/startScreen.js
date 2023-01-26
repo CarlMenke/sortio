@@ -24,6 +24,7 @@ export default function StartScreen() {
 
   useEffect(()=> {
     onAuthStateChanged(auth,(user) => {
+      //you can set loading animation to start here
       if(user){
         setAuthenticationAction(true)
       }else{
