@@ -32,6 +32,7 @@ const login = async (email, password) => {
 }
 
 const createBusiness = async (businessName, businessCode) => {
+    try{
     const business = await getDoc(doc(db, "businesses", businessName))
     if(business.exists()){
         return {
@@ -54,63 +55,103 @@ const createBusiness = async (businessName, businessCode) => {
             message: "Business Created"
         }
     }
-
+    }catch(error){
+        console.log("Error from createBusiness:", error)
+    }
 }
 
 const joinBusiness = async (businessName, businessCode) => {
-    const businessRef = await getDoc(doc(db, "businesses", businessName))
-    if(!businessRef.exists()){
-        return {
-            status: false,
-            message: "Business Doesnt Exists"
-        }
-    }else{
-        const businessData = businessRef.data()
-        if(businessData.businessCode !== businessCode){
+    try{
+        const businessRef = await getDoc(doc(db, "businesses", businessName))
+        if(!businessRef.exists()){
             return {
                 status: false,
-                message: "Invalid Business Code"
+                message: "Business Doesnt Exists"
             }
         }else{
-            const usersSet = new Set(businessData.users)
-            if(usersSet.has(auth.currentUser.uid)){
-                return{
+            const businessData = businessRef.data()
+            if(businessData.businessCode !== businessCode){
+                return {
                     status: false,
-                    message: "Already Joined Business"
+                    message: "Invalid Business Code"
                 }
             }else{
-                businessData.users.push(auth.currentUser.uid)
-                await setDoc(doc(db, 'businesses', businessName), businessData)
-                await addBusinessToUser(businessName)
-                return {
-                    status: true,
-                    message: "Joined Business"
+                const usersSet = new Set(businessData.users)
+                if(usersSet.has(auth.currentUser.uid)){
+                    return{
+                        status: false,
+                        message: "Already Joined Business"
+                    }
+                }else{
+                    businessData.users.push(auth.currentUser.uid)
+                    await setDoc(doc(db, 'businesses', businessName), businessData)
+                    await addBusinessToUser(businessName)
+                    return {
+                        status: true,
+                        message: "Joined Business"
+                    }
                 }
             }
         }
+    }catch(error){
+        console.log("Error from joinBusiness:", error)
     }
 }
 
 const addBusinessToUser = async (businessName) => {
-    const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", auth.currentUser.uid))
-    if(usersBusinessesRef.exists()){
-        const usersBusinessesData = usersBusinessesRef.data()
-        usersBusinessesData.businesses.push(businessName)
-        await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid), usersBusinessesData)
-    }else{
-        await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid),{businesses : [businessName] })
+    try{
+        const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", auth.currentUser.uid))
+        if(usersBusinessesRef.exists()){
+            const usersBusinessesData = usersBusinessesRef.data()
+            usersBusinessesData.businesses.push(businessName)
+            await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid), usersBusinessesData)
+        }else{
+            await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid),{businesses : [businessName] })
+        }
+    }catch(error){
+        console.log("Error from addBusinessToUser:", error)
     }
+
+
 }
 
 const getCurrentUsersBusinesses = async () => {
-    console.log("start of getCurrentUsersBusinesses")
-    const usersBusinessesRef = await getDoc(doc(db, 'usersBusinesses', auth.currentUser.uid))
-    console.log("inside getCurrentUseresBusinesses:", usersBusinessesRef.exists())
-    if(usersBusinessesRef.exists()){
-        const usersBusinessesData = usersBusinessesRef.data()
-        return usersBusinessesData.businesses
-    }else{
-        return []
+    try{
+        const usersBusinessesRef = await getDoc(doc(db, 'usersBusinesses', auth.currentUser.uid))
+        if(usersBusinessesRef.exists()){
+            const usersBusinessesData = usersBusinessesRef.data()
+            return {
+                status: true,
+                data: usersBusinessesData.businesses
+            }
+        }else{
+            return {
+                status: false,
+                data: []
+            }
+        }
+    }catch(error){
+        console.log("Error from getCurrentUsersBusinesses:", error)
+    }
+}
+
+const getBusinessDetails = async (businessName) => {
+    try{
+        const businessRef = await getDoc(doc(db, 'businesses', businessName ))
+        if(businessRef.exists()){
+            const businessData = businessRef.data()
+            return {
+                status: true,
+                data: businessData
+            }
+        }else{
+            return {
+                status: false,
+                data: "Could not retrieve business data"
+            }
+        }
+    }catch(error){
+        console.log("Error from getBusinessDetails:", error)
     }
 }
 
@@ -124,6 +165,7 @@ module.exports = {
     createBusiness,
     joinBusiness,
     createIngredient,
-    getCurrentUsersBusinesses
+    getCurrentUsersBusinesses,
+    getBusinessDetails
 }
 

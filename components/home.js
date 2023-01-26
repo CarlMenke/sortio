@@ -13,8 +13,6 @@ export default function Home() {
 
     const { navState } = useSelector(state => state.reducer)
 
-
-    //ideally you use a firebaseFunction to retrive an array of all the businesses that the current user is in
     const styles = StyleSheet.create({
         container: {
           flex: 1,
@@ -26,21 +24,15 @@ export default function Home() {
     });
 
     const helper = async () =>{
-        const businessesArray  = await getCurrentUsersBusinesses()
-        console.log('businessArray:', businessesArray)
-        setBusinesses(businessesArray)
+        const response  = await getCurrentUsersBusinesses()
+        setBusinesses(response.data)
     }
 
     useEffect(()=> {
-        console.log("useEffectRan", navState.screen)
         if(navState.screen === 'home'){
             helper()
         }
     },[navState])
-
-    useEffect(()=>{
-        console.log(businesses)
-    },[businesses])
 
     const showBusiness = (businessName) => {
         setNavStateAction({
@@ -56,15 +48,15 @@ export default function Home() {
         })
     }
 
-    //BusinessForm Component Below should be changed to a button that loads a new business form and says "create or join a business"
+    //BusinessForm Component Below should be changed to a button that loads a    new business form and says "create or join a business"
     return(
         <View style={styles.container}>
             <Button
             onPress={showBusinessForm}
             title="Create / Join Business"/> 
-            {businesses.map((businessName)=>{
+            {businesses.map((businessName, index)=>{
                 return(
-                    <View>
+                    <View key={index}>
                         <Text>
                             {businessName}
                         </Text>

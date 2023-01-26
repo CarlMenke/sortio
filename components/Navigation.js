@@ -1,9 +1,11 @@
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import StartScreen from './startScreen';
-import Home from './home'
-import BusinessPage from './businessPage';
-import BusinessForm from '../forms/business';
+import StartScreen from './StartScreen';
+import Home from './Home'
+import BusinessPage from './BusinessPage';
+import BusinessForm from '../forms/BusinessForm';
+import MenuItemsPage from './MenuItemsPage';
+import InventoryPage from './InventoryPage';
 
 export default function Navigation() {
 
@@ -25,14 +27,34 @@ export default function Navigation() {
 
           case 'business':
             return (
-              <BusinessPage business = {navState.payload}/>
+              <BusinessPage/>
             )
           
-          case 'businessForm':
+          case 'createBusiness':
             return (
-              <BusinessForm/>
+              <BusinessForm action="create"/>
             )
 
+          case 'joinBusiness':
+            return (
+              <BusinessForm action="join"/>
+            )
+
+          case 'updateBusiness':
+            return (
+              <BusinessForm action="update"/>
+            )
+
+          case 'inventory':
+            return (
+              <InventoryPage/>
+            )
+          
+          case 'menuItems':
+            return (
+              <MenuItemsPage/>
+            )
+          
           case 'home':
             return (
               <Home/>

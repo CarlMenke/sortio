@@ -3,7 +3,7 @@ import { useState  } from 'react';
 import { createBusiness, joinBusiness } from '../firebaseFunctions'
 
 
-export default function BusinessForm(props) {
+export default function MenuItemForm(props) {
     const [businessName, setBusinessName] = useState("")
     const [businessCode, setBusinessCode] = useState("")
     const [header, setHeader] = useState({

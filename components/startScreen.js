@@ -218,6 +218,7 @@ export default function StartScreen() {
               <TextInput 
                 style = {styles.loginInput2}          
                 onChangeText = {setPassword}
+                secureTextEntry={true}
                 value = {password}
                 placeholder = "Password"/>
             </View>
