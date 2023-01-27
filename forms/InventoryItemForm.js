@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createIngredient } from '../firebaseFunctions'
 const convert = require('convert-units')
 import { setNavState } from '../redux/actions';
+import { showInventory } from '../navFunctions'
 
 export default function InventoryItemForm() {
     const [inventoryItemName, setIventoryItemName] = useState("")
@@ -26,6 +27,16 @@ export default function InventoryItemForm() {
             paddingTop: 50
         }
     });
+
+    const submitCreate = async () => {
+        const response = await createIngredient(inventoryItemName, amountValue, amountUnit, [], navState.payload.businessName)
+        if(response.status){
+            console.log(response.data)
+            showInventory(navState, setNavStateAction)
+        }else{
+            console.log(response.data)
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -60,7 +71,7 @@ export default function InventoryItemForm() {
             <View>
                 <Button
                     style = {styles.button}
-                    onPress = {async ()=>{await createIngredient(inventoryItemName, amountValue, amountUnit, [], navState.payload.businessName)}}
+                    onPress = {submitCreate}
                     title = "Create" />
             </View>
         </View>

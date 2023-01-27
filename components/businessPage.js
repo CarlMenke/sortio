@@ -1,18 +1,13 @@
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import { useState, useEffect  } from 'react';
-import { setNavState } from '../redux/actions';
-import {  getBusinessDetails } from '../firebaseFunctions'
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { showInventory , showUpdateBusiness, showMenuItems } from '../navFunctions'
 import { useDispatch, useSelector } from 'react-redux';
-import InventoryItemForm from '../forms/InventoryItemForm'
+import { setNavState } from '../redux/actions';
 
 
 export default function BusinessPage() {
-
     const { navState } = useSelector(state => state.reducer)
-    const [businessDetails, setBusinessDetails] = useState(navState.payload)
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
-
 
     const styles = StyleSheet.create({
         container: {
@@ -25,49 +20,28 @@ export default function BusinessPage() {
         }
     });
 
-    const showInventory = async () => {
-        const response  = await getBusinessDetails(businessDetails.businessName)
-        setNavStateAction({
-            screen : "inventory",
-            payload : response.data
-        })
-    }
-
-    const showMenuItems = async () => {
-        const response  = await getBusinessDetails(businessDetails.businessName)
-        setNavStateAction({
-            screen : "menuItems",
-            payload : response.data
-        })
-    }
-
-    const updateBusiness = async () => {
-        const response  = await getBusinessDetails(businessDetails.businessName)
-        setNavStateAction({
-            screen : 'updateBusiness',
-            payload : response.data
-        })
-    }
-
     return (
         <View style={styles.container}>
-            <Text style={styles.businessName}>{businessDetails.businessName}</Text>
+            <Text style={styles.businessName}>{navState.payload.businessName}</Text>
             <View style={styles.inventory}>
                 <Button
                 title="Inventory"
-                onPress={showInventory}/>
+                onPress={()=>showInventory(navState, setNavStateAction)}/>
             </View>
             <View style={styles.menuItems}>
                 <Button
                 title="Menu Items"
-                onPress={showMenuItems}/>
+                onPress={()=>showMenuItems(navState, setNavStateAction)}/>
+            </View>
+            <View>
+                <Button
+                title="Report Sales"/>
             </View>
             <View style={styles.businessSettings}>
                 <Button
                 title="Business Settings"
-                onPress={updateBusiness}/>
+                onPress={()=>showUpdateBusiness(navState, setNavStateAction)}/>
             </View>
-            <InventoryItemForm/>
         </View>
     )
 }

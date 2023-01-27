@@ -1,5 +1,9 @@
 import { db, auth }   from './firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword
+} from "firebase/auth";
+
 import { 
     doc, 
     setDoc, 
@@ -37,7 +41,7 @@ const createBusiness = async (businessName, businessCode) => {
     if(business.exists()){
         return {
             status: false,
-            message: "Business Already Exists"
+            data: "Business Already Exists"
         }
     }else{
         const data = {
@@ -52,7 +56,7 @@ const createBusiness = async (businessName, businessCode) => {
         await addBusinessToUser(businessName)
         return {
             status: true,
-            message: "Business Created"
+            data: "Business Created"
         }
     }
     }catch(error){
@@ -66,21 +70,21 @@ const joinBusiness = async (businessName, businessCode) => {
         if(!businessRef.exists()){
             return {
                 status: false,
-                message: "Business Doesnt Exists"
+                data: "Business Doesnt Exists"
             }
         }else{
             const businessData = businessRef.data()
             if(businessData.businessCode !== businessCode){
                 return {
                     status: false,
-                    message: "Invalid Business Code"
+                    data: "Invalid Business Code"
                 }
             }else{
                 const usersSet = new Set(businessData.users)
                 if(usersSet.has(auth.currentUser.uid)){
                     return{
                         status: false,
-                        message: "Already Joined Business"
+                        data: "Already Joined Business"
                     }
                 }else{
                     businessData.users.push(auth.currentUser.uid)
@@ -88,7 +92,7 @@ const joinBusiness = async (businessName, businessCode) => {
                     await addBusinessToUser(businessName)
                     return {
                         status: true,
-                        message: "Joined Business"
+                        data: "Joined Business"
                     }
                 }
             }

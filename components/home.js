@@ -1,11 +1,10 @@
-import { StyleSheet, View, Button, Text} from 'react-native';
-import { getCurrentUsersBusinesses, getBusinessDetails } from '../firebaseFunctions'
-import { useEffect, useState } from 'react';
+import { StyleSheet, View, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import BusinessCard from '../cards/BusinessCard';
+import { showBusinessForm } from '../navFunctions'
 import { setNavState } from '../redux/actions';
 
 export default function Home() {
-    const [businesses, setBusinesses] = useState([])
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
@@ -20,47 +19,14 @@ export default function Home() {
         },
     });
 
-    const helper = async () =>{
-        const response  = await getCurrentUsersBusinesses()
-        setBusinesses(response.data)
-    }
-
-    useEffect(()=> {
-        if(navState.screen === 'home'){
-            helper()
-        }
-    },[navState])
-
-    const showBusiness = async (businessName) => {
-        const response  = await getBusinessDetails(businessName)
-        setNavStateAction({
-            screen: 'business',
-            payload: response.data
-        })
-    }
-
-    const showBusinessForm = () => {
-        setNavStateAction({
-            screen: "businessForm",
-            payload: null
-        })
-    }
-
     return(
         <View style={styles.container}>
             <Button
-            onPress={showBusinessForm}
+            onPress={()=>{showBusinessForm(navState, setNavStateAction)}}
             title="Create / Join Business"/> 
-            {businesses.map((businessName, index)=>{
+            {navState.payload.map((businessName, index)=>{
                 return(
-                    <View key={index}>
-                        <Text>
-                            {businessName}
-                        </Text>
-                        <Button
-                            onPress = {()=>{showBusiness(businessName)}}
-                            title = "Details"/>
-                    </View>
+                    <BusinessCard businessName={businessName} key={index}/>
                 )
             })}
         </View>

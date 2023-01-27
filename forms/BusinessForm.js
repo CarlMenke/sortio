@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useState  } from 'react';
 import { setNavState } from '../redux/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createBusiness, joinBusiness } from '../firebaseFunctions'
-
+import { showHome } from '../navFunctions'
 
 export default function BusinessForm(props) {
+    const dispatch = useDispatch()
+    const setNavStateAction = (navState) => dispatch(setNavState(navState))
+    const { navState } = useSelector(state => state.reducer)
     const [businessName, setBusinessName] = useState("")
     const [businessCode, setBusinessCode] = useState("")
     const [header, setHeader] = useState({
@@ -15,9 +18,6 @@ export default function BusinessForm(props) {
         method2: 'Join Business',
         function: createBusiness
     })
-
-    const dispatch = useDispatch()
-    const setNavStateAction = (navState) => dispatch(setNavState(navState))
 
     const toggleMethod = () => {
         if(header.method1 === "Create"){
@@ -42,12 +42,10 @@ export default function BusinessForm(props) {
     const handleSubmit =  async () => {
         const response = await header.function(businessName, businessCode)
         if(response.status){
-            setNavStateAction({
-                screen:"home",
-                payload: null
-            })
+            showHome(navState, setNavStateAction)
+            console.log(response.data)
         }else{
-            console.log(response)
+            console.log(response.data)
         }
     }
  

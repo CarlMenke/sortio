@@ -1,11 +1,8 @@
 import { StyleSheet, View, Button, Text} from 'react-native';
-import { getCurrentUsersBusinesses } from '../firebaseFunctions'
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../redux/actions';
 import InventoryItemCard from '../cards/InventoryItemCard';
-
-//use flatlistView here
+import { showInventoryItemForm } from '../navFunctions'
 
 export default function InventoryPage() {
     
@@ -30,6 +27,9 @@ export default function InventoryPage() {
                     <InventoryItemCard inventoryItem = {inventoryItem} key={index}/>
                 )
             })}
+            <Button
+            onPress={()=>{showInventoryItemForm(navState, setNavStateAction)}}
+            title="New Item"/>
         </View>
     )
 }

@@ -6,6 +6,7 @@ import BusinessPage from './BusinessPage';
 import BusinessForm from '../forms/BusinessForm';
 import MenuItemsPage from './MenuItemsPage';
 import InventoryPage from './InventoryPage';
+import InventoryItemForm from '../forms/InventoryItemForm';
 
 export default function Navigation() {
 
@@ -55,11 +56,16 @@ export default function Navigation() {
               <MenuItemsPage/>
             )
           
-          case 'home':
+          case 'createInventoryItem':
             return (
-              <Home/>
+              <InventoryItemForm/>
             )
           
+          case 'home':
+            return(
+              <Home/>
+            )
+
           default:
             return (
               <Home/>

@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useEffect, useState  } from 'react';
-import { useDispatch } from 'react-redux'
-import { setAuthentication } from '../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { setAuthentication, setNavState } from '../redux/actions'
 import { signup, login } from '../firebaseFunctions'
 import { auth }   from '../firebaseConfig';
 import { onAuthStateChanged } from "firebase/auth";
+import { getCurrentUsersBusinesses } from '../firebaseFunctions'
 
 export default function StartScreen() {
   const [firstName, setFirstName] = useState("")
@@ -21,11 +22,19 @@ export default function StartScreen() {
 
   const dispatch = useDispatch()
   const setAuthenticationAction = (isAuthenticated) => dispatch(setAuthentication(isAuthenticated))
+  const setNavStateAction = (navState) => dispatch(setNavState(navState))
+  const {navState} = useSelector(state => state.reducer)
 
   useEffect(()=> {
-    onAuthStateChanged(auth,(user) => {
-      //you can set loading animation to start here
+    onAuthStateChanged(auth, async (user) => {
       if(user){
+        const response = await getCurrentUsersBusinesses()
+        if(response.status){
+          setNavStateAction({
+            screen: "home",
+            payload: response.data
+          })
+        }
         setAuthenticationAction(true)
       }else{
         setAuthenticationAction(false)

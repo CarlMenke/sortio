@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../redux/actions';
 
 export default function MenuItemsPage() {
-    
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
