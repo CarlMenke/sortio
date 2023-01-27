@@ -4,25 +4,30 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../redux/actions';
 
-export default function InventoryItemCard() {
-    
+export default function InventoryItemCard(props) {
+    const { name, currentValue, currentUnit } = props.inventoryItem[1]
+    console.log(props.inventoryItem[1])
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
 
     const styles = StyleSheet.create({
         container: {
-          flex: 1,
           flexDirection: "column",
           backgroundColor: '#544D57',
           alignItems: 'center',
           justifyContent: 'center',
+          borderWidth:1,
+          borderColor: "yellow",
+          borderRadius: 10
         },
     });
 
     return(
         <View style={styles.container}>
-
+            <Text>{name}</Text>
+            <Text>{currentValue}</Text>
+            <Text>{currentUnit}</Text>
         </View>
     )
 }

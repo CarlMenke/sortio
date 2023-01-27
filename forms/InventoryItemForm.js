@@ -1,19 +1,24 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState  } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createIngredient } from '../firebaseFunctions'
 const convert = require('convert-units')
+import { setNavState } from '../redux/actions';
 
-export default function IngredientForm() {
-    const [ingredientName, setIngredientName] = useState("")
+export default function InventoryItemForm() {
+    const [inventoryItemName, setIventoryItemName] = useState("")
     const [amountValue, setAmountValue] = useState(null)
     const [amountUnit, setAmountUnit] = useState(null)
     const [open, setOpen] = useState(false);
     const [unitArray , setUnitArray] = useState([{label:'grams', value:'grams'}, {label:'ounces', value:'ounces'}, {label:'pounds', value:'pounds'}])
+    const dispatch = useDispatch()
+    const setNavStateAction = (navState) => dispatch(setNavState(navState))
+    const { navState } = useSelector(state => state.reducer)
 
     const styles = StyleSheet.create({
         container: {
-            height:"100%",
+            flex:.3,
             flexDirection: "column",
             backgroundColor: '#353535',
             alignItems: 'center',
@@ -24,13 +29,13 @@ export default function IngredientForm() {
 
     return (
         <View style={styles.container}>
-            <Text>New Ingredient:</Text>
+            <Text>New Item:</Text>
             <View>
-                <Text>Ingredient Name: </Text>
+                <Text>Item Name: </Text>
                 <TextInput 
                     style = {styles.input}
-                    onChangeText = {setIngredientName}
-                    value = {ingredientName}
+                    onChangeText = {setIventoryItemName}
+                    value = {inventoryItemName}
                     placeholder = "Ingredient Name"/>
             </View>
 
@@ -55,7 +60,7 @@ export default function IngredientForm() {
             <View>
                 <Button
                     style = {styles.button}
-                    onPress = {async ()=>{await createIngredient(ingredientName, amountValue, amountUnit)}}
+                    onPress = {async ()=>{await createIngredient(inventoryItemName, amountValue, amountUnit, [], navState.payload.businessName)}}
                     title = "Create" />
             </View>
         </View>

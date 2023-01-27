@@ -155,9 +155,41 @@ const getBusinessDetails = async (businessName) => {
     }
 }
 
-const createIngredient = async (ingredientName, amountValue, amountUnit, usedInMenuItems) => {
-    console.log(ingredientName, amountUnit,amountValue, usedInMenuItems )
-    return "inside create Ingredients"
+const createIngredient = async (inventoryItemName, amountValue, amountUnit, usedInMenuItems, businessName) => {
+    try{
+        console.log(businessName)
+        const data = {
+            name: inventoryItemName,
+            currentUnit: amountUnit,
+            currentValue: amountValue,
+            usedIn: usedInMenuItems
+        }
+        const businessRef = await getDoc(doc(db, 'businesses', businessName))
+        if(!businessRef.exists()){
+            return {
+                status: false,
+                data: "Error Finding Business"
+            }
+        }else{
+            const inventoryItems = businessRef.data().inventoryItems
+            if(inventoryItems[inventoryItemName]){
+                return{
+                    status: false,
+                    data: "Item Already Exists"
+                }
+            }else{
+                inventoryItems[inventoryItemName] = data
+                await setDoc(doc(db, 'businesses', businessName), {inventoryItems:inventoryItems}, {merge:true})
+                return{
+                    status: true,
+                    data: "Added Item To Inventory"
+                }
+            }
+        }
+    }catch(error){
+        console.log("Error from createIngredient:", error)
+    }
+
 }
 module.exports = {
     signup,

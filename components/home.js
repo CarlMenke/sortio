@@ -1,16 +1,13 @@
 import { StyleSheet, View, Button, Text} from 'react-native';
-import { getCurrentUsersBusinesses } from '../firebaseFunctions'
+import { getCurrentUsersBusinesses, getBusinessDetails } from '../firebaseFunctions'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../redux/actions';
 
 export default function Home() {
-
     const [businesses, setBusinesses] = useState([])
-
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
-
     const { navState } = useSelector(state => state.reducer)
 
     const styles = StyleSheet.create({
@@ -34,10 +31,11 @@ export default function Home() {
         }
     },[navState])
 
-    const showBusiness = (businessName) => {
+    const showBusiness = async (businessName) => {
+        const response  = await getBusinessDetails(businessName)
         setNavStateAction({
             screen: 'business',
-            payload: businessName
+            payload: response.data
         })
     }
 
@@ -48,7 +46,6 @@ export default function Home() {
         })
     }
 
-    //BusinessForm Component Below should be changed to a button that loads a    new business form and says "create or join a business"
     return(
         <View style={styles.container}>
             <Button

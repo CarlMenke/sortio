@@ -1,28 +1,17 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useState, useEffect  } from 'react';
 import { setNavState } from '../redux/actions';
+import {  getBusinessDetails } from '../firebaseFunctions'
 import { useDispatch, useSelector } from 'react-redux';
-import { getBusinessDetails } from '../firebaseFunctions'
-import IngredientForm from '../forms/IngredientForm'
+import InventoryItemForm from '../forms/InventoryItemForm'
 
 
 export default function BusinessPage() {
 
-    const [businessDetails, setBusinessDetails] = useState({})
+    const { navState } = useSelector(state => state.reducer)
+    const [businessDetails, setBusinessDetails] = useState(navState.payload)
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
-    const { navState } = useSelector(state => state.reducer)
-
-    const helper = async () =>{
-        const response  = await getBusinessDetails(navState.payload)
-        response.status? setBusinessDetails(response.data) : console.log(response.data)
-    }
-
-    useEffect(()=> {
-        if(navState.screen === 'business'){
-            helper()
-        }
-    },[navState])
 
 
     const styles = StyleSheet.create({
@@ -36,28 +25,29 @@ export default function BusinessPage() {
         }
     });
 
-    const showInventory = () => {
+    const showInventory = async () => {
+        const response  = await getBusinessDetails(businessDetails.businessName)
         setNavStateAction({
             screen : "inventory",
-            payload : businessDetails
+            payload : response.data
         })
     }
 
-    const showMenuItems = () => {
+    const showMenuItems = async () => {
+        const response  = await getBusinessDetails(businessDetails.businessName)
         setNavStateAction({
             screen : "menuItems",
-            payload : businessDetails
+            payload : response.data
         })
     }
 
-    const updateBusiness = () => {
+    const updateBusiness = async () => {
+        const response  = await getBusinessDetails(businessDetails.businessName)
         setNavStateAction({
             screen : 'updateBusiness',
-            payload : businessDetails
+            payload : response.data
         })
     }
-
-    // you will need a get business information firebase function here inside of a use effect 
 
     return (
         <View style={styles.container}>
@@ -77,7 +67,7 @@ export default function BusinessPage() {
                 title="Business Settings"
                 onPress={updateBusiness}/>
             </View>
-            <IngredientForm/>
+            <InventoryItemForm/>
         </View>
     )
 }
