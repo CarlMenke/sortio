@@ -92,7 +92,7 @@ export default function StartScreen() {
         fontSize:20,
         shadowColor: "black",
         shadowOffset: {width: .5, height: .5},
-        shadowOpacity: .8,
+        shadowOpacity: .85,
         shadowRadius: 1,
         fontFamily: "Arial Rounded MT Bold",
         paddingLeft: 5
