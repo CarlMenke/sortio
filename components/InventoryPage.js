@@ -1,32 +1,39 @@
-import { StyleSheet, View, Button, Text} from 'react-native';
+import { StyleSheet, ScrollView, Button, Text, View, StatusBar} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../redux/actions';
 import InventoryItemCard from '../cards/InventoryItemCard';
-import { showInventoryItemForm } from '../navFunctions'
+import { showInventoryItemForm, showInventoryItemDetails} from '../navFunctions'
 
-export default function InventoryPage() {
-    
+export default function InventoryPage(props) {
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
-    console.log(navState)
+
     const styles = StyleSheet.create({
         container: {
-          flex: 1,
-          flexDirection: "column",
-          backgroundColor: '#544D57',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
+            paddingTop:StatusBar.currentHeight,
+            flex: 1,
+            flexDirection: "column",
+            backgroundColor: '#544D57'
+        }
     });
 
     return(
         <View style={styles.container}>
-            {Object.entries(navState.payload.inventoryItems).map((inventoryItem, index) => {
-                return(
-                    <InventoryItemCard inventoryItem = {inventoryItem} key={index}/>
-                )
-            })}
+            <ScrollView style={styles.container}>
+                {Object.entries(navState.payload.inventoryItems).map((inventoryItem, index) => {
+                    return(
+                        <InventoryItemCard 
+                        inventoryItem={inventoryItem} 
+                        key={index} 
+                        onPressHandler={
+                            props.onPressHandler ? 
+                            ()=>{props.onPressHandler(inventoryItem)} : 
+                            ()=>{showInventoryItemDetails(navState, setNavStateAction, {}, inventoryItem)}
+                        }/>
+                    )
+                })}
+            </ScrollView>
             <Button
             onPress={()=>{showInventoryItemForm(navState, setNavStateAction)}}
             title="New Item"/>

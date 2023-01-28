@@ -27,7 +27,7 @@ export default function BusinessCard(props) {
         <View style={styles.container}>
             <Text>{businessName}</Text>
             <Button
-                onPress = {()=>{showBusiness(navState, setNavStateAction, businessName)}}
+                onPress = {()=>{showBusiness(navState, setNavStateAction,{}, businessName)}}
                 title = "Details"/>
         </View>
     )

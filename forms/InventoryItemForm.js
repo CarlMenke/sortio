@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createIngredient } from '../firebaseFunctions'
 const convert = require('convert-units')
 import { setNavState } from '../redux/actions';
+import { addToMenuItem } from '../firebaseFunctions'
 import { showInventory } from '../navFunctions'
 
 export default function InventoryItemForm() {
@@ -40,24 +41,24 @@ export default function InventoryItemForm() {
 
     return (
         <View style={styles.container}>
-            <Text>New Item:</Text>
+            <Text>New Inventory Item:</Text>
             <View>
                 <Text>Item Name: </Text>
                 <TextInput 
-                    style = {styles.input}
-                    onChangeText = {setIventoryItemName}
-                    value = {inventoryItemName}
-                    placeholder = "Ingredient Name"/>
+                    style={styles.input}
+                    onChangeText={setIventoryItemName}
+                    value={inventoryItemName}
+                    placeholder="Ingredient Name"/>
             </View>
 
             <View>
                 <Text>How much do you have: </Text>
                 <TextInput 
-                    style = {styles.input}
-                    onChangeText = {setAmountValue}
-                    value = {amountValue}
-                    keyboardType = 'numeric'
-                    placeholder = "quantity"/>
+                    style={styles.input}
+                    onChangeText={setAmountValue}
+                    value={amountValue}
+                    keyboardType='numeric'
+                    placeholder="quantity"/>
                 <DropDownPicker
                     title="Unit"
                     open={open}
@@ -66,13 +67,12 @@ export default function InventoryItemForm() {
                     setOpen={setOpen}
                     setValue={setAmountUnit}
                     setItems={setUnitArray}/>
-
             </View>
             <View>
                 <Button
-                    style = {styles.button}
-                    onPress = {submitCreate}
-                    title = "Create" />
+                    style={styles.button}
+                    onPress={submitCreate}
+                    title="Create" />
             </View>
         </View>
     )

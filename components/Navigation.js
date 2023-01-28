@@ -6,7 +6,10 @@ import BusinessPage from './BusinessPage';
 import BusinessForm from '../forms/BusinessForm';
 import MenuItemsPage from './MenuItemsPage';
 import InventoryPage from './InventoryPage';
+import MenuItemForm from '../forms/MenuItemForm';
 import InventoryItemForm from '../forms/InventoryItemForm';
+import InventoryItemDetails from '../components/InventoryItemDetails'
+import MenuItemDetails from './MenuItemDetails';
 
 export default function Navigation() {
 
@@ -23,60 +26,74 @@ export default function Navigation() {
         },
     });
 
-      if(isAuthenticated){
-        switch (navState.screen) {
+    if(isAuthenticated){
+      switch (navState.screen) {
+        case 'business':
+          return (
+            <BusinessPage/>
+          )
+        
+        case 'createBusiness':
+          return (
+            <BusinessForm action="create"/>
+          )
 
-          case 'business':
-            return (
-              <BusinessPage/>
-            )
+        case 'joinBusiness':
+          return (
+            <BusinessForm action="join"/>
+          )
+
+        case 'updateBusiness':
+          return (
+            <BusinessForm action="update"/>
+          )
+        
+        case 'menuItems':
+          return (
+            <MenuItemsPage/>
+          )
+        
+        case 'menuItemForm':
+          return(
+            <MenuItemForm/>
+          )
+        
+        case 'menuItemDetail':
+          return(
+            <MenuItemDetails/>
+          )
+
+        case 'inventory':
+          return (
+            <InventoryPage/>
+          )
+
+        case 'inventoryItemDetail':
+          return(
+            <InventoryItemDetails/>
+          )
           
-          case 'createBusiness':
-            return (
-              <BusinessForm action="create"/>
-            )
+        case 'inventoryItemForm':
+          return (
+            <InventoryItemForm/>
+          )
+        
+        case 'home':
+          return(
+            <Home/>   
+          )
 
-          case 'joinBusiness':
-            return (
-              <BusinessForm action="join"/>
-            )
-
-          case 'updateBusiness':
-            return (
-              <BusinessForm action="update"/>
-            )
-
-          case 'inventory':
-            return (
-              <InventoryPage/>
-            )
-          
-          case 'menuItems':
-            return (
-              <MenuItemsPage/>
-            )
-          
-          case 'createInventoryItem':
-            return (
-              <InventoryItemForm/>
-            )
-          
-          case 'home':
-            return(
-              <Home/>
-            )
-
-          default:
-            return (
-              <Home/>
-            )
-        }
-      }else{
-        return(
-            <View style={styles.container}>
-                <StartScreen/>
-            </View>
-        )
+        default:
+          return (
+            <Home/>
+          )
       }
+    }else{
+      return(
+          <View style={styles.container}>
+              <StartScreen/>
+          </View>
+      )
+    }
 }
 

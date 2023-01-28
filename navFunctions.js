@@ -1,56 +1,89 @@
 import { getBusinessDetails, getCurrentUsersBusinesses } from './firebaseFunctions'
 
-const showInventory = async (navState, setNavStateAction) => {
+const showInventory = async (navState, setNavStateAction, options) => {
     const response  = await getBusinessDetails(navState.payload.businessName)
     await setNavStateAction({
         screen : "inventory",
-        payload : response.data
+        payload : response.data,
+        options : options
     })
 }
 
-const showMenuItems = async (navState, setNavStateAction) => {
+const showMenuItems = async (navState, setNavStateAction, options) => {
     const response  = await getBusinessDetails(navState.payload.businessName)
     await setNavStateAction({
         screen : "menuItems",
-        payload : response.data
+        payload : response.data,
+        options : options
     })
 }
 
-const showUpdateBusiness = async (navState, setNavStateAction) => {
+const showMenuItemForm = async (navState, setNavStateAction, options) => {
+    const response  = await getBusinessDetails(navState.payload.businessName)
+    await setNavStateAction({
+        screen : "menuItemForm",
+        payload : response.data,
+        options : options
+    })
+}
+
+const showMenuItemDetails = async (navState, setNavStateAction, options, data) => {
+    await setNavStateAction({
+        screen : 'menuItemDetail',
+        payload : data,
+        options: options
+    })
+}
+
+const showInventoryItemDetails = async (navState, setNavStateAction, options, data) => {
+    console.log(data)
+    await setNavStateAction({
+        screen : 'inventoryItemDetail',
+        payload : data,
+        options: options
+    })
+}
+
+const showUpdateBusiness = async (navState, setNavStateAction, options) => {
     const response  = await getBusinessDetails(navState.payload.businessName)
     await setNavStateAction({
         screen : 'updateBusiness',
-        payload : response.data
+        payload : response.data,
+        options : options
     })
 }
 
-const showInventoryItemForm = async (navState, setNavStateAction) => {
+const showInventoryItemForm = async (navState, setNavStateAction, options) => {
     await setNavStateAction({
         ...navState,
-        screen : "createInventoryItem"
+        screen : "inventoryItemForm",
+        options : options
     })
 }
 
-const showHome = async (navState, setNavStateAction) => {
+const showHome = async (navState, setNavStateAction, options) => {
     const response  = await getCurrentUsersBusinesses()
     await setNavStateAction({
         screen: "home",
-        payload: response.data
+        payload: response.data,
+        options : options
     })
 }
 
-const showBusinessForm = async (navState, setNavStateAction) => {
+const showBusinessForm = async (navState, setNavStateAction, options) => {
     await setNavStateAction({
         screen: "businessForm",
-        payload: null
+        payload: null,
+        options : options
     })
 }
 
-const showBusiness = async (navState, setNavStateAction, businessName) => {
-    const response  = await getBusinessDetails(businessName)
+const showBusiness = async (navState, setNavStateAction, options, query) => {
+    const response  = await getBusinessDetails(query)
     await setNavStateAction({
         screen: 'business',
-        payload: response.data
+        payload: response.data,
+        options : options
     })
 }
 
@@ -61,5 +94,8 @@ module.exports = {
     showInventoryItemForm,
     showHome,
     showBusinessForm,
-    showBusiness
+    showBusiness,
+    showMenuItemForm,
+    showMenuItemDetails,
+    showInventoryItemDetails
 }

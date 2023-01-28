@@ -195,6 +195,14 @@ const createIngredient = async (inventoryItemName, amountValue, amountUnit, used
     }
 
 }
+
+const createMenuItem = async (name, price, inventoryItems, businessName) => {
+    //simply create a menuItem with the parameters
+}   
+
+const addInventoryItemsToMenuItemm = async (inventoryItems, menuItem, businessName) => {
+    //make it so that there can be either one or multiple inventoryItems by using [...inventoryItems]
+}
 module.exports = {
     signup,
     login,
