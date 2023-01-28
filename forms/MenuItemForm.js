@@ -57,6 +57,22 @@ export default function MenuItemForm() {
             ]
             it is like this becuase you use Object.entries(inventoryItems).map and that returns and array of length 2
             and the first is the key and the second is the value
+
+            YOU MAYBE WANT IT TO LOOK LIKE THIS INSTEAD:
+
+            [
+                ["TestItem", {"currentUnit": "grams", "currentValue": "87", "name": "TestItem", "usedIn": [Array]}, AMOUNT_IN_MENU_ITEM],
+                ["testitem10", {"currentUnit": "ounces", "currentValue": "287", "name": "testitem10", "usedIn": [Array]}, AMOUNT_IN_MENU_ITEM]
+            ]
+
+            OR CONVERT IT BACK TO AN OBJECT AT THIS POINT 
+
+            {
+                inventoryItem[0]:inventoryItem[1],
+                amountUsed: GET_FROM_USER
+                
+            }
+
             */
             const response = await createMenuItem(menuItemName, price , inventoryItems, navState.payload.businessName)
             if(response.status){
