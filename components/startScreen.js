@@ -109,7 +109,9 @@ export default function StartScreen() {
       },
       input:{
         backgroundColor:"grey",
-        fontFamily: "Arial Rounded MT Bold"
+        fontFamily: "Arial Rounded MT Bold", 
+        padding: 20,
+        borderRadius: 5
       },
       loginInputs:{
         alignSelf:"stretch",
