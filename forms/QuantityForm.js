@@ -2,11 +2,9 @@ import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState  } from 'react';
 
-
-
 export default function QuantityForm(props) {
     const { show, setShow, inventoryItems, setInventoryItems, item} = props
-    const [amountUsed, setAmountUsed] = useState()
+    const [amountUsed, setAmountUsed] = useState(null)
     const [amountUnit, setAmountUnit] = useState(null)
     const [open, setOpen] = useState(false);
     const [unitArray , setUnitArray] = useState([{label:'grams', value:'grams'}, {label:'ounces', value:'ounces'}, {label:'pounds', value:'pounds'}])
@@ -26,22 +24,18 @@ export default function QuantityForm(props) {
     });
 
     const handleSubmit = () =>{
+        if(!amountUnit || !amountUsed) return
         const temporaryInventoryItems = [...inventoryItems]
-
-        console.log(temporaryInventoryItems)
         for(let i = 0; i < temporaryInventoryItems.length; i++){
-            const element = temporaryInventoryItems[i]
-            console.log("here", element, item)
+            const element = temporaryInventoryItems[i].name
             if(element === item){
                 temporaryInventoryItems[i] = {
                     name: element,
                     amountUnit:amountUnit,
                     amountUsed:amountUsed
                 }
-                console.log(temporaryInventoryItems[i])
             }
         }
-        console.log("inside quantityform;",temporaryInventoryItems)
         setInventoryItems(temporaryInventoryItems)
         setShow(false)
     }

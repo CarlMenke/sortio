@@ -33,29 +33,28 @@ export default function MenuItemForm() {
     });
 
     const proptAmountOfItemUsed = (item) => {
-        if(!show){
-            setShow(true)
-            setItem(item)
-        }
+        if(show) return
+        setShow(true)
+        setItem(item)
     }
 
     const addInventoryItemToMenuItemState = (item) => {
-        if(!show){
-            let has = false
-            for(let i = 0; i < inventoryItems.length; i++){
-                if(item[0] === inventoryItems[i][0]){
-                    has = true
-                }
-            }
-            if(has){
-                proptAmountOfItemUsed(item[0])
-            }else{
-                const inventoryItemsTemp = [...inventoryItems]
-                inventoryItemsTemp.push(item[0])
-                setInventoryItems(inventoryItemsTemp)
-                proptAmountOfItemUsed(item[0])
+        if(show) return
+        let has = false
+        for(let i = 0; i < inventoryItems.length; i++){
+            if(item[0] === inventoryItems[i].name){
+                has = true
             }
         }
+        if(has){
+            proptAmountOfItemUsed(item[0])
+        }else{
+            const inventoryItemsTemp = [...inventoryItems]
+            inventoryItemsTemp.push(item[0])
+            setInventoryItems(inventoryItemsTemp)
+            proptAmountOfItemUsed(item[0])
+        }
+        
     }
 
     const handleSubmit = async () => {
