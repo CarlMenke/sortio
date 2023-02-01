@@ -7,15 +7,17 @@ import { setNavState } from '../redux/actions';
 import { showMenuItems } from '../navFunctions'
 import { createMenuItem } from '../firebaseFunctions'
 import InventoryPage from '../components/InventoryPage';
+import QuantityForm from './QuantityForm';
 
 export default function MenuItemForm() {
     const [menuItemName, setMenuItemName] = useState("")
     const [price, setPrice] = useState("")
     const [inventoryItems, setInventoryItems] = useState([])
+    const [show, setShow] = useState(false)
+    const [ item, setItem ] = useState()
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
-    console.log(navState)
     const styles = StyleSheet.create({
         container: {
             flex:1,
@@ -30,50 +32,35 @@ export default function MenuItemForm() {
         }
     });
 
-    useEffect(()=>{
-        console.log(inventoryItems)
-    }, [inventoryItems])
+    const proptAmountOfItemUsed = (item) => {
+        if(!show){
+            setShow(true)
+            setItem(item)
+        }
+    }
 
     const addInventoryItemToMenuItemState = (item) => {
-        //LEFT OFF HERE
-        //you need to make it so that they cant add an item if it is already in the array, 
-        //AND so that they  are prompted to tell you how much of that iventoryItem is in the menuItem
-        
-        //idea:
-            //when they click on an inventory item, check if it is inside the array already
-                //if it is, then prompt them to update the amount of that item
-                //if it is not, then add it to the array, and prompt them to input the amount of that item
-        const inventoryItemsTemp = [...inventoryItems]
-        inventoryItemsTemp.push(item)
-        setInventoryItems(inventoryItemsTemp)
+        if(!show){
+            let has = false
+            for(let i = 0; i < inventoryItems.length; i++){
+                if(item[0] === inventoryItems[i][0]){
+                    has = true
+                }
+            }
+            if(has){
+                proptAmountOfItemUsed(item[0])
+            }else{
+                const inventoryItemsTemp = [...inventoryItems]
+                inventoryItemsTemp.push(item[0])
+                setInventoryItems(inventoryItemsTemp)
+                proptAmountOfItemUsed(item[0])
+            }
+        }
     }
 
     const handleSubmit = async () => {
         try{
-            /* 
-            [
-                ["TestItem", {"currentUnit": "grams", "currentValue": "87", "name": "TestItem", "usedIn": [Array]}],
-                ["testitem10", {"currentUnit": "ounces", "currentValue": "287", "name": "testitem10", "usedIn": [Array]}]
-            ]
-            it is like this becuase you use Object.entries(inventoryItems).map and that returns and array of length 2
-            and the first is the key and the second is the value
-
-            YOU MAYBE WANT IT TO LOOK LIKE THIS INSTEAD:
-
-            [
-                ["TestItem", {"currentUnit": "grams", "currentValue": "87", "name": "TestItem", "usedIn": [Array]}, AMOUNT_IN_MENU_ITEM],
-                ["testitem10", {"currentUnit": "ounces", "currentValue": "287", "name": "testitem10", "usedIn": [Array]}, AMOUNT_IN_MENU_ITEM]
-            ]
-
-            OR CONVERT IT BACK TO AN OBJECT AT THIS POINT 
-
-            {
-                inventoryItem[0]:inventoryItem[1],
-                amountUsed: GET_FROM_USER
-                
-            }
-
-            */
+            console.log(inventoryItems)
             const response = await createMenuItem(menuItemName, price , inventoryItems, navState.payload.businessName)
             if(response.status){
                 showMenuItems(navState, setNavStateAction)
@@ -97,16 +84,18 @@ export default function MenuItemForm() {
                     value={menuItemName}
                     placeholder="Menu Item Name"/>
             </View>
-
+            
             <View style={styles.item} >  
                 <Text>Price:</Text>
                 <TextInput
-                        style={styles.input}
-                        onChangeText={setPrice}
-                        value={price}
-                        keyboardType='numeric'
-                        placeholder="price"/>
+                    style={styles.input}
+                    onChangeText={setPrice}
+                    value={price}
+                    keyboardType='numeric'
+                    placeholder="price"/>
             </View>
+
+            <QuantityForm show = {show} setShow={setShow} inventoryItems={inventoryItems} setInventoryItems={setInventoryItems} item={item}/>
 
             <View style={styles.item}>
                 <Text>Add Inventory Items:</Text>
@@ -115,7 +104,7 @@ export default function MenuItemForm() {
 
             <Button
                 title="Create"
-                onPress={()=>handleSubmit()}/>
+                onPress={handleSubmit}/>
         </View>
     )
 }

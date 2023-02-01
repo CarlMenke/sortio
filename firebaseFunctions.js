@@ -10,8 +10,8 @@ import {
     getDoc
 } from "firebase/firestore"
 
-const handleError = (error) => {
-    console.log(error)
+const handleError = (funcName, error) => {
+    console.log(`Error from ${funcName}:`, error)
 }
 
 const signup = async (email, password, firstName, lastName) => {
@@ -22,7 +22,7 @@ const signup = async (email, password, firstName, lastName) => {
         })
         //you can start loading animation to start here
     }).catch((error) => {
-        handleError(error)
+        handleError('signUp', error)
     })
 }
 
@@ -31,7 +31,7 @@ const login = async (email, password) => {
     .then(() => {
         //you can start loading animation to start here
     }).catch((error)=>{
-        handleError(error)
+        handleError('login',error)
     })
 }
 
@@ -60,7 +60,7 @@ const createBusiness = async (businessName, businessCode) => {
         }
     }
     }catch(error){
-        console.log("Error from createBusiness:", error)
+        handleError("createBusiness", error)
     }
 }
 
@@ -98,7 +98,7 @@ const joinBusiness = async (businessName, businessCode) => {
             }
         }
     }catch(error){
-        console.log("Error from joinBusiness:", error)
+        handleError("joinBusiness", error)
     }
 }
 
@@ -113,7 +113,7 @@ const addBusinessToUser = async (businessName) => {
             await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid),{businesses : [businessName] })
         }
     }catch(error){
-        console.log("Error from addBusinessToUser:", error)
+        handleError("addBusinessToUser", error)
     }
 
 
@@ -135,7 +135,7 @@ const getCurrentUsersBusinesses = async () => {
             }
         }
     }catch(error){
-        console.log("Error from getCurrentUsersBusinesses:", error)
+        handleError("getCurrentUsersBusinesses", error)
     }
 }
 
@@ -155,13 +155,12 @@ const getBusinessDetails = async (businessName) => {
             }
         }
     }catch(error){
-        console.log("Error from getBusinessDetails:", error)
+        handleError("getBusinessDetails", error)
     }
 }
 
 const createIngredient = async (inventoryItemName, amountValue, amountUnit, usedInMenuItems, businessName) => {
     try{
-        console.log(businessName)
         const data = {
             name: inventoryItemName,
             currentUnit: amountUnit,
@@ -191,17 +190,76 @@ const createIngredient = async (inventoryItemName, amountValue, amountUnit, used
             }
         }
     }catch(error){
-        console.log("Error from createIngredient:", error)
+        handleError("createIngredient", error)
     }
 
 }
 
-const createMenuItem = async (name, price, inventoryItems, businessName) => {
-    //simply create a menuItem with the parameters
+const createMenuItem = async (name, price, itemsUsed, businessName) => {
+    try{
+        const data = {
+            name: name,
+            price: price,
+            itemsUsed: itemsUsed,
+        }
+        const businessRef = await getDoc(doc(db, 'businesses', businessName))
+        if(!businessRef.exists()){
+            return {
+                status: false,
+                data: "Error Finding Business"
+            }
+        }else{
+            const menuItems = businessRef.data().menuItems
+            if(menuItems[name]){
+                return{
+                    status: false,
+                    data: "Menu Item Already Exists"
+                }
+            }else{
+                menuItems[name] = data
+                await setDoc(doc(db, "businesses", businessName), {menuItems:menuItems}, {merge:true})
+                return {
+                    status: true,
+                    data:"added Item To Inventory"
+                }
+            }
+        }
+    }catch(error){
+        handleError("createMenuItem", error)
+    }
 }   
 
-const addInventoryItemsToMenuItemm = async (inventoryItems, menuItem, businessName) => {
-    //make it so that there can be either one or multiple inventoryItems by using [...inventoryItems]
+const addInventoryItemsToMenuItemm = async (itemsUsed, menuItem, businessName) => {
+    try{
+        //items used must look like [
+        //  {"amountUnit": "grams", "amountUsed": "10", "name": "TestItem2"}
+        //  {"amountUnit": "grams", "amountUsed": "10", "name": "TestItem2"}
+        //  ]
+        const businessRef = await getDoc(doc(db, 'businesses', businessName))
+        if(!businessRef.exists()){
+            return {
+                status: false,
+                data: "Error Finding Business"
+            }
+        }else{
+            const menuItems = businessRef.data().menuItems[menuItem]
+            if(!menuItems[menuItem.name]){
+                return{
+                    status: false,
+                    data: "Menu Item Doesnt Exist"
+                }
+            }else{
+                menuItems[menuItem.name].itemsUsed.push(...itemsUsed)
+                await setDoc(doc(db, "businesses", businessName), {menuItems:menuItems}, {merge:true})
+                return {
+                    status: true,
+                    data:"Added Items to Menu Item"
+                }
+            }
+        }
+    }catch(error){
+        handleError("createMenuItem", error)
+    }
 }
 module.exports = {
     signup,
@@ -210,6 +268,8 @@ module.exports = {
     joinBusiness,
     createIngredient,
     getCurrentUsersBusinesses,
-    getBusinessDetails
+    getBusinessDetails,
+    createMenuItem,
+    addInventoryItemsToMenuItemm
 }
 

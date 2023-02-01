@@ -4,7 +4,7 @@ import { setNavState } from '../redux/actions';
 import { showMenuItemDetails } from '../navFunctions'
 
 export default function MenuItemCard(props) {
-    const menuItem = props.menuItem
+    const menuItem = props.menuItem[1]
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
@@ -24,12 +24,11 @@ export default function MenuItemCard(props) {
         },
     });
 //you will need a add item to menuItem function here for after the list
-
     return(
         <View style={styles.container}>
             <Text>{menuItem.name}</Text>
             <Text>IMAGE HERE</Text>
-            <Text>{menuItem.price}</Text>
+            <Text>Price: {menuItem.price}</Text>
             <Button
             onPress={()=>showMenuItemDetails(navState, setNavStateAction, {}, menuItem)}
             title="Add Items"/>
