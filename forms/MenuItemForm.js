@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { useEffect, useState  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 const convert = require('convert-units')

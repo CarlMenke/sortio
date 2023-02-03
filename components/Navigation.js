@@ -10,6 +10,7 @@ import MenuItemForm from '../forms/MenuItemForm';
 import InventoryItemForm from '../forms/InventoryItemForm';
 import InventoryItemDetails from '../components/InventoryItemDetails'
 import MenuItemDetails from './MenuItemDetails';
+import Settings from './Settings';
 
 export default function Navigation() {
 
@@ -78,6 +79,11 @@ export default function Navigation() {
             <InventoryItemForm/>
           )
         
+        case "settings":
+          return(
+            <Settings/>
+          )
+          
         case 'home':
           return(
             <Home/>   

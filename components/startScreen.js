@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import { useEffect, useState  } from 'react';
+import { StyleSheet, Text, View, Button, TextInput, Animated, Easing } from 'react-native';
+import { useEffect, useState, useRef  } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { setAuthentication, setNavState } from '../redux/actions'
 import { signup, login } from '../firebaseFunctions'
@@ -19,6 +19,48 @@ export default function StartScreen() {
     header3: "Signup:",
     method: 'signup'
   })
+
+const [emailFocused, setEmailFocused ] = useState(false)
+const [passwordFocused, setPasswordFocused ] = useState(false)
+const [firstNameFocused, setFirstNameFocused ] = useState(false)
+const [lastNameFocused, setLastNameFocused ] = useState(false)
+
+const emailAnim = useRef(new Animated.Value(0)).current
+const passwordAnim = useRef(new Animated.Value(0)).current
+const firstNameAnim = useRef(new Animated.Value(0)).current
+const lastNameAnim = useRef(new Animated.Value(0)).current
+
+useEffect(()=>{
+  Animated.timing(emailAnim, {
+    toValue: emailFocused? 1 : 0,
+    duration: 175,
+    useNativeDriver:false,
+  }).start()
+},[emailFocused])
+
+useEffect(()=>{
+  Animated.timing(passwordAnim, {
+    toValue: passwordFocused? 1 : 0,
+    duration: 175,
+    useNativeDriver:false,
+  }).start()
+},[passwordFocused])
+
+useEffect(()=>{
+  Animated.timing(firstNameAnim, {
+    toValue: firstNameFocused? 1 : 0,
+    duration: 175,
+    useNativeDriver:false,
+  }).start()
+},[firstNameFocused])
+
+useEffect(()=>{
+  Animated.timing(lastNameAnim, {
+    toValue: lastNameFocused? 1 : 0,
+    duration: 175,
+    useNativeDriver:false,
+  }).start()
+},[lastNameFocused])
 
   const dispatch = useDispatch()
   const setAuthenticationAction = (isAuthenticated) => dispatch(setAuthentication(isAuthenticated))
@@ -45,7 +87,7 @@ export default function StartScreen() {
   const toggleMethod = () => {
     if(header.method === "signup"){
       setHeader({
-        header1: "Welcome,",
+        header1: "Hello,",
         header2: "nice to see you again.",
         header3: "Login:",
         method: 'login'
@@ -63,20 +105,18 @@ export default function StartScreen() {
   const styles = StyleSheet.create({
       container: {
         height:"100%",
+        width:"100%",
         flexDirection: "column",
         backgroundColor: '#353535',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'space-around',
-        paddingTop: 50
+        paddingTop: 50,
+        paddingLeft: 30
       },
       displayMessage: {
         fontWeight:'bold',
         position:"absolute",
         top:35
-      },
-      header:{
-        alignSelf:"flex-start",
-        paddingLeft:30
       },
       header1:{
         color:"#FFC600",
@@ -106,12 +146,6 @@ export default function StartScreen() {
         shadowRadius: 1,
         fontFamily: "Arial Rounded MT Bold",
         padding: 5
-      },
-      input:{
-        backgroundColor:"grey",
-        fontFamily: "Arial Rounded MT Bold", 
-        padding: 20,
-        borderRadius: 5
       },
       loginInputs:{
         alignSelf:"stretch",
@@ -148,9 +182,53 @@ export default function StartScreen() {
         fontSize: 20,
         fontFamily: "Verdana"
       },
-      signupButton: {
-
+      input:{
+        color:"white",
+        fontSize:20,
+        fontFamily: "Arial Rounded MT Bold",
+        paddingBottom: 6.5
       },
+      item : {
+        width:"90%"
+      },
+      secondBorder: {
+        borderWidth:2,
+        borderColor:"white",
+        width:"95%",
+        borderRadius: 3
+      },
+      email:{
+        marginTop:.5,
+        opacity: emailFocused ? 1 : 0,
+        borderWidth : 2,
+        borderColor:"#FFC600",
+        width:"95%",
+        borderRadius: 3
+      },
+      password: {
+        marginTop:.5,
+        opacity: passwordFocused ? 1 : 0,
+        borderWidth: 2,
+        borderColor:"#FFC600",
+        width:"95%",
+        borderRadius: 3
+      },
+      firstName:{
+        marginTop:.5,
+        opacity: firstNameFocused ? 1 : 0,
+        borderWidth: 2,
+        borderColor:"#FFC600",
+        width:"95%",
+        borderRadius: 3
+      },
+      lastName: {
+        marginTop:.5,
+        opacity: lastNameFocused ? 1 : 0,
+        borderWidth: 2,
+        borderColor:"#FFC600",
+        width:"95%",
+        borderRadius: 3
+      }
     });
 
     if(header.method === "signup"){
@@ -161,43 +239,59 @@ export default function StartScreen() {
               <Text style={styles.header2}>{header.header2}</Text>
             </View>
 
-            <View>
-                <Text>First Name: </Text>
-                <TextInput 
-                style = {styles.input}
-                onChangeText = {setFirstName}
-                value = {firstName}
-                placeholder = "First Name"/>
+            <View style={styles.item}>
+              <TextInput 
+              style = {styles.input}
+              onChangeText = {setFirstName}
+              value = {firstName}
+              placeholder = "First Name"
+              onFocus={()=>setFirstNameFocused(true)}
+              onBlur={()=>setFirstNameFocused(false)}/>
+              <View style={styles.secondBorder}/>
+              <Animated.View style={[styles.firstName,
+              {width:firstNameAnim.interpolate({inputRange: [0,1], outputRange: ["0%", "95%"]}) }] }/>
             </View>
 
-            <View>
-                <Text>Last Name: </Text>
-                <TextInput 
-                style = {styles.input}
-                onChangeText = {setLastName}
-                value = {lastName}
-                placeholder = "Last Name"/>
+            <View style={styles.item}>           
+              <TextInput 
+              style = {styles.input}
+              onChangeText = {setLastName}
+              value = {lastName}
+              placeholder = "Last Name"
+              onFocus={()=>setLastNameFocused(true)}
+              onBlur={()=>setLastNameFocused(false)}/>
+              <View style={styles.secondBorder}/>
+              <Animated.View style={[styles.lastName,
+              {width:lastNameAnim.interpolate({inputRange: [0,1], outputRange: ["0%", "95%"]}) }] }/>
+            </View>  
+
+            <View style={styles.item}>
+              <TextInput 
+              style = {styles.input}
+              onChangeText = {setEmail}
+              value = {email}
+              placeholder = "Email"
+              onFocus={()=>setEmailFocused(true)}
+              onBlur={()=>setEmailFocused(false)}/>
+              <View style={styles.secondBorder}/>
+              <Animated.View style={[styles.email,
+              {width:emailAnim.interpolate({inputRange: [0,1], outputRange: ["0%", "95%"]}) }] }/>
             </View>
 
-            <View>
-                <Text>Email: </Text>
-                <TextInput 
-                style = {styles.input}
-                onChangeText = {setEmail}
-                value = {email}
-                placeholder = "Email"/>
+            <View style={styles.item}>
+              <TextInput
+              style = {styles.input}          
+              onChangeText = {setPassword}
+              secureTextEntry={true}
+              value = {password}
+              placeholder = "Password"
+              onFocus={()=>setPasswordFocused(true)}
+              onBlur={()=>setPasswordFocused(false)}/>
+              <View style={styles.secondBorder}/>
+              <Animated.View style={[styles.password,
+              {width:passwordAnim.interpolate({inputRange: [0,1], outputRange: ["0%", "95%"]}) }] }/>
             </View>
-
-            <View>
-                <Text>Password: </Text>
-                <TextInput 
-                style = {styles.input}          
-                onChangeText = {setPassword}
-                secureTextEntry={true}
-                value = {password}
-                placeholder = "Password"/>
-            </View>
-
+              
             <View>
                 <Button
                 style = {styles.button}
