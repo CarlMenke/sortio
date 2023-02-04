@@ -231,6 +231,8 @@ useEffect(()=>{
       }
     });
 
+    // create a component to to replace the 4 TextInputs
+    
     if(header.method === "signup"){
       return (
         <View style={styles.container}>
@@ -238,6 +240,7 @@ useEffect(()=>{
               <Text style={styles.header1}>{header.header1}</Text>
               <Text style={styles.header2}>{header.header2}</Text>
             </View>
+
 
             <View style={styles.item}>
               <TextInput 
