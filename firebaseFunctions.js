@@ -20,7 +20,6 @@ const signup = async (email, password, firstName, lastName) => {
         result.user.updateProfile({
             displayName: `${firstName} ${lastName}`
         })
-        //you can start loading animation to start here
     }).catch((error) => {
         handleError('signUp', error)
     })
@@ -126,7 +125,7 @@ const getCurrentUsersBusinesses = async () => {
             const usersBusinessesData = usersBusinessesRef.data()
             return {
                 status: true,
-                data: usersBusinessesData.businesses
+                data: usersBusinessesData.businesses ? usersBusinessesData.businesses : []
             }
         }else{
             return {

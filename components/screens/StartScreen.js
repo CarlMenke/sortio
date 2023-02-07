@@ -70,12 +70,12 @@ useEffect(()=>{
     onAuthStateChanged(auth, async (user) => {
       if(user){
         const response = await getCurrentUsersBusinesses()
-        if(response.status){
-          setNavStateAction({
-            screen: "home",
-            payload: response.data
-          })
-        }
+        console.log("HERE HERE")
+        console.log(response)
+        setNavStateAction({
+          screen: "home",
+          payload: response.data === null ? [] : response.data
+        })
         setAuthenticationAction(true)
       }else{
         setAuthenticationAction(false)
@@ -113,7 +113,7 @@ useEffect(()=>{
         alignItems: 'flex-start',
         justifyContent: 'space-around',
         padding: 30,
-        paddingTop: 0
+        paddingTop: 15
       },
       header:{
         flex:.25
@@ -138,46 +138,45 @@ useEffect(()=>{
         paddingLeft: 5
       },
       inputArea: {
-        flex:1,
+        flex: 1,
         width:"100%",
         flexDirection: "column",
         alignItems: 'flex-start',
         justifyContent: 'center',
+        padding:15
       },
       buttonsArea: {
-        flex:.35,
+        flex:.275,
         alignSelf:"center",
         flexDirection:"column",
-        justifyContent:"center"
+        justifyContent:"space-around"
       },
       switchButton: {
         margin: 10,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor:"#797979",
         padding: 10,
-        borderRadius:5,
-        shadowColor: "#0B0B0B",
-        shadowOffset: {width: 1, height: 1},
-        shadowOpacity : .5,
-        shadowRadius:3
       },
       switchButtonText: {
         color:"#FFC600",
-        fontSize:12,
+        fontSize:15,
         fontFamily: "Arial Rounded MT Bold",
       },
       submitButton: {
-        margin: 10,
+        margin: 5,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor:"#797979",
-        padding: 10,
+        backgroundColor:"#3A3A3A",
+        width:"100%",
+        alignSelf: "center",
+        padding: 7,
+        paddingLeft: 12,
+        paddingRight:12,
         borderRadius:5,
         shadowColor: "#0B0B0B",
         shadowOffset: {width: 1, height: 1},
         shadowOpacity : .5,
-        shadowRadius:3
+        shadowRadius: 3
       },
       submitButtontext: {
         color:"#FFC600",
@@ -238,7 +237,7 @@ useEffect(()=>{
               <TouchableOpacity
               style = {styles.submitButton}
               onPress = {()=>{signup(email, password, firstName, lastName)}}>
-                <Text style={styles.submitButtontext}>Enter</Text>
+                <Text style={styles.submitButtontext}>Submit</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -257,7 +256,6 @@ useEffect(()=>{
               <Text style={styles.header1}>{header.header1}</Text>
               <Text style={styles.header2}>{header.header2}</Text>
             </View>
-            
             <View style={styles.inputArea}>
               <StartTextInput 
               onChangeText = {setEmail}
@@ -282,7 +280,7 @@ useEffect(()=>{
               <TouchableOpacity
               style = {styles.submitButton}
               onPress = {()=>{login(email, password)}}>
-                <Text  style={styles.submitButtontext}>Enter</Text>
+                <Text  style={styles.submitButtontext}>Submit</Text>
               </TouchableOpacity>
 
               <TouchableOpacity

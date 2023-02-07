@@ -28,12 +28,12 @@ export default function StartTextInput(props) {
           },
         input:{
             color:"white",
-            fontSize:17,
+            fontSize:20,
             fontFamily: "Arial Rounded MT Bold",
             paddingBottom: 6.5
         },
         item : {
-            width:"90%",
+            width:"98%",
             marginTop: 20,
             marginBottom:20
         },

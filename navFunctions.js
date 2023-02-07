@@ -63,6 +63,7 @@ const showInventoryItemForm = async (navState, setNavStateAction, options) => {
 
 const showHome = async (navState, setNavStateAction, options) => {
     const response  = await getCurrentUsersBusinesses()
+    console.log("FIUBCOUBCOISCB", response)
     await setNavStateAction({
         screen: "home",
         payload: response.data,

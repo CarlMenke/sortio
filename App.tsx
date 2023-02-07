@@ -25,6 +25,7 @@ function App(): JSX.Element {
       flex: .09,
     }
   });
+  
   return (
     <Provider store = {store}>
       <TouchableWithoutFeedback 
