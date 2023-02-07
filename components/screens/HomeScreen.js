@@ -18,7 +18,7 @@ export default function HomeScreen() {
           justifyContent: 'center',
         },
     });
-
+    console.log(navState)
     return(
         <View style={styles.container}>
             <Button

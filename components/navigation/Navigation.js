@@ -34,19 +34,9 @@ export default function Navigation() {
             <BusinessScreen/>
           )
         
-        case 'createBusiness':
+        case 'businessForm':
           return (
             <BusinessForm action="create"/>
-          )
-
-        case 'joinBusiness':
-          return (
-            <BusinessForm action="join"/>
-          )
-
-        case 'updateBusiness':
-          return (
-            <BusinessForm action="update"/>
           )
         
         case 'menuItems':
