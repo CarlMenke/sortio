@@ -2,10 +2,10 @@ import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useEffect, useState  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 const convert = require('convert-units')
-import { setNavState } from '../redux/actions';
-import { showMenuItems } from '../navFunctions'
-import { createMenuItem } from '../firebaseFunctions'
-import InventoryPage from '../components/InventoryPage';
+import { setNavState } from '../../redux/actions';
+import { showMenuItems } from '../../navFunctions'
+import { createMenuItem } from '../../firebaseFunctions'
+import InventoryScreen from '../screens/InventoryScreen';
 import QuantityForm from './QuantityForm';
 
 export default function MenuItemForm() {
@@ -97,7 +97,7 @@ export default function MenuItemForm() {
 
             <View style={styles.item}>
                 <Text>Add Inventory Items:</Text>
-                <InventoryPage onPressHandler={addInventoryItemToMenuItemState}/>
+                <InventoryScreen onPressHandler={addInventoryItemToMenuItemState}/>
             </View>
 
             <Button

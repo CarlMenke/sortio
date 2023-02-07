@@ -1,10 +1,10 @@
 import { StyleSheet, View, Button, Text} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNavState } from '../redux/actions';
-import { showInventory } from '../navFunctions'
+import { setNavState } from '../../redux/actions';
+import { showInventory } from '../../navFunctions'
 import InventoryItemCard from '../cards/InventoryItemCard';
 
-export default function MenuItemDetails(props) {
+export default function MenuItemDetailsScreen(props) {
     const menuItem = props.menuItem
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))

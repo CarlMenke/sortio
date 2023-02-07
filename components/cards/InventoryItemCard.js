@@ -1,7 +1,7 @@
 import { StyleSheet, View, Button, Text, TouchableWithoutFeedback} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { showInventoryItemDetails } from '../navFunctions'
-import { setNavState } from '../redux/actions';
+import { showInventoryItemDetails } from '../../navFunctions'
+import { setNavState } from '../../redux/actions';
 
 export default function InventoryItemCard(props) {
     const { name, currentValue, currentUnit } = props.inventoryItem[1]

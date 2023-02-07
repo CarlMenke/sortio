@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { showInventory , showUpdateBusiness, showMenuItems } from '../navFunctions'
+import { showInventory , showUpdateBusiness, showMenuItems } from '../../navFunctions'
 import { useDispatch, useSelector } from 'react-redux';
-import { setNavState } from '../redux/actions';
+import { setNavState } from '../../redux/actions';
 
 
-export default function BusinessPage() {
+export default function BusinessScreen() {
     const { navState } = useSelector(state => state.reducer)
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))

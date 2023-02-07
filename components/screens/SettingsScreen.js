@@ -1,9 +1,9 @@
 import { StyleSheet, View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNavState } from '../redux/actions';
-import { showHome, showSettings} from '../navFunctions'
+import { setNavState } from '../../redux/actions';
+import { showHome, showSettings} from '../../navFunctions'
 
-export default function Settings() {
+export default function SettingsScreen() {
 
     const styles = StyleSheet.create({
         container: {

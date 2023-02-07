@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useState  } from 'react';
-import { setNavState } from '../redux/actions';
+import { setNavState } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { createBusiness, joinBusiness } from '../firebaseFunctions'
-import { showHome } from '../navFunctions'
+import { createBusiness, joinBusiness } from '../../firebaseFunctions'
+import { showHome } from '../../navFunctions'
 
 export default function BusinessForm(props) {
     const dispatch = useDispatch()

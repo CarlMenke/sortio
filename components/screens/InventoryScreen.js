@@ -1,10 +1,10 @@
 import { StyleSheet, ScrollView, Button, Text, View, StatusBar} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNavState } from '../redux/actions';
+import { setNavState } from '../../redux/actions';
 import InventoryItemCard from '../cards/InventoryItemCard';
-import { showInventoryItemForm, showInventoryItemDetails} from '../navFunctions'
+import { showInventoryItemForm, showInventoryItemDetails} from '../../navFunctions'
 
-export default function InventoryPage(props) {
+export default function InventoryScreen(props) {
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
