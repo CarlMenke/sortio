@@ -1,7 +1,7 @@
 import { StyleSheet, View, Button, Text} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNavState } from '../redux/actions';
-import { showMenuItemDetails } from '../navFunctions'
+import { setNavState } from '../../redux/actions';
+import { showMenuItemDetails } from '../../navFunctions'
 
 export default function MenuItemCard(props) {
     const menuItem = props.menuItem[1]

@@ -1,9 +1,9 @@
 import { StyleSheet, View, Button, Text, TouchableWithoutFeedback} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { showInventoryItemDetails } from '../navFunctions'
-import { setNavState } from '../redux/actions';
+import { showInventoryItemDetails } from '../../navFunctions'
+import { setNavState } from '../../redux/actions';
 
-export default function InventoryItemDetails(props) {
+export default function InventoryItemDetailsScreen(props) {
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)

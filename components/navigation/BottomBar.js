@@ -1,7 +1,7 @@
 import { StyleSheet, View, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNavState } from '../redux/actions';
-import { showHome, showSettings} from '../navFunctions'
+import { setNavState } from '../../redux/actions';
+import { showHome, showSettings} from '../../navFunctions'
 
 export default function BottomBar() {
 
@@ -14,21 +14,28 @@ export default function BottomBar() {
         container: {
           flex: 1,
           flexDirection: "row",
-          backgroundColor: '#694D57',
+          backgroundColor: '#2E2E2E',
           width:"100%",
+          paddingBottom:15,
           justifyContent:'space-around',
           alignItems:"center",
+          shadowColor:"#181818",
+          shadowOpacity: .3,
+          shadowOffset:{height: -3}
+        },
+        bottomTab:{
+            marginBottom: 10
         }
     });
 
     return(
         <View style={styles.container}>
             <Button
-            style={styles.bottomTab}
+            color="#FFC600"
             title="Home"
             onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}/>
             <Button
-            style={styles.bottomTab}
+            color="#FFC600"
             title="Settings"
             onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}/>
         </View>

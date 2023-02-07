@@ -1,10 +1,10 @@
 import { StyleSheet, View, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import BusinessCard from '../cards/BusinessCard';
-import { showBusinessForm } from '../navFunctions'
-import { setNavState } from '../redux/actions';
+import { showBusinessForm } from '../../navFunctions'
+import { setNavState } from '../../redux/actions';
 
-export default function Home() {
+export default function HomeScreen() {
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)

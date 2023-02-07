@@ -1,16 +1,16 @@
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import StartScreen from './StartScreen';
-import Home from './Home'
-import BusinessPage from './BusinessPage';
+import StartScreen from '../screens/StartScreen';
+import HomeScreen from '../screens/HomeScreen'
+import BusinessScreen from '../screens/BusinessScreen';
 import BusinessForm from '../forms/BusinessForm';
-import MenuItemsPage from './MenuItemsPage';
-import InventoryPage from './InventoryPage';
+import MenuItemsScreen from '../screens/MenuItemsScreen';
+import InventoryScreen from '../screens/InventoryScreen';
 import MenuItemForm from '../forms/MenuItemForm';
 import InventoryItemForm from '../forms/InventoryItemForm';
-import InventoryItemDetails from '../components/InventoryItemDetails'
-import MenuItemDetails from './MenuItemDetails';
-import Settings from './Settings';
+import InventoryItemDetailsScreen from '../screens/InventoryItemDetailsScreen'
+import MenuItemDetailsScreen from '../screens/MenuItemDetailsScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 export default function Navigation() {
 
@@ -31,7 +31,7 @@ export default function Navigation() {
       switch (navState.screen) {
         case 'business':
           return (
-            <BusinessPage/>
+            <BusinessScreen/>
           )
         
         case 'createBusiness':
@@ -51,7 +51,7 @@ export default function Navigation() {
         
         case 'menuItems':
           return (
-            <MenuItemsPage/>
+            <MenuItemsScreen/>
           )
         
         case 'menuItemForm':
@@ -61,17 +61,17 @@ export default function Navigation() {
         
         case 'menuItemDetail':
           return(
-            <MenuItemDetails/>
+            <MenuItemDetailsScreen/>
           )
 
         case 'inventory':
           return (
-            <InventoryPage/>
+            <InventoryScreen/>
           )
 
         case 'inventoryItemDetail':
           return(
-            <InventoryItemDetails/>
+            <InventoryItemDetailsScreen/>
           )
           
         case 'inventoryItemForm':
@@ -81,17 +81,17 @@ export default function Navigation() {
         
         case "settings":
           return(
-            <Settings/>
+            <SettingsScreen/>
           )
           
         case 'home':
           return(
-            <Home/>   
+            <HomeScreen/>   
           )
 
         default:
           return (
-            <Home/>
+            <HomeScreen/>
           )
       }
     }else{
