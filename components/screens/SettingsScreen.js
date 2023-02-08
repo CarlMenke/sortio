@@ -1,7 +1,5 @@
 import { StyleSheet, View, Text } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { setNavState } from '../../redux/actions';
-import { showHome, showSettings} from '../../navFunctions'
+
 
 export default function SettingsScreen() {
 

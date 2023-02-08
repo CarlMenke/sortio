@@ -228,8 +228,9 @@ const createMenuItem = async (name, price, itemsUsed, businessName) => {
     }
 }   
 
-const addInventoryItemsToMenuItemm = async (itemsUsed, menuItem, businessName) => {
+const addInventoryItemsToMenuItem = async (itemsUsed, menuItem, businessName) => {
     try{
+        console.log("PARAMS IN ADD INVENTORYITEMS TO MENU ITEM:",itemsUsed, menuItem, businessName)
         //items used must look like [
         //  {"amountUnit": "grams", "amountUsed": "10", "name": "TestItem2"}
         //  {"amountUnit": "grams", "amountUsed": "10", "name": "TestItem2"}
@@ -257,7 +258,7 @@ const addInventoryItemsToMenuItemm = async (itemsUsed, menuItem, businessName) =
             }
         }
     }catch(error){
-        handleError("createMenuItem", error)
+        handleError("addInventoryItemsToMenuItem", error)
     }
 }
 module.exports = {
@@ -269,6 +270,6 @@ module.exports = {
     getCurrentUsersBusinesses,
     getBusinessDetails,
     createMenuItem,
-    addInventoryItemsToMenuItemm
+    addInventoryItemsToMenuItem
 }
 

@@ -8,6 +8,7 @@ export default function BusinessScreen() {
     const { navState } = useSelector(state => state.reducer)
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
+    console.log(navState)
 
     const styles = StyleSheet.create({
         container: {
@@ -22,16 +23,16 @@ export default function BusinessScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.businessName}>{navState.payload.businessName}</Text>
+            <Text style={styles.businessName}>{navState.businessName}</Text>
             <View style={styles.inventory}>
                 <Button
                 title="Inventory"
-                onPress={()=>showInventory(navState, setNavStateAction)}/>
+                onPress={()=>showInventory(navState, setNavStateAction, {})}/>
             </View>
             <View style={styles.menuItems}>
                 <Button
                 title="Menu Items"
-                onPress={()=>showMenuItems(navState, setNavStateAction)}/>
+                onPress={()=>showMenuItems(navState, setNavStateAction, {})}/>
             </View>
             <View>
                 <Button
@@ -40,7 +41,7 @@ export default function BusinessScreen() {
             <View style={styles.businessSettings}>
                 <Button
                 title="Business Settings"
-                onPress={()=>showUpdateBusiness(navState, setNavStateAction)}/>
+                onPress={()=>showUpdateBusiness(navState, setNavStateAction, {})}/>
             </View>
         </View>
     )

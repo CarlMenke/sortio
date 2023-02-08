@@ -1,17 +1,26 @@
 import { StyleSheet, View, Button, Text} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react'
 import { setNavState } from '../../redux/actions';
-import { showInventory } from '../../navFunctions'
 import InventoryItemCard from '../cards/InventoryItemCard';
+import { addInventoryItemsToMenuItem } from '../../firebaseFunctions'
+import QuantityForm from '../forms/QuantityForm';
+import InventoryScreen from './InventoryScreen';
 
 export default function MenuItemDetailsScreen(props) {
-    const menuItem = props.menuItem
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
+    const [itemsUsed, setItemsUsed] = useState([])
+    const [show, setShow] = useState(false)
+    const [hideInventoryScreen, setHideInventoryScreen] = useState(true)
+    const [item, setItem ] = useState()
+    const menuItem = navState.business.menuItems[navState.payload]
+
 
     const styles = StyleSheet.create({
         container: {
+          flex:1,
           flexDirection: "column",
           backgroundColor: '#544D57',
           alignItems: 'center',
@@ -24,10 +33,26 @@ export default function MenuItemDetailsScreen(props) {
         },
     });
 
-    const handleShowItemsToAdd = () => {
-        showInventory(navState, setNavStateAction, {
-            autoFillMenuItem: menuItem
-        })
+    const proptAmountOfItemUsed = (item) => {
+        if(show) return
+        setShow(true)
+        setItem(item)
+    }
+
+    const submitItemToMenuItem = async (amountUsed, amountUnit, item) => {
+        const response = await addInventoryItemsToMenuItem([{amountUsed:amountUsed, amountUnit: amountUnit, name:item[0]}], menuItem, navState.business.businessName)
+    }
+
+    useEffect(()=>{
+        if(itemsUsed.length > 0){
+            submitItemToMenuItem()
+        }
+    }, [show])
+
+
+    const handleSelectedInventoryItem  = (inventoryItem) => {
+        setHideInventoryScreen(true)
+        proptAmountOfItemUsed(inventoryItem)
     }
 
     return(
@@ -35,14 +60,16 @@ export default function MenuItemDetailsScreen(props) {
             <Text>{menuItem.name}</Text>
             <Text>IMAGE HERE</Text>
             <Text>{menuItem.price}</Text>
-            <Text># could tht could be made w/ inventory</Text>
-            {Object.entries(menuItem.inventoryItems).map((inventoryItem, index)=>{
+            <Text>Ingredients: </Text>
+            {Object.entries(menuItem.itemsUsed).map((item, index)=>{
                 return(
-                    <InventoryItemCard inventoryItem={inventoryItem} key={index}/>
+                    <InventoryItemCard inventoryItemName={item[1]} key={index}/>
                 )
             })}
+            <QuantityForm show = {show} setShow={setShow} inventoryItems={itemsUsed} setInventoryItems={setItemsUsed} item={item} handleSubmit={submitItemToMenuItem}/>
+            <InventoryScreen hide={hideInventoryScreen} onPressHandler={(inventoryItem)=>{handleSelectedInventoryItem(inventoryItem)}}/>
             <Button
-            onPress={()=>handleShowItemsToAdd()}
+            onPress={()=>setHideInventoryScreen(false)}
             title="Add Items"/>
         </View>
     )

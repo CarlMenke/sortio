@@ -40,8 +40,7 @@ export default function QuantityForm(props) {
         setShow(false)
     }
 
-    if(show)
-    {
+    if(show){
         return (
             <View style={styles.container}>
                 <View style={styles.item} >  
@@ -64,7 +63,7 @@ export default function QuantityForm(props) {
     
                 <Button
                     title="Enter"
-                    onPress={handleSubmit}/>
+                    onPress={()=>{props.handleSubmit ? props.handleSubmit(amountUsed, amountUnit, item) : handleSubmit}}/>
             </View>
         )
     }

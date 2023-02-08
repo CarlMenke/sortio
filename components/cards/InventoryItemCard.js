@@ -4,7 +4,7 @@ import { showInventoryItemDetails } from '../../navFunctions'
 import { setNavState } from '../../redux/actions';
 
 export default function InventoryItemCard(props) {
-    const { name, currentValue, currentUnit } = props.inventoryItem[1]
+    const { name, currentValue, currentUnit } = props.inventoryItem
 
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
@@ -27,8 +27,8 @@ export default function InventoryItemCard(props) {
     return(
         <TouchableWithoutFeedback onPress={()=>{
             props.onPressHandler?
-            props.onPressHandler(props.inventoryItem[1]):
-            showInventoryItemDetails(navState, setNavStateAction, {}, props.inventoryItem[1])}}>
+            props.onPressHandler(props.inventoryItem):
+            showInventoryItemDetails(navState, setNavStateAction, {}, name)}}>
             <View style={styles.container}>
                 <Text>{name}</Text>
                 <Text>{currentValue}</Text>

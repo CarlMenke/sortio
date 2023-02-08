@@ -25,11 +25,11 @@ export default function HomeScreen() {
           justifyContent: 'center',
         },
     });
-    console.log(navState)
+    
     return(
         <View style={styles.container}>
             <Button
-            onPress={()=>{showBusinessForm(navState, setNavStateAction)}}
+            onPress={()=>{showBusinessForm(navState, setNavStateAction, {})}}
             title="Create / Join Business"/> 
             {navState.payload.map((businessName, index)=>{
                 return(
