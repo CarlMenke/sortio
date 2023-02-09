@@ -66,7 +66,7 @@ const showUpdateBusiness = async (navState, setNavStateAction, options) => {
     const response  = await getBusinessDetails(navState.business.businessName)
     const navStateSave = {
         ...navState,
-        screen : 'updateBusiness',
+        screen : 'businessSettings',
         payload :  null, 
         options : typeof options === "object" ? options : {},
         business: response.data

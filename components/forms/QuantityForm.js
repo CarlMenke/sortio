@@ -24,10 +24,14 @@ export default function QuantityForm(props) {
     });
 
     const handleSubmit = () =>{
+        console.log(
+            'here'
+        )
         if(!amountUnit || !amountUsed) return
+        console.log("inventory items",inventoryItems)
         const temporaryInventoryItems = [...inventoryItems]
         for(let i = 0; i < temporaryInventoryItems.length; i++){
-            const element = temporaryInventoryItems[i].name
+            const element = temporaryInventoryItems[i]
             if(element === item){
                 temporaryInventoryItems[i] = {
                     name: element,
@@ -63,7 +67,11 @@ export default function QuantityForm(props) {
     
                 <Button
                     title="Enter"
-                    onPress={()=>{props.handleSubmit ? props.handleSubmit(amountUsed, amountUnit, item) : handleSubmit}}/>
+                    onPress={()=>{
+                        setAmountUnit(null)
+                        setAmountUsed(null)
+                        props.handleSubmit ? props.handleSubmit(amountUsed, amountUnit, item) : handleSubmit()
+                        }}/>
             </View>
         )
     }

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createBusiness, joinBusiness } from '../../firebaseFunctions'
 import { showHome } from '../../navFunctions'
 
-export default function BusinessForm(props) {
+export default function BusinessForm() {
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
@@ -82,7 +82,7 @@ export default function BusinessForm(props) {
                     style = {styles.input}
                     onChangeText = {setBusinessCode}
                     value = {businessCode}
-                    placeholder = "Besiness Password"/>
+                    placeholder = "Business Password"/>
             </View>
 
             <View>

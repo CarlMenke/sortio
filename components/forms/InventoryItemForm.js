@@ -30,7 +30,7 @@ export default function InventoryItemForm() {
     });
 
     const submitCreate = async () => {
-        const response = await createIngredient(inventoryItemName, amountValue, amountUnit, [], navState.payload.businessName)
+        const response = await createIngredient(inventoryItemName, amountValue, amountUnit, [], navState.business.businessName)
         if(response.status){
             console.log(response.data)
             showInventory(navState, setNavStateAction)

@@ -15,6 +15,7 @@ export default function MenuItemDetailsScreen(props) {
     const [show, setShow] = useState(false)
     const [hideInventoryScreen, setHideInventoryScreen] = useState(true)
     const [item, setItem ] = useState()
+    console.log("nav state menu items:", navState.business.menuItems, "navState.payload:", navState.payload, "navstate:", navState)
     const menuItem = navState.business.menuItems[navState.payload]
 
 
@@ -40,7 +41,9 @@ export default function MenuItemDetailsScreen(props) {
     }
 
     const submitItemToMenuItem = async (amountUsed, amountUnit, item) => {
-        const response = await addInventoryItemsToMenuItem([{amountUsed:amountUsed, amountUnit: amountUnit, name:item[0]}], menuItem, navState.business.businessName)
+        const response = await addInventoryItemsToMenuItem({[item[0]]:{amountUsed:amountUsed, amountUnit: amountUnit}}, menuItem, navState.business.businessName)
+        setShow(false)
+        
     }
 
     useEffect(()=>{
@@ -59,11 +62,11 @@ export default function MenuItemDetailsScreen(props) {
         <View style={styles.container}>
             <Text>{menuItem.name}</Text>
             <Text>IMAGE HERE</Text>
-            <Text>{menuItem.price}</Text>
+            <Text>${menuItem.price}</Text>
             <Text>Ingredients: </Text>
             {Object.entries(menuItem.itemsUsed).map((item, index)=>{
                 return(
-                    <InventoryItemCard inventoryItemName={item[1]} key={index}/>
+                    <InventoryItemCard inMenuItem={true} inventoryItem={{name:item[0], ...item[1]}} key={index}/>
                 )
             })}
             <QuantityForm show = {show} setShow={setShow} inventoryItems={itemsUsed} setInventoryItems={setItemsUsed} item={item} handleSubmit={submitItemToMenuItem}/>
@@ -74,8 +77,3 @@ export default function MenuItemDetailsScreen(props) {
         </View>
     )
 }
-
-/*
-make sure that the inventoryItemDetails has a button on it to add that inventoryItem 
-to a menuItem.
-*/

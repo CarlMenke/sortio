@@ -41,7 +41,7 @@ export default function BusinessScreen() {
             <View style={styles.businessSettings}>
                 <Button
                 title="Business Settings"
-                onPress={()=>showUpdateBusiness(navState, setNavStateAction, {})}/>
+                onPress={()=>showUpdateBusiness(navState, setNavStateAction, {updating: navState.business.businessName})}/>
             </View>
         </View>
     )

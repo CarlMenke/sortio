@@ -7,7 +7,8 @@ import {
 import { 
     doc, 
     setDoc, 
-    getDoc
+    getDoc,
+    deleteDoc
 } from "firebase/firestore"
 
 const handleError = (funcName, error) => {
@@ -52,7 +53,7 @@ const createBusiness = async (businessName, businessCode) => {
             inventoryItems: {}
         }
         await setDoc(doc(db, 'businesses', businessName), data)
-        await addBusinessToUser(businessName)
+        await addBusinessToUser(businessName, auth.currentUser.uid)
         return {
             status: true,
             data: "Business Created"
@@ -88,7 +89,7 @@ const joinBusiness = async (businessName, businessCode) => {
                 }else{
                     businessData.users.push(auth.currentUser.uid)
                     await setDoc(doc(db, 'businesses', businessName), businessData)
-                    await addBusinessToUser(businessName)
+                    await addBusinessToUser(businessName, auth.currentUser.uid)
                     return {
                         status: true,
                         data: "Joined Business"
@@ -101,9 +102,54 @@ const joinBusiness = async (businessName, businessCode) => {
     }
 }
 
-const addBusinessToUser = async (businessName) => {
+const updateBusinessNameAndCode = async (businessName, businessCode, newBusinessData) => {
     try{
-        const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", auth.currentUser.uid))
+        const businessRef = await getDoc(doc(db, "businesses", businessName))
+        if(!businessRef.exists()){
+            return {
+                status: false,
+                data: "Business Doesnt Exists"
+            }
+        }else{
+            const businessData = businessRef.data()
+            if(businessData.businessCode !== businessCode){
+                return {
+                    status: false,
+                    data: "Invalid Business Code"
+                }
+            }else{
+                if(businessData.ownerId !== auth.currentUser.uid){
+                    return{
+                        status: false,
+                        data: "Must Be Business Owner to Change"
+                    }
+                }else{
+                    const updatedBusinessData = {...businessData, ...newBusinessData}
+                    await deleteDoc(doc(db, "businesses", businessName ))
+                    await setDoc(doc(db, 'businesses', updatedBusinessData.businessName), updatedBusinessData)
+
+                    //THIS LOOP DOES NOT DO WHAT IS INTENDED
+                    for(const uid of updatedBusinessData.users){
+                        await removeBusinessFromUser(businessName, uid)
+                        await addBusinessToUser(updatedBusinessData.businessName, uid)
+                    }
+
+                    return {
+                        status: true,
+                        data: "Updated Business"
+                    }
+                }
+            }
+        }
+    }catch(error){
+        handleError("updateBusiness", error)
+    }
+}
+
+const addBusinessToUser = async (businessName, uid) => {
+    try{
+        console.log("inside addBusinessToUser", businessName, uid)
+        const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", uid))
         if(usersBusinessesRef.exists()){
             const usersBusinessesData = usersBusinessesRef.data()
             usersBusinessesData.businesses.push(businessName)
@@ -114,8 +160,28 @@ const addBusinessToUser = async (businessName) => {
     }catch(error){
         handleError("addBusinessToUser", error)
     }
+}
 
+const removeBusinessFromUser = async (businessName, uid) => {
+    try{
+        console.log("BusinessName:", businessName)
+        const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", uid))
+        if(usersBusinessesRef.exists()){
+            const usersBusinessesData = usersBusinessesRef.data()
+            console.log(usersBusinessesData )
+            for(let i = 0; i < usersBusinessesData.businesses.length; i++){
+                if(usersBusinessesData.businesses[i] === businessName){
+                    console.log("inside", usersBusinessesData.businesses[i])
+                    usersBusinessesData.businesses.splice(i,1)
+                    break
+                }
+            }
 
+            await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid), usersBusinessesData)
+        }
+    }catch(error){
+        handleError("removeBusinessFromUser", error)
+    }
 }
 
 const getCurrentUsersBusinesses = async () => {
@@ -230,11 +296,7 @@ const createMenuItem = async (name, price, itemsUsed, businessName) => {
 
 const addInventoryItemsToMenuItem = async (itemsUsed, menuItem, businessName) => {
     try{
-        console.log("PARAMS IN ADD INVENTORYITEMS TO MENU ITEM:",itemsUsed, menuItem, businessName)
-        //items used must look like [
-        //  {"amountUnit": "grams", "amountUsed": "10", "name": "TestItem2"}
-        //  {"amountUnit": "grams", "amountUsed": "10", "name": "TestItem2"}
-        //  ]
+        console.log(itemsUsed, menuItem, businessName)
         const businessRef = await getDoc(doc(db, 'businesses', businessName))
         if(!businessRef.exists()){
             return {
@@ -242,14 +304,15 @@ const addInventoryItemsToMenuItem = async (itemsUsed, menuItem, businessName) =>
                 data: "Error Finding Business"
             }
         }else{
-            const menuItems = businessRef.data().menuItems[menuItem]
+            const menuItems = businessRef.data().menuItems
+
             if(!menuItems[menuItem.name]){
                 return{
                     status: false,
                     data: "Menu Item Doesnt Exist"
                 }
             }else{
-                menuItems[menuItem.name].itemsUsed.push(...itemsUsed)
+                menuItems[menuItem.name].itemsUsed = {...menuItems[menuItem.name].itemsUsed, ...itemsUsed}
                 await setDoc(doc(db, "businesses", businessName), {menuItems:menuItems}, {merge:true})
                 return {
                     status: true,
@@ -270,6 +333,7 @@ module.exports = {
     getCurrentUsersBusinesses,
     getBusinessDetails,
     createMenuItem,
-    addInventoryItemsToMenuItem
+    addInventoryItemsToMenuItem,
+    updateBusinessNameAndCode
 }
 

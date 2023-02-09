@@ -11,6 +11,7 @@ import InventoryItemForm from '../forms/InventoryItemForm';
 import InventoryItemDetailsScreen from '../screens/InventoryItemDetailsScreen'
 import MenuItemDetailsScreen from '../screens/MenuItemDetailsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import BusinessSettingsScreen from '../screens/BusinessSettingsScreen';
 
 export default function Navigation() {
 
@@ -29,6 +30,11 @@ export default function Navigation() {
 
     if(isAuthenticated){
       switch (navState.screen) {
+        case 'businessSettings':
+          return(
+            <BusinessSettingsScreen/>
+          )
+          
         case 'business':
           return (
             <BusinessScreen/>
@@ -36,7 +42,7 @@ export default function Navigation() {
         
         case 'businessForm':
           return (
-            <BusinessForm action="create"/>
+            <BusinessForm/>
           )
         
         case 'menuItems':

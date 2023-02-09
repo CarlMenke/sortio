@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, Button, Text, View, StatusBar} from 'react-native';
+import { StyleSheet, ScrollView, Button, View, StatusBar} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 import InventoryItemCard from '../cards/InventoryItemCard';
@@ -19,8 +19,6 @@ export default function InventoryScreen(props) {
             backgroundColor: '#544D57'
         }
     });
-
-    console.log("inside inventorySCreen", navState)
     return(
         <View style={styles.container}>
             <ScrollView style={styles.container}>
