@@ -128,7 +128,6 @@ const updateBusinessNameAndCode = async (businessName, businessCode, newBusiness
                     await deleteDoc(doc(db, "businesses", businessName ))
                     await setDoc(doc(db, 'businesses', updatedBusinessData.businessName), updatedBusinessData)
 
-                    //THIS LOOP DOES NOT DO WHAT IS INTENDED
                     for(const uid of updatedBusinessData.users){
                         await removeBusinessFromUser(businessName, uid)
                         await addBusinessToUser(updatedBusinessData.businessName, uid)
@@ -136,13 +135,52 @@ const updateBusinessNameAndCode = async (businessName, businessCode, newBusiness
 
                     return {
                         status: true,
-                        data: "Updated Business"
+                        data:  updatedBusinessData.businessName
                     }
                 }
             }
         }
     }catch(error){
         handleError("updateBusiness", error)
+    }
+}
+
+const deleteBusiness = async (businessName, businessCode) => {
+    try{
+        const businessRef = await getDoc(doc(db, "businesses", businessName))
+        if(!businessRef.exists()){
+            return {
+                status: false,
+                data: "Business Doesnt Exists"
+            }
+        }else{
+            const businessData = businessRef.data()
+            if(businessData.businessCode !== businessCode){
+                return {
+                    status: false,
+                    data: "Invalid Business Code"
+                }
+            }else{
+                if(businessData.ownerId !== auth.currentUser.uid){
+                    return{
+                        status: false,
+                        data: "Must Be Business Owner to Delete"
+                    }
+                }else{
+                    await deleteDoc(doc(db, "businesses", businessName ))
+
+                    for(const uid of businessData.users){
+                        await removeBusinessFromUser(businessName, uid)
+                    }
+                    return {
+                        status: true,
+                        data:  "Deleted Business"
+                    }
+                }
+            }
+        }
+    }catch(error){
+        handleError("deleteBusiness", error)
     }
 }
 
@@ -153,9 +191,9 @@ const addBusinessToUser = async (businessName, uid) => {
         if(usersBusinessesRef.exists()){
             const usersBusinessesData = usersBusinessesRef.data()
             usersBusinessesData.businesses.push(businessName)
-            await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid), usersBusinessesData)
+            await setDoc(doc(db, 'usersBusinesses', uid), usersBusinessesData)
         }else{
-            await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid),{businesses : [businessName] })
+            await setDoc(doc(db, 'usersBusinesses',uid),{businesses : [businessName] })
         }
     }catch(error){
         handleError("addBusinessToUser", error)
@@ -164,7 +202,7 @@ const addBusinessToUser = async (businessName, uid) => {
 
 const removeBusinessFromUser = async (businessName, uid) => {
     try{
-        console.log("BusinessName:", businessName)
+        console.log("insde removebusinessfromuser BusinessName:", businessName, uid)
         const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", uid))
         if(usersBusinessesRef.exists()){
             const usersBusinessesData = usersBusinessesRef.data()
@@ -177,7 +215,7 @@ const removeBusinessFromUser = async (businessName, uid) => {
                 }
             }
 
-            await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid), usersBusinessesData)
+            await setDoc(doc(db, 'usersBusinesses', uid), usersBusinessesData)
         }
     }catch(error){
         handleError("removeBusinessFromUser", error)
@@ -334,6 +372,7 @@ module.exports = {
     getBusinessDetails,
     createMenuItem,
     addInventoryItemsToMenuItem,
-    updateBusinessNameAndCode
+    updateBusinessNameAndCode,
+    deleteBusiness
 }
 

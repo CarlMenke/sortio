@@ -1,9 +1,10 @@
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react'
-import { updateBusinessNameAndCode } from '../../firebaseFunctions'
+import { updateBusinessNameAndCode, deleteBusiness } from '../../firebaseFunctions'
 import { auth } from '../../firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
+import { showBusiness } from "../../navFunctions"
 
 
 //NEXT TASKS
@@ -32,7 +33,15 @@ export default function BusinessSettingsScreen() {
             businessName: businessName === "" ? navState.business.businessName : businessName 
         }
         const response = await updateBusinessNameAndCode(navState.business.businessName, navState.business.businessCode, data)
-        console.log(response)
+        showBusiness(navState, setNavStateAction, {}, response.data)
+    }
+
+    const handlePropmtBusinessCode = () => {
+        //HAVE THIS FUNCTION PROMPT THE BUSINESS CODE AND THEN WHEN THEY CLICK ENTER RUN THE handleDeleteBusiness
+        //making another component may be the best way to do this
+    }
+    const handleDeleteBusiness = async () => {
+        const response = await deleteBusiness(navState.business.businessName, businessCode)
     }
 
     const styles = StyleSheet.create({
@@ -65,6 +74,10 @@ export default function BusinessSettingsScreen() {
                 <TouchableOpacity
                     onPress={handleSubmit}>
                         <Text>Enter</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={handlePropmtBusinessCode}>
+                        <Text>Delete {navState.business.businessName}</Text>
                 </TouchableOpacity>
             </View>
         )
