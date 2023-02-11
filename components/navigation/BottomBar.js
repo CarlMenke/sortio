@@ -28,17 +28,36 @@ export default function BottomBar() {
         }
     });
 
-    return(
-        <View style={styles.container}>
-            <Button
-            color="#FFC600"
-            title="Home"
-            onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}/>
-            <Button
-            color="#FFC600"
-            title="Settings"
-            onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}/>
-        </View>
-    )
+    if(navState.bottomBar === 'home'){
+        return(
+            <View style={styles.container}>
+                <Button
+                color="#FFC600"
+                title="Home"
+                onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}/>
+                <Button
+                color="#FFC600"
+                title="Settings"
+                onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}/>
+            </View>
+        )
+    }else if(navState.bottomBar === 'business'){
+        return(
+            <View style={styles.container}>
+                <Button
+                color="#FFC600"
+                title="Home"
+                onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}/>
+                <Button
+                color="#FFC600"
+                title="Settings"
+                onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}/>
+                <Button
+                color="#FFC600"
+                title="Settings"
+                onPress={()=>{if(isAuthenticated)showBusiness(navState, setNavStateAction, {}, navState.business.businessName)}}/>
+            </View>
+        )
+    }
 }
 

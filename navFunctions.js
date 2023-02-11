@@ -91,7 +91,8 @@ const showHome = async (navState, setNavStateAction, options) => {
         ...navState,
         screen: "home",
         payload: response.data,
-        options : typeof options === "object" ? options : {}
+        options : typeof options === "object" ? options : {},
+        bottomBar : "home"
     }
     await setNavStateAction(navStateSave)
 }
@@ -126,7 +127,8 @@ const showBusiness = async (navState, setNavStateAction, options, query) => {
         screen: 'business',
         payload:  null, 
         options : typeof options === "object" ? options : {},
-        business: response.data
+        business: response.data,
+        bottomBar: "business"
     }
     await setNavStateAction(navStateSave)
 }

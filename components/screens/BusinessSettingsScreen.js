@@ -6,13 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 import { showBusiness } from "../../navFunctions"
 
-
-//NEXT TASKS
-//DYNAMICALLY ADD IN STYLES
-    //figure out how you can add all the styles to one document and then use variables and such for colors and fonts used across multiple
-//add a check for navigation functoins
-//refactor how inventory items are stores in menu items, you use object.keys so you get [key, value] and that messed everything up
-    // go to where you change thre format and prevent it, then go and refactor the rest to make it flow
 export default function BusinessSettingsScreen() {
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
