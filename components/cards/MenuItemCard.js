@@ -4,10 +4,12 @@ import { setNavState } from '../../redux/actions';
 import { showMenuItemDetails } from '../../navFunctions'
 
 export default function MenuItemCard(props) {
-    const menuItem = props.menuItem[1]
+    const {name, price} = props.menuItem
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
+
+    console.log("PROPS",name, price)
 
     const styles = StyleSheet.create({
         container: {
@@ -23,15 +25,15 @@ export default function MenuItemCard(props) {
             margin: 10
         },
     });
-//you will need a add item to menuItem function here for after the list
+
     return(
         <View style={styles.container}>
-            <Text>{menuItem.name}</Text>
+            <Text>{name}</Text>
             <Text>IMAGE HERE</Text>
-            <Text>Price: {menuItem.price}</Text>
+            <Text>Price: {price}</Text>
             <Button
-            onPress={()=>showMenuItemDetails(navState, setNavStateAction, {}, menuItem)}
-            title="Add Items"/>
+            onPress={()=>showMenuItemDetails(navState, setNavStateAction, {}, name)}
+            title="Details"/>
         </View>
     )
 }

@@ -7,7 +7,8 @@ import {
 import { 
     doc, 
     setDoc, 
-    getDoc
+    getDoc,
+    deleteDoc
 } from "firebase/firestore"
 
 const handleError = (funcName, error) => {
@@ -46,13 +47,13 @@ const createBusiness = async (businessName, businessCode) => {
         const data = {
             businessName: businessName,
             businessCode: businessCode,
-            ownerId: auth.currentUser.uid,
-            users: [auth.currentUser.uid],
+            ownerEmail: auth.currentUser.email,
+            users: [auth.currentUser.email],
             menuItems: {},
             inventoryItems: {}
         }
         await setDoc(doc(db, 'businesses', businessName), data)
-        await addBusinessToUser(businessName)
+        await addBusinessToUser(businessName, auth.currentUser.email)
         return {
             status: true,
             data: "Business Created"
@@ -86,9 +87,9 @@ const joinBusiness = async (businessName, businessCode) => {
                         data: "Already Joined Business"
                     }
                 }else{
-                    businessData.users.push(auth.currentUser.uid)
+                    businessData.users.push(auth.currentUser.email)
                     await setDoc(doc(db, 'businesses', businessName), businessData)
-                    await addBusinessToUser(businessName)
+                    await addBusinessToUser(businessName, auth.currentUser.email)
                     return {
                         status: true,
                         data: "Joined Business"
@@ -101,26 +102,176 @@ const joinBusiness = async (businessName, businessCode) => {
     }
 }
 
-const addBusinessToUser = async (businessName) => {
+const updateBusinessNameAndCode = async (businessName, businessCode, newBusinessData) => {
     try{
-        const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", auth.currentUser.uid))
+        const businessRef = await getDoc(doc(db, "businesses", businessName))
+        if(!businessRef.exists()){
+            return {
+                status: false,
+                data: "Business Doesnt Exists"
+            }
+        }else{
+            const businessData = businessRef.data()
+            if(businessData.businessCode !== businessCode){
+                return {
+                    status: false,
+                    data: "Invalid Business Code"
+                }
+            }else{
+                if(businessData.ownerEmail !== auth.currentUser.email){
+                    return{
+                        status: false,
+                        data: "Must Be Business Owner to Change"
+                    }
+                }else{
+                    const updatedBusinessData = {...businessData, ...newBusinessData}
+                    await deleteDoc(doc(db, "businesses", businessName ))
+                    await setDoc(doc(db, 'businesses', updatedBusinessData.businessName), updatedBusinessData)
+
+                    for(const email of updatedBusinessData.users){
+                        await removeBusinessFromUser(businessName, email)
+                        await addBusinessToUser(updatedBusinessData.businessName, email)
+                    }
+
+                    return {
+                        status: true,
+                        data:  updatedBusinessData.businessName
+                    }
+                }
+            }
+        }
+    }catch(error){
+        handleError("updateBusiness", error)
+    }
+}
+
+const deleteBusiness = async (businessName, businessCode) => {
+    try{
+        const businessRef = await getDoc(doc(db, "businesses", businessName))
+        if(!businessRef.exists()){
+            return {
+                status: false,
+                data: "Business Doesnt Exists"
+            }
+        }else{
+            const businessData = businessRef.data()
+            if(businessData.businessCode !== businessCode){
+                return {
+                    status: false,
+                    data: "Invalid Business Code"
+                }
+            }else{
+                if(businessData.ownerEmail !== auth.currentUser.email){
+                    return{
+                        status: false,
+                        data: "Must Be Business Owner to Delete"
+                    }
+                }else{
+                    await deleteDoc(doc(db, "businesses", businessName ))
+
+                    for(const email of businessData.users){
+                        await removeBusinessFromUser(businessName, email)
+                    }
+                    return {
+                        status: true,
+                        data:  "Deleted Business"
+                    }
+                }
+            }
+        }
+    }catch(error){
+        handleError("deleteBusiness", error)
+    }
+}
+
+const makeUserBusinessOwner = async (businessName, businessCode,  newOwnerEmail) => {
+    try{
+        const businessRef = await getDoc(doc(db, "businesses", businessName))
+        if(!businessRef.exists()){
+            return {
+                status: false,
+                data: "Business Doesnt Exists"
+            }
+        }else{
+            const businessData = businessRef.data()
+            if(businessData.businessCode !== businessCode){
+                return {
+                    status: false,
+                    data: "Invalid Business Code"
+                }
+            }else{
+                if(businessData.ownerEmail !== auth.currentUser.email){
+                    return{
+                        status: false,
+                        data: "Must Be Business Owner to Change"
+                    }
+                }else{
+                    businessData.ownerEmail = newOwnerEmail
+                    await setDoc(doc(db, 'businesses', businessName), businessData, {merge:true})
+                    return {
+                        status: true,
+                        data:  "new owner set"
+                    }
+                }
+            }
+        }
+    }catch(error){
+        handleError("makeUserBusinessOwner", error)
+    }
+}
+
+const addBusinessToUser = async (businessName, email) => {
+    try{
+        console.log("inside addBusinessToUser", businessName, email)
+        const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", email))
         if(usersBusinessesRef.exists()){
             const usersBusinessesData = usersBusinessesRef.data()
             usersBusinessesData.businesses.push(businessName)
-            await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid), usersBusinessesData)
+            await setDoc(doc(db, 'usersBusinesses', email), usersBusinessesData)
         }else{
-            await setDoc(doc(db, 'usersBusinesses', auth.currentUser.uid),{businesses : [businessName] })
+            await setDoc(doc(db, 'usersBusinesses',email),{businesses : [businessName] })
         }
     }catch(error){
         handleError("addBusinessToUser", error)
     }
+}
 
-
+const removeBusinessFromUser = async (businessName, email) => {
+    try{
+        console.log("insde removebusinessfromuser BusinessName:", businessName, email)
+        const usersBusinessesRef = await getDoc(doc(db, "usersBusinesses", email))
+        const businessRef = await getDoc(doc(db, "businesses", businessName))
+        if(usersBusinessesRef.exists()){
+            const usersBusinessesData = usersBusinessesRef.data()
+            console.log(usersBusinessesData )
+            for(let i = 0; i < usersBusinessesData.businesses.length; i++){
+                if(usersBusinessesData.businesses[i] === businessName){
+                    console.log("inside", usersBusinessesData.businesses[i])
+                    usersBusinessesData.businesses.splice(i,1)
+                    break
+                }
+            }
+            await setDoc(doc(db, 'usersBusinesses', email), usersBusinessesData)
+        }
+        if(businessRef.exists()){
+            const businessData = businessRef.data()
+            const users = businessData.users
+            for(let i = 0; i < users.length; i++){
+                if(users[i] === email){
+                    users.splice(i,1)
+                    break
+                }
+            }
+            await setDoc(doc(db, 'businesses', businessName), {users:users}, {merge:true})
+        }
+    }catch(error){
+        handleError("removeBusinessFromUser", error)
+    }
 }
 
 const getCurrentUsersBusinesses = async () => {
     try{
-        const usersBusinessesRef = await getDoc(doc(db, 'usersBusinesses', auth.currentUser.uid))
+        const usersBusinessesRef = await getDoc(doc(db, 'usersBusinesses', auth.currentUser.email))
         if(usersBusinessesRef.exists()){
             const usersBusinessesData = usersBusinessesRef.data()
             return {
@@ -228,12 +379,9 @@ const createMenuItem = async (name, price, itemsUsed, businessName) => {
     }
 }   
 
-const addInventoryItemsToMenuItemm = async (itemsUsed, menuItem, businessName) => {
+const addInventoryItemsToMenuItem = async (itemsUsed, menuItem, businessName) => {
     try{
-        //items used must look like [
-        //  {"amountUnit": "grams", "amountUsed": "10", "name": "TestItem2"}
-        //  {"amountUnit": "grams", "amountUsed": "10", "name": "TestItem2"}
-        //  ]
+        console.log(itemsUsed, menuItem, businessName)
         const businessRef = await getDoc(doc(db, 'businesses', businessName))
         if(!businessRef.exists()){
             return {
@@ -241,14 +389,15 @@ const addInventoryItemsToMenuItemm = async (itemsUsed, menuItem, businessName) =
                 data: "Error Finding Business"
             }
         }else{
-            const menuItems = businessRef.data().menuItems[menuItem]
+            const menuItems = businessRef.data().menuItems
+
             if(!menuItems[menuItem.name]){
                 return{
                     status: false,
                     data: "Menu Item Doesnt Exist"
                 }
             }else{
-                menuItems[menuItem.name].itemsUsed.push(...itemsUsed)
+                menuItems[menuItem.name].itemsUsed = {...menuItems[menuItem.name].itemsUsed, ...itemsUsed}
                 await setDoc(doc(db, "businesses", businessName), {menuItems:menuItems}, {merge:true})
                 return {
                     status: true,
@@ -257,9 +406,10 @@ const addInventoryItemsToMenuItemm = async (itemsUsed, menuItem, businessName) =
             }
         }
     }catch(error){
-        handleError("createMenuItem", error)
+        handleError("addInventoryItemsToMenuItem", error)
     }
 }
+
 module.exports = {
     signup,
     login,
@@ -269,6 +419,10 @@ module.exports = {
     getCurrentUsersBusinesses,
     getBusinessDetails,
     createMenuItem,
-    addInventoryItemsToMenuItemm
+    addInventoryItemsToMenuItem,
+    updateBusinessNameAndCode,
+    deleteBusiness,
+    removeBusinessFromUser,
+    makeUserBusinessOwner
 }
 

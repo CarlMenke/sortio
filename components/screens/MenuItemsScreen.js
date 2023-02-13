@@ -21,13 +21,13 @@ export default function MenuItemsScreen() {
 
     return(
         <View style={styles.container}>
-            {Object.entries(navState.payload.menuItems).map((menuItem, index)=>{
+            {Object.entries(navState.business.menuItems).map((menuItem, index)=>{
                return(
-                <MenuItemCard menuItem={menuItem} key={index}/>
+                <MenuItemCard menuItem={menuItem[1]} key={index}/>
                )
             })}
             <Button
-            onPress={()=>showMenuItemForm(navState, setNavStateAction)}
+            onPress={()=>showMenuItemForm(navState, setNavStateAction, {}, {})}
             title="Create New Menu Item"/>
         </View>
     )

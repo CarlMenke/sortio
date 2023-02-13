@@ -58,8 +58,17 @@ export default function MenuItemForm() {
 
     const handleSubmit = async () => {
         try{
-            console.log(inventoryItems)
-            const response = await createMenuItem(menuItemName, price , inventoryItems, navState.payload.businessName)
+            console.log("invemtory ITems", inventoryItems)
+            const itemsUsed = {}
+            for(const element of inventoryItems){
+                console.log(element)
+                itemsUsed[element.name] = {
+                    amountUnit: element.amountUnit,
+                    amountUsed: element.amountUsed
+                }
+            }
+            console.log()
+            const response = await createMenuItem(menuItemName, price , itemsUsed, navState.business.businessName)
             if(response.status){
                 showMenuItems(navState, setNavStateAction)
             }else{
@@ -97,7 +106,7 @@ export default function MenuItemForm() {
 
             <View style={styles.item}>
                 <Text>Add Inventory Items:</Text>
-                <InventoryScreen onPressHandler={addInventoryItemToMenuItemState}/>
+                <InventoryScreen onPressHandler={(item)=>addInventoryItemToMenuItemState(item)}/>
             </View>
 
             <Button

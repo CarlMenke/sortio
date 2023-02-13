@@ -1,6 +1,4 @@
-import { StyleSheet, Text, TextInput, View, Button, Animated } from 'react-native';
-import { useEffect, useState, useRef  } from 'react';
-import { showInventory , showUpdateBusiness, showMenuItems } from '../../navFunctions'
+import { StyleSheet, Text, TextInput, View, Animated } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 

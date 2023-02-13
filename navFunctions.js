@@ -1,106 +1,142 @@
 import { getBusinessDetails, getCurrentUsersBusinesses } from './firebaseFunctions'
 
+
 const showInventory = async (navState, setNavStateAction, options) => {
-    const response  = await getBusinessDetails(navState.payload.businessName)
-    await setNavStateAction({
+    const response  = await getBusinessDetails(navState.business.businessName)
+    const navStateSave = {
+        ...navState,
         screen : "inventory",
-        payload : response.data,
-        options : options
-    })
+        payload :  null, 
+        options : typeof options === "object" ? options : {},
+        business: response.data
+    }
+    await setNavStateAction(navStateSave)
 }
 
+//
 const showMenuItems = async (navState, setNavStateAction, options) => {
-    const response  = await getBusinessDetails(navState.payload.businessName)
-    await setNavStateAction({
+    const response  = await getBusinessDetails(navState.business.businessName)
+    const navStateSave = {
+        ...navState,
         screen : "menuItems",
-        payload : response.data,
-        options : options
-    })
+        payload :  null, 
+        options : typeof options === "object" ? options : {},
+        business: response.data
+    }
+    await setNavStateAction(navStateSave)
 }
 
+//
 const showMenuItemForm = async (navState, setNavStateAction, options) => {
-    const response  = await getBusinessDetails(navState.payload.businessName)
-    await setNavStateAction({
+    const response  = await getBusinessDetails(navState.business.businessName)
+    const navStateSave = {
+        ...navState,
         screen : "menuItemForm",
-        payload : response.data,
-        options : options
-    })
+        payload :  null, 
+        options : typeof options === "object" ? options : {},
+        business: response.data
+    }
+    await setNavStateAction(navStateSave)
 }
 
+//
 const showMenuItemDetails = async (navState, setNavStateAction, options, data) => {
-    await setNavStateAction({
+    const navStateSave = {
+        ...navState,
         screen : 'menuItemDetail',
-        payload : data,
-        options: options
-    })
+        payload :  data, 
+        options: typeof options === "object" ? options : {} 
+    }
+    await setNavStateAction(navStateSave)
 }
 
-const showInventoryItemDetails = async (navState, setNavStateAction, options, data) => {
-    console.log(data)
-    await setNavStateAction({
+//
+const showInventoryItemDetails = async (navState, setNavStateAction, options, inventoryItemName) => {
+    const navStateSave = {
+        ...navState,
         screen : 'inventoryItemDetail',
-        payload : data,
-        options: options
-    })
+        payload :  inventoryItemName, 
+        options: typeof options === "object" ? options : {} 
+    }
+    await setNavStateAction(navStateSave)
 }
 
-const showUpdateBusiness = async (navState, setNavStateAction, options) => {
-    const response  = await getBusinessDetails(navState.payload.businessName)
-    await setNavStateAction({
-        screen : 'updateBusiness',
-        payload : response.data,
-        options : options
-    })
+//
+const showBusinessSettings = async (navState, setNavStateAction, options) => {
+    const response  = await getBusinessDetails(navState.business.businessName)
+    const navStateSave = {
+        ...navState,
+        screen : 'businessSettings',
+        payload :  null, 
+        options : typeof options === "object" ? options : {},
+        business: response.data
+    }
+    await setNavStateAction(navStateSave)
 }
 
+//
 const showInventoryItemForm = async (navState, setNavStateAction, options) => {
-    await setNavStateAction({
+    const navStateSave = {
         ...navState,
         screen : "inventoryItemForm",
-        options : options
-    })
+        options : typeof options === "object" ? options : {}
+    }
+    await setNavStateAction(navStateSave)
 }
+
 
 const showHome = async (navState, setNavStateAction, options) => {
     const response  = await getCurrentUsersBusinesses()
-    console.log("FIUBCOUBCOISCB", response)
-    await setNavStateAction({
+    const navStateSave = {
+        ...navState,
         screen: "home",
         payload: response.data,
-        options : options
-    })
+        options : typeof options === "object" ? options : {},
+        bottomBar : "home"
+    }
+    await setNavStateAction(navStateSave)
 }
 
+//
 const showBusinessForm = async (navState, setNavStateAction, options) => {
-    await setNavStateAction({
+    const navStateSave = {
+        ...navState,
         screen: "businessForm",
         payload: null,
-        options : options
-    })
+        options : typeof options === "object" ? options : {}
+    }
+    await setNavStateAction(navStateSave)
 }
 
+//
 const showSettings = async (navState, setNavStateAction, options) => {
-    await setNavStateAction({
+    const navStateSave = {
+        ...navState,
         screen: "settings",
         payload: null,
-        options : options
-    })
+        options : typeof options === "object" ? options : {}
+    }
+    await setNavStateAction(navStateSave)
 }
 
 
 const showBusiness = async (navState, setNavStateAction, options, query) => {
     const response  = await getBusinessDetails(query)
-    await setNavStateAction({
+    const navStateSave = {
+        ...navState,
         screen: 'business',
-        payload: response.data,
-        options : options
-    })
+        payload:  null, 
+        options : typeof options === "object" ? options : {},
+        business: response.data,
+        bottomBar: "business"
+    }
+    await setNavStateAction(navStateSave)
 }
 
 module.exports = {
     showInventory,
     showMenuItems,
-    showUpdateBusiness,
+    showBusinessSettings,
     showInventoryItemForm,
     showHome,
     showBusinessForm,

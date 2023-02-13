@@ -70,11 +70,10 @@ useEffect(()=>{
     onAuthStateChanged(auth, async (user) => {
       if(user){
         const response = await getCurrentUsersBusinesses()
-        console.log("HERE HERE")
-        console.log(response)
         setNavStateAction({
           screen: "home",
-          payload: response.data === null ? [] : response.data
+          payload: response.data === null ? [] : response.data,
+          bottomBar: "home"
         })
         setAuthenticationAction(true)
       }else{
