@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { showInventory , showUpdateBusiness, showMenuItems } from '../../navFunctions'
+import { showInventory , showBusinessSettings, showMenuItems } from '../../navFunctions'
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 
@@ -41,7 +41,7 @@ export default function BusinessScreen() {
             <View style={styles.businessSettings}>
                 <Button
                 title="Business Settings"
-                onPress={()=>showUpdateBusiness(navState, setNavStateAction, {updating: navState.business.businessName})}/>
+                onPress={()=>showBusinessSettings(navState, setNavStateAction, {updating: navState.business.businessName})}/>
             </View>
         </View>
     )

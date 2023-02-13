@@ -72,7 +72,8 @@ useEffect(()=>{
         const response = await getCurrentUsersBusinesses()
         setNavStateAction({
           screen: "home",
-          payload: response.data === null ? [] : response.data
+          payload: response.data === null ? [] : response.data,
+          bottomBar: "home"
         })
         setAuthenticationAction(true)
       }else{

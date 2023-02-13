@@ -62,7 +62,7 @@ const showInventoryItemDetails = async (navState, setNavStateAction, options, in
 }
 
 //
-const showUpdateBusiness = async (navState, setNavStateAction, options) => {
+const showBusinessSettings = async (navState, setNavStateAction, options) => {
     const response  = await getBusinessDetails(navState.business.businessName)
     const navStateSave = {
         ...navState,
@@ -136,7 +136,7 @@ const showBusiness = async (navState, setNavStateAction, options, query) => {
 module.exports = {
     showInventory,
     showMenuItems,
-    showUpdateBusiness,
+    showBusinessSettings,
     showInventoryItemForm,
     showHome,
     showBusinessForm,

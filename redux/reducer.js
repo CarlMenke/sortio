@@ -7,7 +7,8 @@ const initialState = {
     isAuthenticated : false,
     navState : {
         screen : "home",
-        payload : null
+        payload : null,
+        bottomBar : "home"
     }
 }
 
