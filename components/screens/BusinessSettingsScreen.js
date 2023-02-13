@@ -94,6 +94,11 @@ export default function BusinessSettingsScreen() {
         setCurrentSubmitAction(action)
     }
 
+    const handleLeaveBusiness = async () => {
+        await removeBusinessFromUser(navState.business.businessName, auth.currentUser.email)
+        showHome(navState, setNavStateAction, {})
+    }
+
     const styles = StyleSheet.create({
         container: {
           flex: 1,
@@ -162,7 +167,9 @@ export default function BusinessSettingsScreen() {
     }else{
         return(
             <View style={styles.container}>
-                <Text>Must Be Business Owner to Update</Text>
+                <Button
+                title="Leave Business"
+                onPress={handleLeaveBusiness}/>
             </View>
         )
     }
