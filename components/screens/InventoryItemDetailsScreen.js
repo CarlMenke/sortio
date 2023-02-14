@@ -1,6 +1,8 @@
 import { View, Button, Text} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
+import { deleteInventoryItem } from "../../firebaseFunctions"
+import { showBusiness } from '../../navFunctions'
 import styles from '../style/styles';
 
 export default function InventoryItemDetailsScreen(props) {
@@ -9,12 +11,17 @@ export default function InventoryItemDetailsScreen(props) {
     const { navState } = useSelector(state => state.reducer)
     const { name, currentValue, currentUnit } =  navState.business.inventoryItems[navState.payload]
 
-    const hadleRemoveItem = () => {
+    const hadleRemoveItem = async () => {
 
     }
 
-    const handleAddItem = () => {
+    const handleAddItem = async () => {
 
+    }
+
+    const handleDeleteItem = async () => {
+        const response = await deleteInventoryItem(name, navState.business.businessName)
+        showBusiness(navState, setNavStateAction, {}, navState.business.businessName)
     }
 
     return(
@@ -28,6 +35,9 @@ export default function InventoryItemDetailsScreen(props) {
             <Button 
                 onPress={handleAddItem}
                 title="Add Items"/>
+            <Button
+                onPress={handleDeleteItem}
+                title="Delete"/>
         </View>
     )
 }

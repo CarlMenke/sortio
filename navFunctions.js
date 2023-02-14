@@ -41,11 +41,16 @@ const showMenuItemForm = async (navState, setNavStateAction, options) => {
 
 //
 const showMenuItemDetails = async (navState, setNavStateAction, options, data) => {
+    console.log("inside showmenuitemdetails")
     const navStateSave = {
         ...navState,
         screen : 'menuItemDetail',
         payload :  data, 
-        options: typeof options === "object" ? options : {} 
+        options: typeof options === "object" ? options : {},
+    }
+    if(options.refresh){
+        const response = await getBusinessDetails(navState.business.businessName)
+        navStateSave.business = response.data
     }
     await setNavStateAction(navStateSave)
 }

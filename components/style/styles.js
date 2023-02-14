@@ -7,7 +7,7 @@ const PINK = "#F9CEDF"
 
 const styles = new StyleSheet.create({
     container: {
-        flex: 1,
+        flex: .7,
         flexDirection: "column",
         justifyContent: "space-around"
     },
@@ -42,7 +42,7 @@ const styles = new StyleSheet.create({
         borderRadius: 3
     },
     input:{
-        color:"white",
+        color:"black",
         fontSize:20,
         fontFamily: "Arial Rounded MT Bold",
         paddingBottom: 6.5
@@ -58,7 +58,8 @@ const styles = new StyleSheet.create({
     },
     bottomTab:{
         marginBottom: 10
-    }
+    },
+    
     
 })
 

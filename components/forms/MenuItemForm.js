@@ -1,5 +1,5 @@
 import { Text, View, Button, TextInput } from 'react-native';
-import { useEffect, useState  } from 'react';
+import { useState  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 const convert = require('convert-units')
 import { setNavState } from '../../redux/actions';
@@ -18,19 +18,6 @@ export default function MenuItemForm() {
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
-    const styles = StyleSheet.create({
-        container: {
-            flex:1,
-            flexDirection: "column",
-            backgroundColor: '#353535',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            paddingTop: 50
-        },
-        item : {
-            flex: .2
-        }
-    });
 
     const proptAmountOfItemUsed = (item) => {
         if(show) return
@@ -59,16 +46,13 @@ export default function MenuItemForm() {
 
     const handleSubmit = async () => {
         try{
-            console.log("invemtory ITems", inventoryItems)
             const itemsUsed = {}
             for(const element of inventoryItems){
-                console.log(element)
                 itemsUsed[element.name] = {
                     amountUnit: element.amountUnit,
                     amountUsed: element.amountUsed
                 }
             }
-            console.log()
             const response = await createMenuItem(menuItemName, price , itemsUsed, navState.business.businessName)
             if(response.status){
                 showMenuItems(navState, setNavStateAction)
