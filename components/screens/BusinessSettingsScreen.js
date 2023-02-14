@@ -1,10 +1,11 @@
-import { StyleSheet, View, Text, Button, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TextInput, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react'
 import { updateBusinessNameAndCode, deleteBusiness, removeBusinessFromUser, makeUserBusinessOwner } from '../../firebaseFunctions'
 import { auth } from '../../firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 import { showBusiness, showHome, showBusinessSettings} from "../../navFunctions"
+import styles from '../style/styles';
 
 const EnterBusinessCode = (props) => {
     const {show, setShow, setValue, value, submitType, businessName, email} = props
@@ -98,19 +99,6 @@ export default function BusinessSettingsScreen() {
         await removeBusinessFromUser(navState.business.businessName, auth.currentUser.email)
         showHome(navState, setNavStateAction, {})
     }
-
-    const styles = StyleSheet.create({
-        container: {
-          flex: 1,
-          flexDirection: "column",
-          backgroundColor: '#544D57',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-        user: {
-            backgroundColor:"grey "
-        }
-    });
     
     if(isOwner){
         return(

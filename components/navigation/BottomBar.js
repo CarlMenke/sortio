@@ -1,7 +1,8 @@
-import { StyleSheet, View, Button } from 'react-native';
+import { View, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 import { showHome, showSettings, showBusiness} from '../../navFunctions'
+import styles from '../style/styles';
 
 export default function BottomBar() {
 
@@ -9,24 +10,6 @@ export default function BottomBar() {
     const { isAuthenticated } = useSelector(state => state.reducer)
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
-
-    const styles = StyleSheet.create({
-        container: {
-          flex: 1,
-          flexDirection: "row",
-          backgroundColor: '#2E2E2E',
-          width:"100%",
-          paddingBottom:15,
-          justifyContent:'space-around',
-          alignItems:"center",
-          shadowColor:"#181818",
-          shadowOpacity: .3,
-          shadowOffset:{height: -3}
-        },
-        bottomTab:{
-            marginBottom: 10
-        }
-    });
 
     if(navState.bottomBar === 'home'){
         return(

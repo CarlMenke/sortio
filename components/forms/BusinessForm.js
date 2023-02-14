@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button, TextInput } from 'react-native';
 import { useState  } from 'react';
 import { setNavState } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { createBusiness, joinBusiness } from '../../firebaseFunctions'
 import { showHome } from '../../navFunctions'
+import styles from '../style/styles';
 
 export default function BusinessForm() {
     const dispatch = useDispatch()
@@ -48,17 +49,6 @@ export default function BusinessForm() {
             console.log(response.data)
         }
     }
- 
-    const styles = StyleSheet.create({
-        container: {
-            height:"100%",
-            flexDirection: "column",
-            backgroundColor: '#353535',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            paddingTop: 50
-        }
-    });
 
     return (
         <View style={styles.container}>

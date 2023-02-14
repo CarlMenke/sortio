@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button, TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createIngredient } from '../../firebaseFunctions'
 const convert = require('convert-units')
 import { setNavState } from '../../redux/actions';
-import { addToMenuItem } from '../../firebaseFunctions'
 import { showInventory } from '../../navFunctions'
+import styles from '../style/styles';
 
 export default function InventoryItemForm() {
     const [inventoryItemName, setIventoryItemName] = useState("")

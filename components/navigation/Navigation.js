@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import StartScreen from '../screens/StartScreen';
 import HomeScreen from '../screens/HomeScreen'
@@ -12,21 +12,12 @@ import InventoryItemDetailsScreen from '../screens/InventoryItemDetailsScreen'
 import MenuItemDetailsScreen from '../screens/MenuItemDetailsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import BusinessSettingsScreen from '../screens/BusinessSettingsScreen';
+import styles from '../style/styles';
 
 export default function Navigation() {
 
     const { isAuthenticated } = useSelector(state => state.reducer)
     const { navState } = useSelector(state => state.reducer)
-
-    const styles = StyleSheet.create({
-        container: {
-          flex: 1,
-          flexDirection: "column",
-          backgroundColor: '#544D57',
-          width:"100%",
-          height:"100%"
-        },
-    });
 
     if(isAuthenticated){
       switch (navState.screen) {

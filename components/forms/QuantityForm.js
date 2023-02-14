@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button, TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState  } from 'react';
+import styles from '../style/styles';
 
 export default function QuantityForm(props) {
     const { show, setShow, inventoryItems, setInventoryItems, item} = props
@@ -8,20 +9,6 @@ export default function QuantityForm(props) {
     const [amountUnit, setAmountUnit] = useState(null)
     const [open, setOpen] = useState(false);
     const [unitArray , setUnitArray] = useState([{label:'grams', value:'grams'}, {label:'ounces', value:'ounces'}, {label:'pounds', value:'pounds'}])
- 
-    const styles = StyleSheet.create({
-        container: {
-            flex:1,
-            flexDirection: "column",
-            backgroundColor: '#353535',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            paddingTop: 50
-        },
-        item : {
-            flex: .2
-        }
-    });
 
     const handleSubmit = () =>{
         console.log(

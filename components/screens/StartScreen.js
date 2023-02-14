@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, TextInput, Animated, TouchableOpacity } from 'react-native';
+import { Text, View, Animated, TouchableOpacity } from 'react-native';
 import { useEffect, useState, useRef  } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { setAuthentication, setNavState } from '../../redux/actions'
@@ -7,6 +7,7 @@ import { auth }   from '../../firebaseConfig';
 import { onAuthStateChanged } from "firebase/auth";
 import { getCurrentUsersBusinesses } from '../../firebaseFunctions'
 import StartTextInput from '../tags/StartTextInput';
+import styles from '../style/styles'
 
 export default function StartScreen() {
   const [firstName, setFirstName] = useState("")
@@ -103,86 +104,7 @@ useEffect(()=>{
     }
   }
 
-  const styles = StyleSheet.create({
-      container: {
-        height:"100%",
-        width:"100%",
-        flexDirection: "column",
-        backgroundColor: '#232323',
-        alignItems: 'flex-start',
-        justifyContent: 'space-around',
-        padding: 30,
-        paddingTop: 15
-      },
-      header:{
-        flex:.25
-      },
-      header1:{
-        color:"#FFC600",
-        fontSize: 60,
-        shadowColor: "black",
-        shadowOffset: {width: .7, height: .7},
-        shadowOpacity: .8,
-        shadowRadius: 1,
-        fontFamily: "Arial Rounded MT Bold"
-      },
-      header2: {
-        color:"#FEFEFE",
-        fontSize:20,
-        shadowColor: "black",
-        shadowOffset: {width: .5, height: .5},
-        shadowOpacity: .85,
-        shadowRadius: 1,
-        fontFamily: "Arial Rounded MT Bold",
-        paddingLeft: 5
-      },
-      inputArea: {
-        flex: 1,
-        width:"100%",
-        flexDirection: "column",
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        padding:15
-      },
-      buttonsArea: {
-        flex:.275,
-        alignSelf:"center",
-        flexDirection:"column",
-        justifyContent:"space-around"
-      },
-      switchButton: {
-        margin: 10,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 10,
-      },
-      switchButtonText: {
-        color:"#FFC600",
-        fontSize:15,
-        fontFamily: "Arial Rounded MT Bold",
-      },
-      submitButton: {
-        margin: 5,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor:"#3A3A3A",
-        width:"100%",
-        alignSelf: "center",
-        padding: 7,
-        paddingLeft: 12,
-        paddingRight:12,
-        borderRadius:5,
-        shadowColor: "#0B0B0B",
-        shadowOffset: {width: 1, height: 1},
-        shadowOpacity : .5,
-        shadowRadius: 3
-      },
-      submitButtontext: {
-        color:"#FFC600",
-        fontSize:20,
-        fontFamily: "Arial Rounded MT Bold",
-      }
-    });
+  
 
     if(header.method === "signup"){
       return (
