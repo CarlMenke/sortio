@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button, TextInput } from 'react-native';
 import { useEffect, useState  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 const convert = require('convert-units')
@@ -7,6 +7,7 @@ import { showMenuItems } from '../../navFunctions'
 import { createMenuItem } from '../../firebaseFunctions'
 import InventoryScreen from '../screens/InventoryScreen';
 import QuantityForm from './QuantityForm';
+import styles from '../style/styles';
 
 export default function MenuItemForm() {
     const [menuItemName, setMenuItemName] = useState("")

@@ -1,25 +1,14 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import { showInventory , showBusinessSettings, showMenuItems } from '../../navFunctions'
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
+import styles from '../style/styles';
 
 
 export default function BusinessScreen() {
     const { navState } = useSelector(state => state.reducer)
     const dispatch = useDispatch()
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
-    console.log(navState)
-
-    const styles = StyleSheet.create({
-        container: {
-            flex:1,
-            flexDirection: "column",
-            backgroundColor: '#353535',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            paddingTop: 50
-        }
-    });
 
     return (
         <View style={styles.container}>
