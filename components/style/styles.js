@@ -59,8 +59,11 @@ const styles = new StyleSheet.create({
     bottomTab:{
         marginBottom: 10
     },
-    
-    
+    scrollView: {
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "space-around"
+    }
 })
 
 export default styles

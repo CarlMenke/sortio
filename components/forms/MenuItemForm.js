@@ -89,7 +89,7 @@ export default function MenuItemForm() {
 
             <QuantityForm show = {show} setShow={setShow} inventoryItems={inventoryItems} setInventoryItems={setInventoryItems} item={item}/>
 
-            <View style={styles.item}>
+            <View style={styles.container}>
                 <Text>Add Inventory Items:</Text>
                 <InventoryScreen onPressHandler={(item)=>addInventoryItemToMenuItemState(item)}/>
             </View>

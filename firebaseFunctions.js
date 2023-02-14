@@ -367,6 +367,15 @@ const createMenuItem = async (name, price, itemsUsed, businessName) => {
             }else{
                 menuItems[name] = data
                 await setDoc(doc(db, "businesses", businessName), {menuItems:menuItems}, {merge:true})
+                const businessRef = await getDoc(doc(db, 'businesses', businessName))
+                const inventoryItems = businessRef.data().inventoryItems
+
+                for(const key in itemsUsed){
+                    if(inventoryItems[key].usedIn.includes(name)) continue
+                    inventoryItems[key].usedIn.push(name)
+                }
+                await setDoc(doc(db, "businesses", businessName), {inventoryItems:inventoryItems}, {merge:true})
+
                 return {
                     status: true,
                     data:"added Item To Inventory"
@@ -397,6 +406,16 @@ const addInventoryItemsToMenuItem = async (itemsUsed, menuItem, businessName) =>
             }else{
                 menuItems[menuItem.name].itemsUsed = {...menuItems[menuItem.name].itemsUsed, ...itemsUsed}
                 await setDoc(doc(db, "businesses", businessName), {menuItems:menuItems}, {merge:true})
+
+                const businessRef = await getDoc(doc(db, 'businesses', businessName))
+                const inventoryItems = businessRef.data().inventoryItems
+
+                for(const key in itemsUsed){
+                    if(inventoryItems[key].usedIn.includes(menuItem.name)) continue
+                    inventoryItems[key].usedIn.push(menuItem.name)
+                }
+                await setDoc(doc(db, "businesses", businessName), {inventoryItems:inventoryItems}, {merge:true})
+
                 return {
                     status: true,
                     data:"Added Items to Menu Item"
@@ -410,7 +429,6 @@ const addInventoryItemsToMenuItem = async (itemsUsed, menuItem, businessName) =>
 
 const removeInventoryItemfromMenuItem = async (inventoryItemName, menuItemName, businessName) => {
     try{
-        console.log(inventoryItemName, menuItemName, businessName)
         const businessRef = await getDoc(doc(db, 'businesses', businessName))
         if(!businessRef.exists()){
             return {
@@ -425,10 +443,23 @@ const removeInventoryItemfromMenuItem = async (inventoryItemName, menuItemName, 
                     data: "Menu Item Doesnt Exist"
                 }
             }else{
-                console.log(menuItems[menuItemName].itemsUsed[inventoryItemName])
                 delete menuItems[menuItemName].itemsUsed[inventoryItemName]
-                console.log(menuItems)
                 await setDoc(doc(db, "businesses", businessName), {menuItems:menuItems}, {mergeFields: ['menuItems']})
+
+
+                const businessRef = await getDoc(doc(db, 'businesses', businessName))
+                const inventoryItems = businessRef.data().inventoryItems
+
+                console.log(inventoryItems[inventoryItemName].usedIn)
+                for(let i = 0; i < inventoryItems[inventoryItemName].usedIn.length; i++){
+                    if(inventoryItems[inventoryItemName].usedIn[i] === menuItemName){
+                        inventoryItems[inventoryItemName].usedIn.splice(i,1)
+                        break
+                    }
+                }
+
+                await setDoc(doc(db, "businesses", businessName), {inventoryItems:inventoryItems}, {merge:true})
+
                 return {
                     status: true,
                     data:"Removed Item from Menu Item"
@@ -436,7 +467,7 @@ const removeInventoryItemfromMenuItem = async (inventoryItemName, menuItemName, 
             }
         }
     }catch(error){
-        handleError("addInventoryItemsToMenuItem", error)
+        handleError("removeInventoryItemfromMenuItem", error)
     }
 }
 
@@ -450,14 +481,22 @@ const deleteInventoryItem = async (inventoryItemName, businessName) => {
             }
         }else{
             const inventoryItems = businessRef.data().inventoryItems
+            const menuItems = businessRef.data().menuItems
             if(!inventoryItems[inventoryItemName]){
                 return{
                     status: false,
                     data: "Item Doesn't Exist"
                 }
             }else{
+
+                for(const menuItemName of inventoryItems[inventoryItemName].usedIn){
+                    delete menuItems[menuItemName].itemsUsed[inventoryItemName]
+                }
                 delete inventoryItems[inventoryItemName]
-                await setDoc(doc(db, 'businesses', businessName), {inventoryItems:inventoryItems}, {merge:true})
+
+                await setDoc(doc(db, 'businesses', businessName), {inventoryItems:inventoryItems}, {mergeFields: ['inventoryItems']})
+                await setDoc(doc(db, 'businesses', businessName), {menuItems:menuItems}, {mergeFields: ['menuItems']})
+
                 return{
                     status: true,
                     data: "Removed Item From Inventory"
@@ -479,14 +518,28 @@ const deleteMenuItem = async (menuItemName, businessName) => {
             }
         }else{
             const menuItems = businessRef.data().menuItems
+            const inventoryItems = businessRef.data().inventoryItems
+
             if(!menuItems[menuItemName]){
                 return{
                     status: false,
                     data: "Menu Item Doesn't Exist"
                 }
-            }else{
+            }else{                
+                for(const key in menuItems[menuItemName].itemsUsed){
+                    for(let i = 0; i < inventoryItems[key].usedIn.length; i++){
+                        if(inventoryItems[key].usedIn[i] === menuItemName){
+                            inventoryItems[key].usedIn.splice(i,1)
+                            break
+                        }
+                    }
+                }
+                
                 delete menuItems[menuItemName]
                 await setDoc(doc(db, 'businesses', businessName), {menuItems:menuItems}, {merge:true})
+                await setDoc(doc(db, 'businesses', businessName), {inventoryItems:inventoryItems}, {merge:true})
+
+
                 return{
                     status: true,
                     data: "Removed Menu Item From Inventory"
@@ -495,6 +548,36 @@ const deleteMenuItem = async (menuItemName, businessName) => {
         }
     }catch(error){
         handleError("deleteMenuItem", error)
+    }
+}
+
+const updateInventoryItem = async (oldItemName, newItem, businessName) => {
+    try{
+        const businessRef = await getDoc(doc(db, 'businesses', businessName))
+        if(!businessRef.exists()){
+            return {
+                status: false,
+                data: "Error Finding Business"
+            }
+        }else{
+            const inventoryItems = businessRef.data().inventoryItems
+            if(!inventoryItems[oldItemName]){
+                return{
+                    status: false,
+                    data: "Item Doesn't Exists"
+                }
+            }else{
+                delete inventoryItems[oldItemName]
+                inventoryItems[newItem.name] = newItem
+                await setDoc(doc(db, 'businesses', businessName), {inventoryItems:inventoryItems}, {mergeFields: ['inventoryItems']})
+                return{
+                    status: true,
+                    data: "Updated Item In Inventory"
+                }
+            }
+        }
+    }catch(error){
+        handleError("updateInventoryItem", error)
     }
 }
 
@@ -514,6 +597,7 @@ module.exports = {
     makeUserBusinessOwner,
     deleteInventoryItem,
     deleteMenuItem,
-    removeInventoryItemfromMenuItem
+    removeInventoryItemfromMenuItem,
+    updateInventoryItem
 }
 

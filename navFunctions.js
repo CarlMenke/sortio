@@ -63,6 +63,10 @@ const showInventoryItemDetails = async (navState, setNavStateAction, options, in
         payload :  inventoryItemName, 
         options: typeof options === "object" ? options : {} 
     }
+    if(options.refresh){
+        const response = await getBusinessDetails(navState.business.businessName)
+        navStateSave.business = response.data
+    }
     await setNavStateAction(navStateSave)
 }
 

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react'
 import { setNavState } from '../../redux/actions';
 import InventoryItemCard from '../cards/InventoryItemCard';
-import { addInventoryItemsToMenuItem, removeInventoryItemfromMenuItem } from '../../firebaseFunctions'
-import { showMenuItemDetails } from "../../navFunctions"
+import { addInventoryItemsToMenuItem, removeInventoryItemfromMenuItem, deleteMenuItem } from '../../firebaseFunctions'
+import { showMenuItemDetails, showMenuItems} from "../../navFunctions"
 import QuantityForm from '../forms/QuantityForm';
 import InventoryScreen from './InventoryScreen';
 import styles from '../style/styles';
@@ -49,6 +49,11 @@ export default function MenuItemDetailsScreen(props) {
         await showMenuItemDetails(navState, setNavStateAction, {refresh:true}, menuItem.name)
     }
 
+    const handleDeleteMenuItem = async () => {
+        await deleteMenuItem(menuItem.name, navState.business.businessName)
+        await showMenuItems(navState, setNavStateAction, {})
+    }
+
     return(
         <View style={styles.container}>
             <Text>{menuItem.name}</Text>
@@ -60,7 +65,8 @@ export default function MenuItemDetailsScreen(props) {
                     <View style={styles.container} key={index}>
                        <InventoryItemCard 
                             inMenuItem={true} 
-                            inventoryItem={{name:item[0], ...item[1]}}/>
+                            inventoryItem={{name:item[0], ...item[1]}}
+                            onPressHandler={()=>{}}/>
                        <Button
                             title="Set Amount Used"
                             onPress={()=>{proptAmountOfItemUsed(item)}}/>
@@ -83,6 +89,9 @@ export default function MenuItemDetailsScreen(props) {
             <Button
                 onPress={()=>setHideInventoryScreen(false)}
                 title="Add Items"/>
+            <Button
+                onPress={handleDeleteMenuItem}
+                title="Delete Menu Item"/>
         </View>
     )
 }
