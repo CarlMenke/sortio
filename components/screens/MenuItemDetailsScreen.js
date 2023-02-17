@@ -57,7 +57,6 @@ export default function MenuItemDetailsScreen(props) {
     return(
         <View style={styles.container}>
             <Text>{menuItem.name}</Text>
-            <Text>IMAGE HERE</Text>
             <Text>${menuItem.price}</Text>
             <Text>Ingredients: </Text>
             {Object.entries(menuItem.itemsUsed).map((item, index)=>{

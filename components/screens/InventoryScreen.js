@@ -12,7 +12,6 @@ export default function InventoryScreen(props) {
     const setNavStateAction = (navState) => dispatch(setNavState(navState))
     const { navState } = useSelector(state => state.reducer)
 
-    console.log(navState.business.inventoryItems)
     return(
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollView}>

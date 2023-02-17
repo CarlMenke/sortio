@@ -13,7 +13,6 @@ export default function MenuItemCard(props) {
     return(
         <View style={styles.container}>
             <Text>{name}</Text>
-            <Text>IMAGE HERE</Text>
             <Text>Price: {price}</Text>
             <Button
             onPress={()=>showMenuItemDetails(navState, setNavStateAction, {}, name)}

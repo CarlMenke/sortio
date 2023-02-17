@@ -154,11 +154,14 @@ export default function BusinessSettingsScreen() {
         )
     }else{
         return(
-            <View style={styles.container}>
-                <Button
-                title="Leave Business"
-                onPress={handleLeaveBusiness}/>
-            </View>
+            <>
+                <Text>You Must business Owner to make changes</Text>
+                <View style={styles.container}>
+                    <Button
+                    title="Leave Business"
+                    onPress={handleLeaveBusiness}/>
+                </View>
+            </>
         )
     }
 }

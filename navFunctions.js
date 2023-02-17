@@ -13,7 +13,7 @@ const showInventory = async (navState, setNavStateAction, options) => {
     await setNavStateAction(navStateSave)
 }
 
-//
+
 const showMenuItems = async (navState, setNavStateAction, options) => {
     const response  = await getBusinessDetails(navState.business.businessName)
     const navStateSave = {
@@ -26,7 +26,6 @@ const showMenuItems = async (navState, setNavStateAction, options) => {
     await setNavStateAction(navStateSave)
 }
 
-//
 const showMenuItemForm = async (navState, setNavStateAction, options) => {
     const response  = await getBusinessDetails(navState.business.businessName)
     const navStateSave = {
@@ -39,7 +38,7 @@ const showMenuItemForm = async (navState, setNavStateAction, options) => {
     await setNavStateAction(navStateSave)
 }
 
-//
+
 const showMenuItemDetails = async (navState, setNavStateAction, options, data) => {
     console.log("inside showmenuitemdetails")
     const navStateSave = {
@@ -55,7 +54,7 @@ const showMenuItemDetails = async (navState, setNavStateAction, options, data) =
     await setNavStateAction(navStateSave)
 }
 
-//
+
 const showInventoryItemDetails = async (navState, setNavStateAction, options, inventoryItemName) => {
     const navStateSave = {
         ...navState,
@@ -70,7 +69,7 @@ const showInventoryItemDetails = async (navState, setNavStateAction, options, in
     await setNavStateAction(navStateSave)
 }
 
-//
+
 const showBusinessSettings = async (navState, setNavStateAction, options) => {
     const response  = await getBusinessDetails(navState.business.businessName)
     const navStateSave = {
@@ -83,7 +82,7 @@ const showBusinessSettings = async (navState, setNavStateAction, options) => {
     await setNavStateAction(navStateSave)
 }
 
-//
+
 const showInventoryItemForm = async (navState, setNavStateAction, options) => {
     const navStateSave = {
         ...navState,
@@ -106,7 +105,7 @@ const showHome = async (navState, setNavStateAction, options) => {
     await setNavStateAction(navStateSave)
 }
 
-//
+
 const showBusinessForm = async (navState, setNavStateAction, options) => {
     const navStateSave = {
         ...navState,
@@ -117,7 +116,7 @@ const showBusinessForm = async (navState, setNavStateAction, options) => {
     await setNavStateAction(navStateSave)
 }
 
-//
+
 const showSettings = async (navState, setNavStateAction, options) => {
     const navStateSave = {
         ...navState,
