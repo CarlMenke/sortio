@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native"
-
 const YELLOW = "#FDEDCB"
 const GREY = "#D7DDE9"
 const BLUE = "#8CBBF1"
@@ -7,9 +6,9 @@ const PINK = "#F9CEDF"
 
 const styles = new StyleSheet.create({
     container: {
-        flex: .7,
+        flex: 1,
         flexDirection: "column",
-        justifyContent: "space-around"
+        justifyContent: "space-around",
     },
     column: {
         flex: 1,
@@ -17,29 +16,6 @@ const styles = new StyleSheet.create({
     },
     item: {
         flex: 1,
-        backgroundColor: "#FDEDCB"
-    },
-    secondBorder: {
-        borderWidth:1,
-        borderColor:"white",
-        width:"100%",
-        borderRadius: 3,
-      },
-    thirdBorderFocused:{
-        marginTop:.5,
-        opacity: 1,
-        borderWidth : 1,
-        borderColor:"#FFC600",
-        width:"100%",
-        borderRadius: 3
-      },
-    thirdBorderNotFocused: {
-        marginTop: .5,
-        opacity: 1,
-        borderWidth : 0,
-        borderColor:"#FFC600",
-        width:"100%",
-        borderRadius: 3
     },
     input:{
         color:"black",
@@ -63,6 +39,33 @@ const styles = new StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         justifyContent: "space-around"
+    },
+    inputArea: {
+    },
+    inputField: {
+        borderRadius: 7,
+        padding: 15,
+        margin: 10,
+        shadowOffset: {width:.5, height:.5},
+    },
+    inputFieldContainer: {
+        flexDirection: "column",
+        alignContent: "space-around",
+        justifyContent:"center"
+    },
+    textInput:{
+    },
+    inputFieldText:{
+        color: "grey"
+    },
+    inputFieldMove:{
+        position:"absolute",
+        zIndex:-1,
+    },
+    inputFieldUsed: {
+        position: "absolute",
+        top: -20,
+        left: 5
     }
 })
 
