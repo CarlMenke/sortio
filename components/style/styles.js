@@ -1,27 +1,62 @@
 import { StyleSheet } from "react-native"
-const YELLOW = "#FDEDCB"
-const GREY = "#D7DDE9"
-const BLUE = "#8CBBF1"
-const PINK = "#F9CEDF"
+
+const colors = {
+    blue: "#8CBBF1",
+    yellow: "#FDEDCB",
+    pink: "#F9CEDF",
+    grey: "#e6e6e6",
+    darkGrey: "#474747",
+    background: {
+        dark: "grey",
+        light: "white"
+    },
+    input:{
+        dark: ""
+    }
+}
+const fonts = {
+    medium: "MPLUSRounded1c-Medium",
+    extraBold: "MPLUSRounded1c-ExtraBold",
+    light: "MPLUSRounded1c-Light",
+    regular: "MPLUSRounded1c-Regular",
+    thin: "MPLUSRounded1c-Thin",
+    semiBold: "MPLUSRounded1c-Bold"
+}
+
+const shadow = {
+    shadowColor:"grey",
+    shadowOffset:{width: .7, height: .7},
+    shadowOpacity:.9,
+    shadowRadius:.6
+}
 
 const styles = new StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
         justifyContent: "space-around",
+        alignItems: "center",
+        width: "100%"
     },
-    column: {
-        flex: 1,
-        flexDirectrion: "column"
+    startScreenLogo: {
+        width: 115,
+        height: 75,
+        objectFit: "fill"
     },
-    item: {
-        flex: 1,
+    header:{
+        width: "80%",
+        margin:15,
+        justifyContent:"flex-end"
     },
-    input:{
-        color:"black",
-        fontSize:20,
-        fontFamily: "Arial Rounded MT Bold",
-        paddingBottom: 6.5
+    header1:{
+        fontFamily:fonts.extraBold,
+        color: colors.blue,
+        fontSize: 40,
+    },
+    header2: {
+        fontFamily:fonts.regular,
+        color: colors.blue,
+        fontSize: 15,
     },
     item : {
         width:"98%",
@@ -41,22 +76,23 @@ const styles = new StyleSheet.create({
         justifyContent: "space-around"
     },
     inputArea: {
+        width: "80%",
+        flex:  .5
     },
     inputField: {
         borderRadius: 7,
         padding: 15,
-        margin: 10,
+        margin: 17.5,
         shadowOffset: {width:.5, height:.5},
     },
     inputFieldContainer: {
         flexDirection: "column",
         alignContent: "space-around",
-        justifyContent:"center"
-    },
-    textInput:{
+        justifyContent:"center",
     },
     inputFieldText:{
-        color: "grey"
+        color: "#474747",
+        fontFamily: fonts.thin,
     },
     inputFieldMove:{
         position:"absolute",
@@ -65,9 +101,35 @@ const styles = new StyleSheet.create({
     inputFieldUsed: {
         position: "absolute",
         top: -20,
-        left: 5
+        left: 5,
+    },
+    buttonsArea: {
+        flex:.15,
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    switchButton: {
+
+    },
+    switchButtonText: {
+        fontFamily: fonts.regular,
+        fontSize: 15,
+        color: colors.blue,
+        paddingTop: 70
+    },
+    submitButton: {
+        borderRadius: 10,
+        backgroundColor: colors.grey,
+    },
+    submitButtontext: {
+        fontFamily: fonts.extraBold,
+        fontSize: 15,
+        padding: 17.5,
+        color: colors.blue
     }
 })
+
+//NEXT TRY AND FIGURE OUT THE CUSTOM FONTS
 
 export default styles
 

@@ -8,7 +8,7 @@ const initialState = {
     navState : {
         screen : "home",
         payload : null,
-        bottomBar : "home"
+        bottomBar : "startScreen"
     }
 }
 

@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import styles from '../style/styles';
 
 export default function InputField(props) {
-    const { onChangeText, value, label, placeholder} = props
+    const { onChangeText, value, placeholder} = props
 
     const animation = useRef(new Animated.Value(0)).current
     const [focused, setFocused ] = useState(false)
@@ -20,18 +20,15 @@ export default function InputField(props) {
 
     return (
         <View style={styles.inputFieldContainer}>
-            <Text>{label}</Text>
             <Animated.View 
                 style={[
                     styles.inputField,
                     {
-                        backgroundColor:animation.interpolate({inputRange: [0,1], outputRange: ["#f2f2f2", "#ebebeb"]}),
-                        borderColor:animation.interpolate({inputRange: [0, 1], outputRange: ["#999999", "#787878"]}),
-                        borderWidth:animation.interpolate({inputRange: [0, 1], outputRange: [1.5, 2]}),
+                        backgroundColor:animation.interpolate({inputRange: [0,1], outputRange: ["#e6e6e6", "#ebebeb"]}),
                         shadowColor:animation.interpolate({inputRange: [0, 1], outputRange: ["#808080", "#454545"]}),
                         shadowRadius:animation.interpolate({inputRange: [0, 1], outputRange: [1, 1.75]}),
                         shadowOpacity:animation.interpolate({inputRange: [0, 1], outputRange: [.4, .5]}),
-                        padding:animation.interpolate({inputRange: [0, 1], outputRange: [15, 14]}),
+                        padding:animation.interpolate({inputRange: [0, 1], outputRange: [14.5, 14]}),
                     }
                 ]}> 
                 <Animated.View
@@ -45,7 +42,7 @@ export default function InputField(props) {
                     <Text style ={styles.inputFieldText}>{placeholder}</Text>
                 </Animated.View>
                 <TextInput 
-                style = {styles.textInput}
+                style = {styles.inputFieldText}
                 onChangeText = {onChangeText}
                 value = {value}
                 onFocus={()=>setFocused(true)}

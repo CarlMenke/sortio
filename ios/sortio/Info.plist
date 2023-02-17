@@ -53,7 +53,12 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Montserrat-Medium.ttf</string>
+		<string>MPLUSRounded1c-Bold.ttf</string>
+		<string>MPLUSRounded1c-ExtraBold.ttf</string>
+		<string>MPLUSRounded1c-Light.ttf</string>
+		<string>MPLUSRounded1c-Medium.ttf</string>
+		<string>MPLUSRounded1c-Regular.ttf</string>
+		<string>MPLUSRounded1c-Thin.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -1,4 +1,4 @@
-import { Text, View, Animated, TouchableOpacity } from 'react-native';
+import { Text, View, Animated, TouchableOpacity, Image } from 'react-native';
 import { useEffect, useState, useRef  } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { setAuthentication, setNavState } from '../../redux/actions'
@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getCurrentUsersBusinesses } from '../../firebaseFunctions'
 import InputField from '../tags/InputField';
 import styles from '../style/styles'
+const logo = require('../../assets/images/logo.png')
 
 export default function StartScreen() {
   const [firstName, setFirstName] = useState("")
@@ -65,12 +66,10 @@ export default function StartScreen() {
     if(header.method === "signup"){
       return (
         <View style={styles.container}>
-
             <View style={styles.header}>
               <Text style={styles.header1}>{header.header1}</Text>
               <Text style={styles.header2}>{header.header2}</Text>
             </View>
-
             <View style={styles.inputArea}>
               <InputField
               onChangeText={setFirstName}
@@ -93,6 +92,8 @@ export default function StartScreen() {
               value = {password}
               placeholder = "Password"/>
             </View>
+
+            {/* <Image style={styles.startScreenLogo} source={logo}/> */}
 
             <View style={styles.buttonsArea}>
               <TouchableOpacity

@@ -6,20 +6,19 @@ import Navigation from './components/navigation/Navigation';
 import BottomBar from './components/navigation/BottomBar';
 import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
 
-
 function App(): JSX.Element {
 
   const styles = StyleSheet.create({
     container: {
       flexDirection: "column",
-      flex:1
+      flex:1,
+      backgroundColor: "#f2f2f2"
     },
     statusBar: {
-      backgroundColor: '#232323',
       flex:.075
     },
     navigation:{
-      flex: .835
+      flex: .835,
     },
     bottomBar:{
       flex: .09,
