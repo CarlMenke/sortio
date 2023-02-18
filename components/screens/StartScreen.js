@@ -63,9 +63,10 @@ export default function StartScreen() {
     }
   }
   
-    if(header.method === "signup"){
-      return (
-        <View style={styles.container}>
+  if(header.method === "signup"){
+    return (
+      <View style={styles.container}>
+            <Image style={styles.startScreenLogo} source={logo}/>
             <View style={styles.header}>
               <Text style={styles.header1}>{header.header1}</Text>
               <Text style={styles.header2}>{header.header2}</Text>
@@ -93,7 +94,6 @@ export default function StartScreen() {
               placeholder = "Password"/>
             </View>
 
-            {/* <Image style={styles.startScreenLogo} source={logo}/> */}
 
             <View style={styles.buttonsArea}>
               <TouchableOpacity

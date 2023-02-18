@@ -12,7 +12,7 @@ export default function InputField(props) {
     useEffect(()=>{
         Animated.timing(animation, {
           toValue: focused? 1 : 0,
-          duration: 200,
+          duration: 100,
           useNativeDriver: false,
           easing: Easing.quad
         }).start()

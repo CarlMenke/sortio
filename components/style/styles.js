@@ -15,12 +15,12 @@ const colors = {
     }
 }
 const fonts = {
-    medium: "MPLUSRounded1c-Medium",
-    extraBold: "MPLUSRounded1c-ExtraBold",
-    light: "MPLUSRounded1c-Light",
-    regular: "MPLUSRounded1c-Regular",
-    thin: "MPLUSRounded1c-Thin",
-    semiBold: "MPLUSRounded1c-Bold"
+    // medium: "MPLUSRounded1c-Medium",
+    // extraBold: "MPLUSRounded1c-ExtraBold",
+    // light: "MPLUSRounded1c-Light",
+    // regular: "MPLUSRounded1c-Regular",
+    // thin: "MPLUSRounded1c-Thin",
+    // semiBold: "MPLUSRounded1c-Bold"
 }
 
 const shadow = {
@@ -34,19 +34,19 @@ const styles = new StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        justifyContent: "space-around",
         alignItems: "center",
         width: "100%"
     },
     startScreenLogo: {
-        width: 115,
-        height: 75,
+        marginTop: 20,
+        width: 150,
+        height: 100,
         objectFit: "fill"
     },
     header:{
         width: "80%",
-        margin:15,
-        justifyContent:"flex-end"
+        marginLeft: 40,
+        marginTop: 35,
     },
     header1:{
         fontFamily:fonts.extraBold,
@@ -61,7 +61,7 @@ const styles = new StyleSheet.create({
     item : {
         width:"98%",
         marginTop: 20,
-        marginBottom:20,
+        marginBottom: 20,
         flex: .2
     },
     user: {
@@ -77,7 +77,8 @@ const styles = new StyleSheet.create({
     },
     inputArea: {
         width: "80%",
-        flex:  .5
+        flex:  .7,
+        margin: 20
     },
     inputField: {
         borderRadius: 7,
@@ -91,7 +92,7 @@ const styles = new StyleSheet.create({
         justifyContent:"center",
     },
     inputFieldText:{
-        color: "#474747",
+        color: "grey",
         fontFamily: fonts.thin,
     },
     inputFieldMove:{
@@ -115,7 +116,7 @@ const styles = new StyleSheet.create({
         fontFamily: fonts.regular,
         fontSize: 15,
         color: colors.blue,
-        paddingTop: 70
+        paddingTop: 50
     },
     submitButton: {
         borderRadius: 10,
