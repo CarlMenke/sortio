@@ -15,12 +15,12 @@ const colors = {
     }
 }
 const fonts = {
-    // medium: "MPLUSRounded1c-Medium",
-    // extraBold: "MPLUSRounded1c-ExtraBold",
-    // light: "MPLUSRounded1c-Light",
-    // regular: "MPLUSRounded1c-Regular",
-    // thin: "MPLUSRounded1c-Thin",
-    // semiBold: "MPLUSRounded1c-Bold"
+    medium: "MPLUSRounded1c-Medium",
+    extraBold: "MPLUSRounded1c-ExtraBold",
+    light: "MPLUSRounded1c-Light",
+    regular: "MPLUSRounded1c-Regular",
+    thin: "MPLUSRounded1c-Thin",
+    semiBold: "MPLUSRounded1c-Bold"
 }
 
 const shadow = {
