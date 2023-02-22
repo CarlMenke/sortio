@@ -1,4 +1,4 @@
-import { Text, View, Animated, TouchableOpacity } from 'react-native';
+import { Text, View, Animated, TouchableOpacity, Image } from 'react-native';
 import { useEffect, useState, useRef  } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { setAuthentication, setNavState } from '../../redux/actions'
@@ -6,8 +6,9 @@ import { signup, login } from '../../firebaseFunctions'
 import { auth }   from '../../firebaseConfig';
 import { onAuthStateChanged } from "firebase/auth";
 import { getCurrentUsersBusinesses } from '../../firebaseFunctions'
-import StartTextInput from '../tags/StartTextInput';
+import InputField from '../tags/InputField';
 import styles from '../style/styles'
+const logo = require('../../assets/images/logo.png')
 
 export default function StartScreen() {
   const [firstName, setFirstName] = useState("")
@@ -19,48 +20,6 @@ export default function StartScreen() {
     header2: "create an account below.",
     method: 'signup'
   })
-
-const [emailFocused, setEmailFocused ] = useState(false)
-const [passwordFocused, setPasswordFocused ] = useState(false)
-const [firstNameFocused, setFirstNameFocused ] = useState(false)
-const [lastNameFocused, setLastNameFocused ] = useState(false)
-
-const emailAnim = useRef(new Animated.Value(0)).current
-const passwordAnim = useRef(new Animated.Value(0)).current
-const firstNameAnim = useRef(new Animated.Value(0)).current
-const lastNameAnim = useRef(new Animated.Value(0)).current
-
-useEffect(()=>{
-  Animated.timing(emailAnim, {
-    toValue: emailFocused? 1 : 0,
-    duration: 225,
-    useNativeDriver:false,
-  }).start()
-},[emailFocused])
-
-useEffect(()=>{
-  Animated.timing(passwordAnim, {
-    toValue: passwordFocused? 1 : 0,
-    duration: 225,
-    useNativeDriver:false,
-  }).start()
-},[passwordFocused])
-
-useEffect(()=>{
-  Animated.timing(firstNameAnim, {
-    toValue: firstNameFocused? 1 : 0,
-    duration: 225,
-    useNativeDriver:false,
-  }).start()
-},[firstNameFocused])
-
-useEffect(()=>{
-  Animated.timing(lastNameAnim, {
-    toValue: lastNameFocused? 1 : 0,
-    duration: 225,
-    useNativeDriver:false,
-  }).start()
-},[lastNameFocused])
 
   const dispatch = useDispatch()
   const setAuthenticationAction = (isAuthenticated) => dispatch(setAuthentication(isAuthenticated))
@@ -103,56 +62,38 @@ useEffect(()=>{
       })
     }
   }
-
   
-
-    if(header.method === "signup"){
-      return (
-        <View style={styles.container}>
-
+  if(header.method === "signup"){
+    return (
+      <View style={styles.container}>
+            <Image style={styles.startScreenLogo} source={logo}/>
             <View style={styles.header}>
               <Text style={styles.header1}>{header.header1}</Text>
               <Text style={styles.header2}>{header.header2}</Text>
             </View>
-
             <View style={styles.inputArea}>
-              <StartTextInput
+              <InputField
               onChangeText={setFirstName}
               value={firstName}
-              placeholder={"First Name"}
-              onFocus={()=>{setFirstNameFocused(true)}}
-              onBlur={()=>{setFirstNameFocused(false)}}
-              focused={firstNameFocused}
-              animation={firstNameAnim}/>
+              placeholder={"First Name"}/>
 
-              <StartTextInput 
+              <InputField 
               onChangeText = {setLastName}
               value = {lastName}
-              placeholder = "Last Name"
-              onFocus={()=>setLastNameFocused(true)}
-              onBlur={()=>setLastNameFocused(false)}
-              focused={lastNameFocused}
-              animation={lastNameAnim}/>
+              placeholder = "Last Name"/>
 
-              <StartTextInput 
+              <InputField 
               onChangeText = {setEmail}
               value = {email}
-              placeholder = "Email"
-              onFocus={()=>setEmailFocused(true)}
-              onBlur={()=>setEmailFocused(false)}
-              focused={emailFocused}
-              animation={emailAnim}/>
+              placeholder = "Email"/>
 
-              <StartTextInput
+              <InputField
               onChangeText = {setPassword}
               secureTextEntry={true}
               value = {password}
-              placeholder = "Password"
-              onFocus={()=>setPasswordFocused(true)}
-              onBlur={()=>setPasswordFocused(false)}
-              focused={passwordFocused}
-              animation={passwordAnim}/>
+              placeholder = "Password"/>
             </View>
+
 
             <View style={styles.buttonsArea}>
               <TouchableOpacity

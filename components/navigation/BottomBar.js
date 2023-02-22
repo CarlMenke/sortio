@@ -41,6 +41,10 @@ export default function BottomBar() {
                 onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}/>
             </View>
         )
+    }else{
+        return(
+            <></>
+        )
     }
 }
 
