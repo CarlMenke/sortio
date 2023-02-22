@@ -66,7 +66,6 @@ export default function StartScreen() {
   if(header.method === "signup"){
     return (
       <View style={styles.container}>
-            <Image style={styles.startScreenLogo} source={logo}/>
             <View style={styles.header}>
               <Text style={styles.header1}>{header.header1}</Text>
               <Text style={styles.header2}>{header.header2}</Text>
@@ -119,25 +118,18 @@ export default function StartScreen() {
               <Text style={styles.header2}>{header.header2}</Text>
             </View>
             <View style={styles.inputArea}>
-              <StartTextInput 
-              onChangeText = {setEmail}
-              value = {email}
-              placeholder = "Email"
-              onFocus={()=>setEmailFocused(true)}
-              onBlur={()=>setEmailFocused(false)}
-              focused={emailFocused}
-              animation={emailAnim}/>
+              <InputField 
+                onChangeText = {setEmail}
+                value = {email}
+                placeholder = "Email"/>
 
-              <StartTextInput
-              onChangeText = {setPassword}
-              secureTextEntry={true}
-              value = {password}
-              placeholder = "Password"
-              onFocus={()=>setPasswordFocused(true)}
-              onBlur={()=>setPasswordFocused(false)}
-              focused={passwordFocused}
-              animation={passwordAnim}/>
+                <InputField
+                onChangeText = {setPassword}
+                secureTextEntry={true}
+                value = {password}
+                placeholder = "Password"/>
             </View>
+
             <View style={styles.buttonsArea}>
               <TouchableOpacity
               style = {styles.submitButton}

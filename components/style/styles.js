@@ -15,12 +15,12 @@ const colors = {
     }
 }
 const fonts = {
-    medium: "MPLUSRounded1c-Medium",
-    extraBold: "MPLUSRounded1c-ExtraBold",
-    light: "MPLUSRounded1c-Light",
-    regular: "MPLUSRounded1c-Regular",
-    thin: "MPLUSRounded1c-Thin",
-    semiBold: "MPLUSRounded1c-Bold"
+    medium: "Nunito-Medium",
+    extraBold: "Nunito-ExtraBold",
+    regular: "Nunito-Regular",
+    semiBold: "Nunito-Semibold",
+    light: "Nunito-Light",
+    extraLight: "Nunito-ExtraLight"
 }
 
 const shadow = {
@@ -77,13 +77,14 @@ const styles = new StyleSheet.create({
     },
     inputArea: {
         width: "80%",
-        flex:  .7,
-        margin: 20
+        flex:.8,
+        margin: 30,
+        justifyContent: "center"
     },
     inputField: {
         borderRadius: 7,
         padding: 15,
-        margin: 17.5,
+        margin: 27.5,
         shadowOffset: {width:.5, height:.5},
     },
     inputFieldContainer: {
@@ -93,7 +94,7 @@ const styles = new StyleSheet.create({
     },
     inputFieldText:{
         color: "grey",
-        fontFamily: fonts.thin,
+        fontFamily: fonts.light,
     },
     inputFieldMove:{
         position:"absolute",
@@ -124,6 +125,7 @@ const styles = new StyleSheet.create({
     },
     submitButtontext: {
         fontFamily: fonts.extraBold,
+        fontWeight: "bold",
         fontSize: 15,
         padding: 17.5,
         color: colors.blue
