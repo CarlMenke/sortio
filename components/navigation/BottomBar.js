@@ -15,11 +15,11 @@ export default function BottomBar() {
         return(
             <View style={styles.container}>
                 <Button
-                color="#FFC600"
+                color="#8CBBF1"
                 title="Home"
                 onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}/>
                 <Button
-                color="#FFC600"
+                color="#8CBBF1"
                 title="Settings"
                 onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}/>
             </View>
@@ -28,15 +28,15 @@ export default function BottomBar() {
         return(
             <View style={styles.container}>
                 <Button
-                color="#FFC600"
+                color="#8CBBF1"
                 title="Business"
                 onPress={()=>{if(isAuthenticated)showBusiness(navState, setNavStateAction, {}, navState.business.businessName)}}/>
                 <Button
-                color="#FFC600"
+                color="#8CBBF1"
                 title="Home"
                 onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}/>
                 <Button
-                color="#FFC600"
+                color="#8CBBF1"
                 title="Settings"
                 onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}/>
             </View>

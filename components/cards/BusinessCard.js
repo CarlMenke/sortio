@@ -1,4 +1,4 @@
-import { View, Button, Text} from 'react-native';
+import { View, Button, Text, Touchable, TouchableOpacity} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 import { showBusiness } from '../../navFunctions'
@@ -11,11 +11,13 @@ export default function BusinessCard(props) {
     const { navState } = useSelector(state => state.reducer)
     
     return(
-        <View style={styles.container}>
-            <Text>{businessName}</Text>
-            <Button
-                onPress = {()=>{showBusiness(navState, setNavStateAction,{}, businessName)}}
-                title = "Details"/>
+        <View style={styles.businessCard}>
+            <Text styles={styles.buisnessCardHeader}>{businessName}</Text>
+            <TouchableOpacity
+            style={styles.detailsButton}
+                onPress = {()=>{showBusiness(navState, setNavStateAction,{}, businessName)}}>
+                <Text style={styles.detailsButtonText}>Details</Text>
+                </TouchableOpacity>
         </View>
     )
 }

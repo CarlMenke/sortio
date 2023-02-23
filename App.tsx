@@ -22,7 +22,7 @@ function App(): JSX.Element {
     },
     bottomBar:{
       flex: .09,
-      zIndex: -1
+      zIndex: -1,
     }
   });
   

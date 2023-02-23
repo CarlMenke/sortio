@@ -1,4 +1,4 @@
-import { View, Button } from 'react-native';
+import { View, Button, TouchableOpacity, Text, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import BusinessCard from '../cards/BusinessCard';
 import { showBusinessForm } from '../../navFunctions'
@@ -18,15 +18,24 @@ export default function HomeScreen() {
     const { navState } = useSelector(state => state.reducer)
     
     return(
-        <View style={styles.container}>
-            <Button
-            onPress={()=>{showBusinessForm(navState, setNavStateAction, {})}}
-            title="Create / Join Business"/> 
-            {navState.payload.map((businessName, index)=>{
-                return(
-                    <BusinessCard businessName={businessName} key={index}/>
-                )
-            })}
+        <View style={styles.homeScreen}>
+            <View style={styles.homeScreenBusinessesArea}>
+                <Text style={styles.title}>Your Businesses: </Text>
+                <ScrollView contentContainerStyle={styles.homeScreenBusinesses}>
+                    {navState.payload.map((businessName, index)=>{
+                        return(
+                            <BusinessCard businessName={businessName} key={index}/>
+                        )
+                    })}
+                </ScrollView>
+            </View>
+            <TouchableOpacity
+            style={styles.formButton}
+            onPress={()=>{showBusinessForm(navState, setNavStateAction, {})}}>
+                <Text style={styles.formButtonText}>
+                Create or Join Business
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }

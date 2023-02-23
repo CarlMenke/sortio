@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import styles from '../style/styles';
 
 export default function InputField(props) {
-    const { onChangeText, value, placeholder} = props
+    const { onChangeText, value, placeholder, isPassword} = props
 
     const animation = useRef(new Animated.Value(0)).current
     const [focused, setFocused ] = useState(false)
@@ -41,7 +41,8 @@ export default function InputField(props) {
                     ]}>
                     <Text style ={styles.inputFieldText}>{placeholder}</Text>
                 </Animated.View>
-                <TextInput 
+                <TextInput
+                secureTextEntry= {isPassword}
                 style = {styles.inputFieldText}
                 onChangeText = {onChangeText}
                 value = {value}

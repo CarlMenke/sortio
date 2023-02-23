@@ -4,8 +4,8 @@ const colors = {
     blue: "#8CBBF1",
     yellow: "#FDEDCB",
     pink: "#F9CEDF",
-    grey: "#e6e6e6",
-    darkGrey: "#474747",
+    lightGrey: "#e6e6e6",
+    darkGrey: "#6e6e6e",
     background: {
         dark: "grey",
         light: "white"
@@ -32,6 +32,50 @@ const shadow = {
 
 const styles = new StyleSheet.create({
     container: {
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%"
+    },
+    title:{
+        fontFamily:fonts.semiBold,
+        color: colors.darkGrey,
+        fontSize:20,
+        margin: 10
+    },
+    buisnessCardHeader:{
+        fontFamily: fonts.extraBold,
+        fontSize: 40,
+        color: colors.darkGrey
+    },
+    homeScreen: {
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent:"space-between",
+    },
+    homeScreenBusinesses: {
+        flexDirection: "column",
+        justifyContent: "center",
+        marginLeft: 10,
+        marginRight: 30
+    },
+    homeScreenBusinessesArea:{
+        justifyContent: "flex-start",
+        marginLeft: 60,
+        marginRight: 40,
+    },
+    businessCard: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent:"space-between",
+        width:"100%",
+        backgroundColor: colors.lightGrey,
+        marginTop: 10,
+        padding: 10,
+        borderRadius: 10
+    },
+    startScreen: {
         flex: 1,
         flexDirection: "column",
         alignItems: "center",
@@ -65,7 +109,7 @@ const styles = new StyleSheet.create({
         flex: .2
     },
     user: {
-        backgroundColor:"grey "
+        backgroundColor: colors.lightGrey
     },
     bottomTab:{
         marginBottom: 10
@@ -93,7 +137,7 @@ const styles = new StyleSheet.create({
         justifyContent:"center",
     },
     inputFieldText:{
-        color: "grey",
+        color: colors.darkGrey,
         fontFamily: fonts.light,
     },
     inputFieldMove:{
@@ -110,6 +154,11 @@ const styles = new StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
+    resetPassword: {
+        fontFamily: fonts.extraLight,
+        color: colors.darkGrey,
+        textAlign: "center"
+    },
     switchButton: {
 
     },
@@ -121,7 +170,7 @@ const styles = new StyleSheet.create({
     },
     submitButton: {
         borderRadius: 10,
-        backgroundColor: colors.grey,
+        backgroundColor: colors.lightGrey,
     },
     submitButtontext: {
         fontFamily: fonts.extraBold,
@@ -129,6 +178,23 @@ const styles = new StyleSheet.create({
         fontSize: 15,
         padding: 17.5,
         color: colors.blue
+    },
+    formButton: {
+        backgroundColor: colors.lightGrey,
+        padding: 15,
+        margin: 10,
+        borderRadius: 10
+    },
+    detailsButton:{
+        fontFamily:fonts.extraLight
+    },
+    detailsButtonText:{
+        fontFamily:fonts.extraLight
+    },
+    formButtonText: {
+        fontFamily: fonts.semiBold,
+        color: colors.blue,
+        fontSize:15
     }
 })
 
