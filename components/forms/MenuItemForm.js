@@ -71,23 +71,28 @@ export default function MenuItemForm() {
             <View style={styles.item} >
                 <Text>Menu Item Name:</Text>
                 <TextInput
-                    style={styles.input}
-                    onChangeText={setMenuItemName}
-                    value={menuItemName}
-                    placeholder="Menu Item Name"/>
+                style={styles.input}
+                onChangeText={setMenuItemName}
+                value={menuItemName}
+                placeholder="Menu Item Name"/>
             </View>
             
             <View style={styles.item} >  
                 <Text>Price:</Text>
                 <TextInput
-                    style={styles.input}
-                    onChangeText={setPrice}
-                    value={price}
-                    keyboardType='numeric'
-                    placeholder="price"/>
+                style={styles.input}
+                onChangeText={setPrice}
+                value={price}
+                keyboardType='numeric'
+                placeholder="price"/>
             </View>
 
-            <QuantityForm show = {show} setShow={setShow} inventoryItems={inventoryItems} setInventoryItems={setInventoryItems} item={item}/>
+            <QuantityForm 
+            show = {show} 
+            setShow={setShow} 
+            inventoryItems={inventoryItems} 
+            setInventoryItems={setInventoryItems} 
+            item={item}/>
 
             <View style={styles.container}>
                 <Text>Add Inventory Items:</Text>

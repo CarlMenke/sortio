@@ -14,10 +14,12 @@ export default function InventoryItemCard(props) {
 
     if("inMenuItem" in props){
         return(
-            <TouchableWithoutFeedback onPress={()=>{
+            <TouchableWithoutFeedback 
+            onPress={()=>{
                 props.onPressHandler?
                 props.onPressHandler(props.inventoryItem):
-                showInventoryItemDetails(navState, setNavStateAction, {}, name)}}>
+                showInventoryItemDetails(navState, setNavStateAction, {}, name)
+            }}>
                 <View style={styles.container}>
                     <Text>{name}</Text>
                     <Text>{amountUsed}</Text>
@@ -30,7 +32,8 @@ export default function InventoryItemCard(props) {
             <TouchableWithoutFeedback onPress={()=>{
                 props.onPressHandler?
                 props.onPressHandler(props.inventoryItem):
-                showInventoryItemDetails(navState, setNavStateAction, {}, name)}}>
+                showInventoryItemDetails(navState, setNavStateAction, {}, name)
+            }}>
                 <View style={styles.container}>
                     <Text>{name}</Text>
                     <Text>{currentValue}</Text>

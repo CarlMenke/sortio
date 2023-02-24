@@ -63,34 +63,34 @@ export default function MenuItemDetailsScreen(props) {
                 return(
                     <View style={styles.container} key={index}>
                        <InventoryItemCard 
-                            inMenuItem={true} 
-                            inventoryItem={{name:item[0], ...item[1]}}
-                            onPressHandler={()=>{}}/>
+                        inMenuItem={true} 
+                        inventoryItem={{name:item[0], ...item[1]}}
+                        onPressHandler={()=>{}}/>
                        <Button
-                            title="Set Amount Used"
-                            onPress={()=>{proptAmountOfItemUsed(item)}}/>
+                        title="Set Amount Used"
+                        onPress={()=>{proptAmountOfItemUsed(item)}}/>
                        <Button
-                            title="Delete"
-                            onPress={()=>{handleRemoveInventoryItemFromMenuItem(item)}}/>
+                        title="Delete"
+                        onPress={()=>{handleRemoveInventoryItemFromMenuItem(item)}}/>
                     </View>
                 )
             })}
             <QuantityForm 
-                show = {show} 
-                setShow={setShow} 
-                inventoryItems={itemsUsed} 
-                setInventoryItems={setItemsUsed} 
-                item={item} 
-                handleSubmit={submitItemToMenuItem}/>
+            show = {show} 
+            setShow={setShow} 
+            inventoryItems={itemsUsed} 
+            setInventoryItems={setItemsUsed} 
+            item={item} 
+            handleSubmit={submitItemToMenuItem}/>
             <InventoryScreen 
-                hide={hideInventoryScreen} 
-                onPressHandler={(inventoryItem)=>{handleSelectedInventoryItem(inventoryItem)}}/>
+            hide={hideInventoryScreen} 
+            onPressHandler={(inventoryItem)=>{handleSelectedInventoryItem(inventoryItem)}}/>
             <Button
-                onPress={()=>setHideInventoryScreen(false)}
-                title="Add Items"/>
+            onPress={()=>setHideInventoryScreen(false)}
+            title="Add Items"/>
             <Button
-                onPress={handleDeleteMenuItem}
-                title="Delete Menu Item"/>
+            onPress={handleDeleteMenuItem}
+            title="Delete Menu Item"/>
         </View>
     )
 }

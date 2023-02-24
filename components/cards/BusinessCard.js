@@ -15,9 +15,12 @@ export default function BusinessCard(props) {
             <Text styles={styles.buisnessCardHeader}>{businessName}</Text>
             <TouchableOpacity
             style={styles.detailsButton}
-                onPress = {()=>{showBusiness(navState, setNavStateAction,{}, businessName)}}>
-                <Text style={styles.detailsButtonText}>Details</Text>
-                </TouchableOpacity>
+            onPress = {()=>{showBusiness(navState, setNavStateAction,{}, businessName)}}>
+                <Text 
+                style={styles.detailsButtonText}>
+                    Details
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }

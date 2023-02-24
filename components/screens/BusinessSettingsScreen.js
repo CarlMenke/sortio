@@ -106,25 +106,25 @@ export default function BusinessSettingsScreen() {
                 <View>
                     <Text>Update Business Name: </Text>
                     <TextInput 
-                        style = {styles.input}
-                        onChangeText = {setBusinessName}
-                        value = {businessName}/>
+                    style = {styles.input}
+                    onChangeText = {setBusinessName}
+                    value = {businessName}/>
                 </View>
                 <EnterBusinessCode 
-                    businessName={businessName} 
-                    show = {showBusinessCode} 
-                    setShow={setShowBusinessCode} 
-                    value={businessCode} 
-                    setValue={setBusinessCode} 
-                    submitType={currentSubmitAction}
-                    email={email}/>
+                businessName={businessName} 
+                show = {showBusinessCode} 
+                setShow={setShowBusinessCode} 
+                value={businessCode} 
+                setValue={setBusinessCode} 
+                submitType={currentSubmitAction}
+                email={email}/>
                 <TouchableOpacity
-                    onPress={()=>promptBusinessCode("update")}>
+                onPress={()=>promptBusinessCode("update")}>
                     <Text>Update</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={()=>promptBusinessCode("delete")}>
-                        <Text>Delete {navState.business.businessName}</Text>
+                onPress={()=>promptBusinessCode("delete")}>
+                    <Text>Delete {navState.business.businessName}</Text>
                 </TouchableOpacity>
                 <View style={styles.user}>
                     <Text>Users: </Text>

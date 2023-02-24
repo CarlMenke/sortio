@@ -33,28 +33,28 @@ export default function QuantityForm(props) {
                 <View style={styles.item} >  
                     <Text>How much do you use?:</Text>
                     <TextInput
-                        style={styles.input}
-                        onChangeText={setAmountUsed}
-                        value={amountUsed}
-                        keyboardType='numeric'
-                        placeholder="Amount Used"/>
+                    style={styles.input}
+                    onChangeText={setAmountUsed}
+                    value={amountUsed}
+                    keyboardType='numeric'
+                    placeholder="Amount Used"/>
                     <DropDownPicker
-                        title="Unit"
-                        open={open}
-                        value={amountUnit}
-                        items={unitArray}
-                        setOpen={setOpen}
-                        setValue={setAmountUnit}
-                        setItems={setUnitArray}/>
+                    title="Unit"
+                    open={open}
+                    value={amountUnit}
+                    items={unitArray}
+                    setOpen={setOpen}
+                    setValue={setAmountUnit}
+                    setItems={setUnitArray}/>
                 </View>
     
                 <Button
-                    title="Enter"
-                    onPress={()=>{
-                        setAmountUnit(null)
-                        setAmountUsed(null)
-                        props.handleSubmit ? props.handleSubmit(amountUsed, amountUnit, item) : handleSubmit()
-                        }}/>
+                title="Enter"
+                onPress={()=>{
+                    setAmountUnit(null)
+                    setAmountUsed(null)
+                    props.handleSubmit ? props.handleSubmit(amountUsed, amountUnit, item) : handleSubmit()
+                }}/>
             </View>
         )
     }

@@ -122,31 +122,25 @@ export default function StartScreen() {
                 onChangeText = {setEmail}
                 value = {email}
                 placeholder = "Email"/>
-
                 <InputField
                 onChangeText = {setPassword}
                 isPassword = {true}
                 value = {password}
                 placeholder = "Password"/>
-
                 <Text style={styles.resetPassword}>Forgot password?</Text>
-
             </View>
-
             <View style={styles.buttonsArea}>
               <TouchableOpacity
               style = {styles.submitButton}
               onPress = {()=>{login(email, password)}}>
-                <Text  style={styles.submitButtontext}>Submit</Text>
+                <Text style={styles.submitButtontext}>Submit</Text>
               </TouchableOpacity>
-
               <TouchableOpacity
               style = {styles.switchButton}
               onPress = {toggleMethod}>
                 <Text  style={styles.switchButtonText}>I wish to create an account.</Text>
               </TouchableOpacity>
             </View>
-
         </View>
       )
     }

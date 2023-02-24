@@ -60,30 +60,30 @@ export default function BusinessForm() {
             <View>
                 <Text>Business Name: </Text>
                 <TextInput 
-                    style = {styles.input}
-                    onChangeText = {setBusinessName}
-                    value = {businessName}
-                    placeholder = "Business Name"/>
+                style = {styles.input}
+                onChangeText = {setBusinessName}
+                value = {businessName}
+                placeholder = "Business Name"/>
             </View>
 
             <View>
                 <Text>Business Code: </Text>
                 <TextInput 
-                    style = {styles.input}
-                    onChangeText = {setBusinessCode}
-                    value = {businessCode}
-                    placeholder = "Business Password"/>
+                style = {styles.input}
+                onChangeText = {setBusinessCode}
+                value = {businessCode}
+                placeholder = "Business Password"/>
             </View>
 
             <View>
                 <Button
-                    style = {styles.button}
-                    onPress = {handleSubmit}
-                    title = {header.method1} />
+                style = {styles.button}
+                onPress = {handleSubmit}
+                title = {header.method1} />
                 <Button
-                    style = {styles.button}
-                    onPress = {toggleMethod}
-                    title = {header.method2}  />
+                style = {styles.button}
+                onPress = {toggleMethod}
+                title = {header.method2}  />
             </View>
         </View>
     )

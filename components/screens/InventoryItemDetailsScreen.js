@@ -12,12 +12,12 @@ const NameInput = (props) => {
         return(
             <View style={styles.container}>
                 <TextInput 
-                    value={props.value}
-                    onChangeText={props.onChangeText}
-                    placeholder="New Item Name"/>
+                value={props.value}
+                onChangeText={props.onChangeText}
+                placeholder="New Item Name"/>
                 <Button
-                    onPress={props.handleSubmit}
-                    title="Update"/>
+                onPress={props.handleSubmit}
+                title="Update"/>
             </View>
         )
     }

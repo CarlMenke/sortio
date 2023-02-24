@@ -34,34 +34,34 @@ export default function InventoryItemForm() {
             <View>
                 <Text>Item Name: </Text>
                 <TextInput 
-                    style={styles.input}
-                    onChangeText={setIventoryItemName}
-                    value={inventoryItemName}
-                    placeholder="Ingredient Name"/>
+                style={styles.input}
+                onChangeText={setIventoryItemName}
+                value={inventoryItemName}
+                placeholder="Ingredient Name"/>
             </View>
 
             <View>
                 <Text>How much do you have: </Text>
                 <TextInput 
-                    style={styles.input}
-                    onChangeText={setAmountValue}
-                    value={amountValue}
-                    keyboardType='numeric'
-                    placeholder="quantity"/>
+                style={styles.input}
+                onChangeText={setAmountValue}
+                value={amountValue}
+                keyboardType='numeric'
+                placeholder="quantity"/>
                 <DropDownPicker
-                    title="Unit"
-                    open={open}
-                    value={amountUnit}
-                    items={unitArray}
-                    setOpen={setOpen}
-                    setValue={setAmountUnit}
-                    setItems={setUnitArray}/>
+                title="Unit"
+                open={open}
+                value={amountUnit}
+                items={unitArray}
+                setOpen={setOpen}
+                setValue={setAmountUnit}
+                setItems={setUnitArray}/>
             </View>
             <View>
                 <Button
-                    style={styles.button}
-                    onPress={submitCreate}
-                    title="Create" />
+                style={styles.button}
+                onPress={submitCreate}
+                title="Create" />
             </View>
         </View>
     )
