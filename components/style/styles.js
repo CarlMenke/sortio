@@ -14,6 +14,7 @@ const colors = {
         dark: ""
     }
 }
+
 const fonts = {
     medium: "Nunito-Medium",
     extraBold: "Nunito-ExtraBold",
@@ -38,41 +39,42 @@ const styles = new StyleSheet.create({
         width: "100%"
     },
     title:{
-        fontFamily:fonts.semiBold,
+        fontFamily:fonts.extraBold,
         color: colors.darkGrey,
-        fontSize:20,
+        fontSize:30,
         margin: 10
     },
-    buisnessCardHeader:{
-        fontFamily: fonts.extraBold,
-        fontSize: 40,
+    businessCardHeader:{
+        fontFamily: fonts.semiBold,
+        fontSize: 15,
         color: colors.darkGrey
     },
     homeScreen: {
         flex: 1,
         flexDirection: "column",
         alignItems: "center",
-        justifyContent:"space-between",
+        justifyContent: "flex-start"
     },
     homeScreenBusinesses: {
         flexDirection: "column",
-        justifyContent: "center",
-        marginLeft: 10,
-        marginRight: 30
+        marginLeft: 5,
+        marginRight: 15,
+        borderRadius: 10,
     },
     homeScreenBusinessesArea:{
-        justifyContent: "flex-start",
-        marginLeft: 60,
-        marginRight: 40,
+        flex: .3,
+        width: "90%",
+        marginLeft: 30,
+        marginRight: 20,
     },
     businessCard: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent:"space-between",
+        justifyContent:"flex-start",
         width:"100%",
         backgroundColor: colors.lightGrey,
         marginTop: 10,
-        padding: 10,
+        padding: 15,
         borderRadius: 10
     },
     startScreen: {
@@ -113,6 +115,14 @@ const styles = new StyleSheet.create({
     },
     bottomTab:{
         marginBottom: 10
+    },
+    bottomBar:{
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
+    navigationView:{
+        flex: 1
     },
     scrollView: {
         flex: 1,
@@ -180,21 +190,15 @@ const styles = new StyleSheet.create({
         color: colors.blue
     },
     formButton: {
-        backgroundColor: colors.lightGrey,
-        padding: 15,
+        padding: 10,
         margin: 10,
         borderRadius: 10
     },
-    detailsButton:{
-        fontFamily:fonts.extraLight
-    },
-    detailsButtonText:{
-        fontFamily:fonts.extraLight
-    },
     formButtonText: {
+        textAlign: "center",
         fontFamily: fonts.semiBold,
         color: colors.blue,
-        fontSize:15
+        fontSize:14
     }
 })
 

@@ -27,15 +27,15 @@ export default function HomeScreen() {
                             <BusinessCard businessName={businessName} key={index}/>
                         )
                     })}
+                    <TouchableOpacity
+                    style={styles.formButton}
+                    onPress={()=>{showBusinessForm(navState, setNavStateAction, {})}}>
+                        <Text style={styles.formButtonText}>
+                        Create or Join a Business.
+                        </Text>
+                    </TouchableOpacity>
                 </ScrollView>
             </View>
-            <TouchableOpacity
-            style={styles.formButton}
-            onPress={()=>{showBusinessForm(navState, setNavStateAction, {})}}>
-                <Text style={styles.formButtonText}>
-                Create or Join Business
-                </Text>
-            </TouchableOpacity>
         </View>
     )
 }

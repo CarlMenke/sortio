@@ -13,7 +13,7 @@ export default function BottomBar() {
 
     if(navState.bottomBar === 'home'){
         return(
-            <View style={styles.container}>
+            <View style={styles.bottomBar}>
                 <Button
                 color="#8CBBF1"
                 title="Home"
@@ -26,7 +26,7 @@ export default function BottomBar() {
         )
     }else if(navState.bottomBar === 'business'){
         return(
-            <View style={styles.container}>
+            <View style={styles.bottomBar}>
                 <Button
                 color="#8CBBF1"
                 title="Business"

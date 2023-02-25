@@ -23,65 +23,93 @@ export default function Navigation() {
       switch (navState.screen) {
         case 'businessSettings':
           return(
-            <BusinessSettingsScreen/>
+            <View style={styles.navigationView}>
+              <BusinessSettingsScreen/>
+            </View>
           )
           
         case 'business':
           return (
-            <BusinessScreen/>
+            <View style={styles.navigationView}>
+              <BusinessScreen/>
+            </View>
           )
         
         case 'businessForm':
           return (
-            <BusinessForm/>
+            <View style={styles.navigationView}>
+              <BusinessForm/>
+            </View>
           )
         
         case 'menuItems':
           return (
-            <MenuItemsScreen />
+            <View style={styles.navigationView}>
+              <MenuItemsScreen />
+            </View>
           )
         
         case 'menuItemForm':
           return(
-            <MenuItemForm/>
+            <View style={styles.navigationView}>
+              <MenuItemForm/>
+            </View>
           )
         
         case 'menuItemDetail':
           return(
-            <MenuItemDetailsScreen menuItem={navState.payload}/>
+            <View style={styles.navigationView}>
+              <MenuItemDetailsScreen menuItem={navState.payload}/>
+            </View>
           )
 
         case 'inventory':
           if("autoFillMenuItem" in navState.options){
-            return <InventoryScreen onPressHandler={navState.options.autoFillMenuItem}/> 
+            return (
+              <View style={styles.navigationView}>
+              <InventoryScreen onPressHandler={navState.options.autoFillMenuItem}/>
+              </View>
+            )
           }
           return (
-            <InventoryScreen/>
+            <View style={styles.navigationView}>
+              <InventoryScreen/>
+            </View>
           )
 
         case 'inventoryItemDetail':
           return(
-            <InventoryItemDetailsScreen />
+            <View style={styles.navigationView}>
+              <InventoryItemDetailsScreen />
+            </View>
           )
           
         case 'inventoryItemForm':
           return (
-            <InventoryItemForm/>
+            <View style={styles.navigationView}>
+              <InventoryItemForm/>
+            </View>
           )
         
         case "settings":
           return(
-            <SettingsScreen/>
+            <View style={styles.navigationView}>
+              <SettingsScreen/>
+            </View>
           )
           
         case 'home':
           return(
-            <HomeScreen/>   
+            <View style={styles.navigationView}>
+              <HomeScreen/>   
+            </View>
           )
 
         default:
           return (
-            <HomeScreen/>
+            <View style={styles.navigationView}>
+              <HomeScreen/>
+            </View>
           )
       }
     }else{

@@ -18,12 +18,11 @@ function App(): JSX.Element {
       flex:.075
     },
     navigation:{
-      flex: .835,
+      flex: .835
     },
     bottomBar:{
       flex: .09,
-      zIndex: -1,
-  
+      zIndex: -1
     }
   });
   
