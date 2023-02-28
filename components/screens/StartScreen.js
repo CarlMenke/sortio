@@ -104,7 +104,7 @@ export default function StartScreen() {
               <TouchableOpacity
               style = {styles.switchButton}
               onPress = {toggleMethod}>
-                <Text style={styles.switchButtonText}>I Already Have An Account.</Text>
+                <Text style={styles.switchButtonText}>I already have an account.</Text>
               </TouchableOpacity>
             </View>
 
