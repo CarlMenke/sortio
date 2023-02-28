@@ -1,4 +1,4 @@
-import { View, Button } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 import { showHome, showSettings, showBusiness} from '../../navFunctions'
@@ -14,31 +14,42 @@ export default function BottomBar() {
     if(navState.bottomBar === 'home'){
         return(
             <View style={styles.bottomBar}>
-                <Button
-                color="#8CBBF1"
-                title="Home"
-                onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}/>
-                <Button
-                color="#8CBBF1"
-                title="Settings"
-                onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}/>
+                <TouchableOpacity
+                style={styles.bottomTab}
+                onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}>
+                    <Text
+                    style={styles.bottomTabText}>Home</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                style={styles.bottomTab}
+                onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}>
+                    <Text
+                    style={styles.bottomTabText}>Settings</Text>
+                </TouchableOpacity>
             </View>
         )
     }else if(navState.bottomBar === 'business'){
         return(
             <View style={styles.bottomBar}>
-                <Button
-                color="#8CBBF1"
-                title="Business"
-                onPress={()=>{if(isAuthenticated)showBusiness(navState, setNavStateAction, {}, navState.business.businessName)}}/>
-                <Button
-                color="#8CBBF1"
-                title="Home"
-                onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}/>
-                <Button
-                color="#8CBBF1"
-                title="Settings"
-                onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}/>
+                <TouchableOpacity
+                style={styles.bottomTab}
+                onPress={()=>{if(isAuthenticated)showBusiness(navState, setNavStateAction, {}, navState.business.businessName)}}>
+                    <Text
+                    style={styles.bottomTabText}>Business</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                style={styles.bottomTab}
+                onPress={()=>{if(isAuthenticated)showHome(navState, setNavStateAction)}}>
+                    <Text
+                    style={styles.bottomTabText}>Home</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                style={styles.bottomTab}
+                onPress={()=>{if(isAuthenticated)showSettings(navState, setNavStateAction)}}>
+                    <Text
+                    style={styles.bottomTabText}>Settings</Text>
+                </TouchableOpacity>
             </View>
         )
     }else{

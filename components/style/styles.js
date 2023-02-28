@@ -114,12 +114,23 @@ const styles = new StyleSheet.create({
         backgroundColor: colors.lightGrey
     },
     bottomTab:{
-        marginBottom: 10
+        marginTop: 20,
+    },
+    bottomTabText:{
+        fontFamily: fonts.semiBold,
+        fontSize: 18,
+        color: "white"
     },
     bottomBar:{
         flexDirection: "row",
         justifyContent: "space-around",
-        alignItems: "center"
+        alignItems: "flex-start",
+        backgroundColor: colors.blue,
+        flex: 1,
+        shadowColor: colors.grey,
+        shadowOffset: { height: -.75},
+        shadowOpacity: .4,
+        shadowRadius: 3
     },
     navigationView:{
         flex: 1
