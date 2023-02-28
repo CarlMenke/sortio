@@ -30,11 +30,11 @@ export default function HomeScreen() {
                     <TouchableOpacity
                     style={styles.formButton}
                     onPress={()=>{showBusinessForm(navState, setNavStateAction, {})}}>
-                        <Text style={styles.formButtonText}>
-                        Create or Join a Business.
-                        </Text>
                     </TouchableOpacity>
                 </ScrollView>
+                <Text style={styles.formButtonText}>
+                Create or Join a Business.
+                </Text>
             </View>
         </View>
     )

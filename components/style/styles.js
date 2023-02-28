@@ -5,6 +5,7 @@ const colors = {
     yellow: "#FDEDCB",
     pink: "#F9CEDF",
     lightGrey: "#e6e6e6",
+    grey: "#999999",
     darkGrey: "#6e6e6e",
     background: {
         dark: "grey",
@@ -16,12 +17,13 @@ const colors = {
 }
 
 const fonts = {
-    medium: "Nunito-Medium",
-    extraBold: "Nunito-ExtraBold",
-    regular: "Nunito-Regular",
-    semiBold: "Nunito-Semibold",
-    light: "Nunito-Light",
-    extraLight: "Nunito-ExtraLight"
+    medium: "Quicksand-Medium",
+    bold: "Quicksand-Bold",
+    extraBold: "Quicksand-Bold",
+    regular: "Quicksand-Regular",
+    semiBold: "Quicksand-Semibold",
+    light: "Quicksand-Light",
+    extraLight: "Quicksand-Light"
 }
 
 const shadow = {
@@ -41,13 +43,46 @@ const styles = new StyleSheet.create({
     title:{
         fontFamily:fonts.extraBold,
         color: colors.darkGrey,
-        fontSize:30,
+        fontSize: 30,
         margin: 10
     },
     businessCardHeader:{
         fontFamily: fonts.semiBold,
         fontSize: 15,
         color: colors.darkGrey
+    },
+    businessScreen:{
+        flex: 1,
+        width: "100%",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start"
+    },
+    businessOptions: {
+        marginTop: 30,
+        flex: .9,
+        width:"100%",
+        flexDirection: "column",
+        justifyContent:"space-around",
+        alignItems: "center"
+    },
+    businessOption:{
+        padding: 20,
+        margin: 40, 
+        backgroundColor: colors.lightGrey,
+        width: "80%",
+        borderRadius: 10
+    },
+    businessOptionsTitle:{
+        color: colors.darkGrey,
+        fontFamily: fonts.semiBold,
+        fontSize: 22
+    },
+    businessOptionsDetails:{
+        marginTop: 10,
+        color: colors.grey,
+        fontFamily: fonts.regular,
+        fontSize: 12
     },
     homeScreen: {
         flex: 1,
