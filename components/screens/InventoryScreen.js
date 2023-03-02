@@ -1,4 +1,4 @@
-import { ScrollView, Button, View, StatusBar} from 'react-native';
+import { ScrollView, TouchableOpacity, View, Text} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 import InventoryItemCard from '../cards/InventoryItemCard';
@@ -13,7 +13,7 @@ export default function InventoryScreen(props) {
     const { navState } = useSelector(state => state.reducer)
 
     return(
-        <View style={styles.container}>
+        <View style={styles.inventoryScreen}>
             <ScrollView contentContainerStyle={styles.scrollView}>
                 {Object.entries(navState.business.inventoryItems).map((inventoryItem, index) => {
                     return(
@@ -28,9 +28,11 @@ export default function InventoryScreen(props) {
                     )
                 })}
             </ScrollView>
-            <Button
-            onPress={()=>{showInventoryItemForm(navState, setNavStateAction, {})}}
-            title="New Item"/>
+            <TouchableOpacity
+            style={styles.submitButton}
+            onPress={()=>{showInventoryItemForm(navState, setNavStateAction, {})}}>
+                <Text style={styles.submitButtontext}>Add Inventory Item</Text>
+            </TouchableOpacity>
         </View>
     )
 }

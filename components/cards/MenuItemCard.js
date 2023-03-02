@@ -11,7 +11,7 @@ export default function MenuItemCard(props) {
     const { navState } = useSelector(state => state.reducer)
 
     return(
-        <View style={styles.container}>
+        <View style={styles.menuItemCard}>
             <Text>{name}</Text>
             <Text>Price: {price}</Text>
             <Button
@@ -20,8 +20,3 @@ export default function MenuItemCard(props) {
         </View>
     )
 }
-
-/*
-make sure that the inventoryItemDetails has a button on it to add that inventoryItem 
-to a menuItem.
-*/

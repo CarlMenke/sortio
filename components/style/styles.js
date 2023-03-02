@@ -139,7 +139,7 @@ const styles = new StyleSheet.create({
         color: colors.blue,
         fontSize: 15,
     },
-    item : {
+    item: {
         width:"98%",
         marginTop: 20,
         marginBottom: 20,
@@ -148,15 +148,15 @@ const styles = new StyleSheet.create({
     user: {
         backgroundColor: colors.lightGrey
     },
-    bottomTab:{
+    bottomTab: {
         marginTop: 20,
     },
-    bottomTabText:{
+    bottomTabText: {
         fontFamily: fonts.semiBold,
         fontSize: 18,
         color: "white"
     },
-    bottomBar:{
+    bottomBar: {
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "flex-start",
@@ -167,17 +167,16 @@ const styles = new StyleSheet.create({
         shadowOpacity: .4,
         shadowRadius: 3
     },
-    navigationView:{
+    navigationView: {
         flex: 1
     },
     scrollView: {
-        flex: 1,
         flexDirection: "column",
-        justifyContent: "space-around"
+        justifyContent: "flex-start"
     },
     inputArea: {
         width: "80%",
-        flex:.8,
+        flex: .8,
         margin: 30,
         justifyContent: "center"
     },
@@ -245,6 +244,19 @@ const styles = new StyleSheet.create({
         fontFamily: fonts.semiBold,
         color: colors.blue,
         fontSize:14
+    },
+    inventoryScreen: {
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flexDirection: "column"
+    },
+    menuItemsScreen: {
+        flex: 1,
+        backgroundColor: "black",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flexDirection: "column",
     }
 })
 
