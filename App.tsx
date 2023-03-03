@@ -15,10 +15,15 @@ function App(): JSX.Element {
       backgroundColor: "#f2f2f2"
     },
     statusBar: {
-      flex:.075
+      flex:.075,
+      backgroundColor: "#8CBBF1",
+      shadowColor: "#999999",
+      shadowOffset: { height: .75, width: 0},
+      shadowOpacity: .6,
+      shadowRadius: 3
     },
     navigation:{
-      flex: .835
+      flex: .9,
     },
     bottomBar:{
       flex: .09,

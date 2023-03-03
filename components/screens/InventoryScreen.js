@@ -14,6 +14,7 @@ export default function InventoryScreen(props) {
 
     return(
         <View style={styles.inventoryScreen}>
+            <Text style={styles.title}> Inventory Items: </Text>
             <View style={styles.inventortyItemsList}>
                 <ScrollView contentContainerStyle={styles.scrollView}>
                     {Object.entries(navState.business.inventoryItems).map((inventoryItem) => {

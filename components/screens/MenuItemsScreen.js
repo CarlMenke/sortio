@@ -12,8 +12,9 @@ export default function MenuItemsScreen() {
 
     return(
         <View style={styles.menuItemsScreen}>
+            <Text style={styles.title}> Menu Items: </Text>
             <View style ={styles.menuItemsList}>
-                <ScrollView>
+                <ScrollView contentContainerStyle={styles.scrollView}>
                     {Object.entries(navState.business.menuItems).map((menuItem)=>{
                         return(
                             <MenuItemCard menuItem={menuItem[1]} key={menuItem[0]}/>

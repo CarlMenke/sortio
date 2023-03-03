@@ -14,8 +14,11 @@ export default function MenuItemCard(props) {
         <TouchableOpacity 
         style={styles.menuItemCard}
         onPress={()=>showMenuItemDetails(navState, setNavStateAction, {}, name)}>
-            <Text>{name}</Text>
-            <Text>Price: {price}</Text>
+            <Text style={styles.cardName}>{name}</Text>
+            <View style={{flexDirection: "row"}}>
+            <Text style={styles.priceAmount}>{price}</Text>
+            <Text style={styles.priceLabel}> $</Text>
+            </View>
         </TouchableOpacity>
     )
 }

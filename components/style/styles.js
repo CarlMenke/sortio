@@ -44,7 +44,8 @@ const styles = new StyleSheet.create({
         fontFamily:fonts.extraBold,
         color: colors.darkGrey,
         fontSize: 30,
-        margin: 10
+        margin: 10,
+        marginTop: 20
     },
     businessCardHeader:{
         fontFamily: fonts.semiBold,
@@ -113,7 +114,14 @@ const styles = new StyleSheet.create({
         borderRadius: 10
     },
     menuItemCard: {
-        
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "80%",
+        margin: 10,
+        padding: 10,
+        backgroundColor: colors.lightGrey,
+        borderRadius: 10
     },
     scrollView: {
         justifyContent: "flex-start",
@@ -130,14 +138,27 @@ const styles = new StyleSheet.create({
         borderRadius: 10
     },
     cardName: {
+        fontSize: 19,
         fontFamily: fonts.semiBold,
         color: colors.darkGrey
     },
     cardAmount: {
+        fontSize: 17,
         fontFamily: fonts.regular,
         color: colors.darkGrey
     },
     cardUnit: {
+        fontSize: 17,
+        fontFamily: fonts.light,
+        color: colors.darkGrey
+    },
+    priceAmount: {
+        fontSize: 17,
+        fontFamily: fonts.regular,
+        color: colors.darkGrey
+    },
+    priceLabel: {
+        fontSize: 17,
         fontFamily: fonts.light,
         color: colors.darkGrey
     },
@@ -199,7 +220,7 @@ const styles = new StyleSheet.create({
         flex: 1,
         shadowColor: colors.grey,
         shadowOffset: { height: -.75},
-        shadowOpacity: .4,
+        shadowOpacity: .6,
         shadowRadius: 3
     },
     navigationView: {
