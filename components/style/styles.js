@@ -112,6 +112,9 @@ const styles = new StyleSheet.create({
         padding: 15,
         borderRadius: 10
     },
+    menuItemCard: {
+        
+    },
     startScreen: {
         flex: 1,
         flexDirection: "column",
@@ -123,6 +126,12 @@ const styles = new StyleSheet.create({
         width: 150,
         height: 100,
         objectFit: "fill"
+    },
+    menuItemsList: {
+        flex: .9
+    },
+    inventortyItemsList: {
+        flex: .9
     },
     header:{
         width: "80%",
@@ -170,9 +179,12 @@ const styles = new StyleSheet.create({
     navigationView: {
         flex: 1
     },
-    scrollView: {
+    scrollViewContainer:{
         flexDirection: "column",
-        justifyContent: "flex-start"
+        justifyContent: "flex-end"
+    },
+    scrollViewContent: {
+        flex:  1
     },
     inputArea: {
         width: "80%",
@@ -253,7 +265,6 @@ const styles = new StyleSheet.create({
     },
     menuItemsScreen: {
         flex: 1,
-        backgroundColor: "black",
         justifyContent: "flex-start",
         alignItems: "center",
         flexDirection: "column",

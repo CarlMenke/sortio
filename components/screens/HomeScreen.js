@@ -22,9 +22,9 @@ export default function HomeScreen() {
             <View style={styles.homeScreenBusinessesArea}>
                 <Text style={styles.title}>Your Businesses: </Text>
                 <ScrollView contentContainerStyle={styles.homeScreenBusinesses}>
-                    {navState.payload.map((businessName, index)=>{
+                    {navState.payload.map((businessName)=>{
                         return(
-                            <BusinessCard businessName={businessName} key={index}/>
+                            <BusinessCard businessName={businessName} key={businessName}/>
                         )
                     })}
                     <TouchableOpacity

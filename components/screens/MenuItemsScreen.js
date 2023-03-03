@@ -12,13 +12,15 @@ export default function MenuItemsScreen() {
 
     return(
         <View style={styles.menuItemsScreen}>
-            <ScrollView contentContainerStyle={styles.scrollView}>
-                {Object.entries(navState.business.menuItems).map((menuItem, index)=>{
-                    return(
-                        <MenuItemCard menuItem={menuItem[1]} key={index}/>
-                    )
-                })}
-            </ScrollView>
+            <View style ={styles.menuItemsList}>
+                <ScrollView>
+                    {Object.entries(navState.business.menuItems).map((menuItem)=>{
+                        return(
+                            <MenuItemCard menuItem={menuItem[1]} key={menuItem[0]}/>
+                        )
+                    })}
+                </ScrollView>
+            </View>
             <TouchableOpacity
             style={styles.submitButton}
             onPress={()=>showMenuItemForm(navState, setNavStateAction, {}, {})}>

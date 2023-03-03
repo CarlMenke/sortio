@@ -14,20 +14,22 @@ export default function InventoryScreen(props) {
 
     return(
         <View style={styles.inventoryScreen}>
-            <ScrollView contentContainerStyle={styles.scrollView}>
-                {Object.entries(navState.business.inventoryItems).map((inventoryItem, index) => {
-                    return(
-                        <InventoryItemCard 
-                        inventoryItem={inventoryItem[1]} 
-                        key={index} 
-                        onPressHandler={
-                            props.onPressHandler ? 
-                            ()=>{props.onPressHandler(inventoryItem)} : 
-                            ()=>{showInventoryItemDetails(navState, setNavStateAction, {}, inventoryItem[1].name)}
-                        }/>
-                    )
-                })}
-            </ScrollView>
+            <View style={styles.inventortyItemsList}>
+                <ScrollView contentContainerStyle={styles.scrollView}>
+                    {Object.entries(navState.business.inventoryItems).map((inventoryItem) => {
+                        return(
+                            <InventoryItemCard 
+                            inventoryItem={inventoryItem[1]} 
+                            key={inventoryItem[0]} 
+                            onPressHandler={
+                                props.onPressHandler ? 
+                                ()=>{props.onPressHandler(inventoryItem)} : 
+                                ()=>{showInventoryItemDetails(navState, setNavStateAction, {}, inventoryItem[1].name)}
+                            }/>
+                        )
+                    })}
+                </ScrollView>
+            </View>
             <TouchableOpacity
             style={styles.submitButton}
             onPress={()=>{showInventoryItemForm(navState, setNavStateAction, {})}}>

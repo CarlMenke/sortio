@@ -9,7 +9,6 @@ export default function QuantityForm(props) {
     const [amountUnit, setAmountUnit] = useState(null)
     const [open, setOpen] = useState(false);
     const [unitArray , setUnitArray] = useState([{label:'grams', value:'grams'}, {label:'ounces', value:'ounces'}, {label:'pounds', value:'pounds'}])
-
     const handleSubmit = () =>{
         if(!amountUnit || !amountUsed) return
         const temporaryInventoryItems = [...inventoryItems]
