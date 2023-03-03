@@ -4,9 +4,12 @@ const colors = {
     blue: "#8CBBF1",
     yellow: "#FDEDCB",
     pink: "#F9CEDF",
-    lightGrey: "#e6e6e6",
-    grey: "#999999",
+    lighterGrey: "#e8e8e8",
+    lightGrey: "#e3e3e3",
+    grey: "#dedede",
     darkGrey: "#6e6e6e",
+    darkerGrey: "#4d4d4d",
+    darkestGrey: "#404040",
     background: {
         dark: "grey",
         light: "white"
@@ -42,7 +45,7 @@ const styles = new StyleSheet.create({
     },
     title:{
         fontFamily:fonts.extraBold,
-        color: colors.darkGrey,
+        color: colors.darkerGrey,
         fontSize: 30,
         margin: 10,
         marginTop: 20
@@ -75,13 +78,13 @@ const styles = new StyleSheet.create({
         borderRadius: 10
     },
     businessOptionsTitle:{
-        color: colors.darkGrey,
+        color: colors.darkerGrey,
         fontFamily: fonts.semiBold,
         fontSize: 22
     },
     businessOptionsDetails:{
         marginTop: 10,
-        color: colors.grey,
+        color: colors.darkGrey,
         fontFamily: fonts.regular,
         fontSize: 12
     },
@@ -113,7 +116,12 @@ const styles = new StyleSheet.create({
         padding: 15,
         borderRadius: 10
     },
-    menuItemCard: {
+    scrollView: {
+        justifyContent: "flex-start",
+        alignItems: "center",
+        width: "100%"
+    },
+    inventoryItemCard: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -123,11 +131,7 @@ const styles = new StyleSheet.create({
         backgroundColor: colors.lightGrey,
         borderRadius: 10
     },
-    scrollView: {
-        justifyContent: "flex-start",
-        alignItems: "center"
-    },
-    inventoryItemCard: {
+    menuItemCard: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -315,6 +319,78 @@ const styles = new StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "center",
         flexDirection: "column",
+    },
+    menuItemDetails:{
+        flex:  1,
+        justifyContent: "flex-start",
+        alignItems: "center"
+    },
+    menuItemDetailsHeader:{
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-around",
+        flex: .15
+    },
+    menuItemIngredients: {
+        padding: 10,
+        margin: 10,
+        width: "80%",
+        backgroundColor: colors.lighterGrey,
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flex: .8,
+        borderRadius: 10,
+    },
+    priceAmountHeader: {
+        fontSize: 21,
+        fontFamily: fonts.regular,
+        color: colors.darkGrey
+    },
+    priceLabelHeader: {
+        fontSize: 21,
+        fontFamily: fonts.light,
+        color: colors.darkGrey
+    },
+    ingredientCard: {
+        width: "90%",
+        marginTop: 10,
+        marginBottom: 10,
+        padding: 10,
+        borderRadius: 10,
+        flexDirection: "column",
+        backgroundColor: colors.grey
+    },
+    ingredientsTitle:{
+        margin: 5,
+        fontFamily: fonts.extraBold,
+        fontSize: 20,
+        color: colors.darkerGrey
+    },
+    ingredientInfo: {
+        margin: 10,
+        flexDirection: "row",
+        justifyContent: "space-between"
+    }, 
+    ingredientActions: {
+        backgroundColor: colors.grey,
+        margin: 10,
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    deleteImage: {
+        margin: 5,
+        width: 20,
+        height: 20
+    },
+    adjustButton: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    adjustButtontext: {
+        fontFamily: fonts.medium,
+        color: colors.blue,
+        textAlign: "center"
     }
 })
 
