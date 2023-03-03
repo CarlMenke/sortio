@@ -16,8 +16,8 @@ export default function MenuItemCard(props) {
         onPress={()=>showMenuItemDetails(navState, setNavStateAction, {}, name)}>
             <Text style={styles.cardName}>{name}</Text>
             <View style={{flexDirection: "row"}}>
+            <Text style={styles.priceLabel}>$ </Text>
             <Text style={styles.priceAmount}>{price}</Text>
-            <Text style={styles.priceLabel}> $</Text>
             </View>
         </TouchableOpacity>
     )

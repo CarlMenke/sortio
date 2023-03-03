@@ -1,8 +1,8 @@
-import { View, Button, Text} from 'react-native';
+import { View, Button, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react'
 import { setNavState } from '../../redux/actions';
-import InventoryItemCard from '../cards/InventoryItemCard';
+const trashCan = require('../../assets/images/trashCan.png')
 import { addInventoryItemsToMenuItem, removeInventoryItemfromMenuItem, deleteMenuItem } from '../../firebaseFunctions'
 import { showMenuItemDetails, showMenuItems} from "../../navFunctions"
 import QuantityForm from '../forms/QuantityForm';
@@ -55,26 +55,48 @@ export default function MenuItemDetailsScreen(props) {
     }
 
     return(
-        <View style={styles.container}>
-            <Text>{menuItem.name}</Text>
-            <Text>${menuItem.price}</Text>
-            <Text>Ingredients: </Text>
-            {Object.entries(menuItem.itemsUsed).map((item, index)=>{
-                return(
-                    <View style={styles.container} key={item[0]}>
-                       <InventoryItemCard 
-                        inMenuItem={true} 
-                        inventoryItem={{name:item[0], ...item[1]}}
-                        onPressHandler={()=>{}}/>
-                       <Button
-                        title="Set Amount Used"
-                        onPress={()=>{proptAmountOfItemUsed(item)}}/>
-                       <Button
-                        title="Delete"
-                        onPress={()=>{handleRemoveInventoryItemFromMenuItem(item)}}/>
-                    </View>
-                )
-            })}
+        <View style={styles.menuItemDetails}>
+            <View style={styles.menuItemDetailsHeader}>
+                <Text style={styles.title}>{menuItem.name}</Text>
+                <View style={{flexDirection: "row"}}>
+                    <Text style={styles.priceLabelHeader}>$ </Text>
+                    <Text style={styles.priceAmountHeader}>{menuItem.price}</Text>
+                </View>
+            </View>
+            <View style={styles.menuItemIngredients}>
+                <Text style={styles.ingredientsTitle}>Ingredients: </Text>
+                <View style={{width: "100%"}}>
+                    <ScrollView contentContainerStyle={styles.scrollView}>
+                        {Object.entries(menuItem.itemsUsed).map((item)=>{
+                            return(
+                                <View style={styles.ingredientCard} key={item[0]}>
+                                    <View style={styles.ingredientInfo}>
+                                        <Text style={styles.cardName}>{item[0]}</Text>
+                                        <View style={{flexDirection: "row"}}>
+                                            <Text style={styles.cardAmount}>{item[1].amountUsed}</Text>
+                                            <Text style={styles.cardUnit}>  {item[1].amountUnit}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={styles.ingredientActions}>
+                                        <TouchableOpacity
+                                            style={styles.adjustButton}
+                                            onPress={()=>{proptAmountOfItemUsed(item)}}>
+                                                <Text
+                                                style={styles.adjustButtontext}>Adjust Amount</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            onPress={()=>{handleRemoveInventoryItemFromMenuItem(item)}}>
+                                                <Image 
+                                                style={styles.deleteImage}
+                                                source={trashCan}/>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            )
+                        })}
+                    </ScrollView>
+                </View>
+            </View>
             <QuantityForm 
             show = {show} 
             setShow={setShow} 
