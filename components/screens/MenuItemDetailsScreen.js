@@ -61,7 +61,7 @@ export default function MenuItemDetailsScreen(props) {
             <Text>Ingredients: </Text>
             {Object.entries(menuItem.itemsUsed).map((item, index)=>{
                 return(
-                    <View style={styles.container} key={index}>
+                    <View style={styles.container} key={item[0]}>
                        <InventoryItemCard 
                         inMenuItem={true} 
                         inventoryItem={{name:item[0], ...item[1]}}

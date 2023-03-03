@@ -115,6 +115,32 @@ const styles = new StyleSheet.create({
     menuItemCard: {
         
     },
+    scrollView: {
+        justifyContent: "flex-start",
+        alignItems: "center"
+    },
+    inventoryItemCard: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "80%",
+        margin: 10,
+        padding: 10,
+        backgroundColor: colors.lightGrey,
+        borderRadius: 10
+    },
+    cardName: {
+        fontFamily: fonts.semiBold,
+        color: colors.darkGrey
+    },
+    cardAmount: {
+        fontFamily: fonts.regular,
+        color: colors.darkGrey
+    },
+    cardUnit: {
+        fontFamily: fonts.light,
+        color: colors.darkGrey
+    },
     startScreen: {
         flex: 1,
         flexDirection: "column",

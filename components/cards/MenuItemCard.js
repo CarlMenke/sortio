@@ -1,4 +1,4 @@
-import { View, Button, Text} from 'react-native';
+import { View, TouchableOpacity, Text} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavState } from '../../redux/actions';
 import { showMenuItemDetails } from '../../navFunctions'
@@ -11,12 +11,11 @@ export default function MenuItemCard(props) {
     const { navState } = useSelector(state => state.reducer)
 
     return(
-        <View style={styles.menuItemCard}>
+        <TouchableOpacity 
+        style={styles.menuItemCard}
+        onPress={()=>showMenuItemDetails(navState, setNavStateAction, {}, name)}>
             <Text>{name}</Text>
             <Text>Price: {price}</Text>
-            <Button
-            onPress={()=>showMenuItemDetails(navState, setNavStateAction, {}, name)}
-            title="Details"/>
-        </View>
+        </TouchableOpacity>
     )
 }
