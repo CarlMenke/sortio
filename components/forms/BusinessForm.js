@@ -50,7 +50,7 @@ export default function BusinessForm() {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.businessForm}>
             <View style={styles.title}>
                 <Text style={styles.title}>{header.header1}</Text>
             </View>

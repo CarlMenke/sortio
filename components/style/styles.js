@@ -101,7 +101,7 @@ const styles = new StyleSheet.create({
         borderRadius: 10,
     },
     homeScreenBusinessesArea:{
-        flex: .3,
+        flex: .95,
         width: "90%",
         marginLeft: 30,
         marginRight: 20,
@@ -239,7 +239,7 @@ const styles = new StyleSheet.create({
     },
     inputArea: {
         width: "80%",
-        flex: .8,
+        flex: .70,
         margin: 30,
         justifyContent: "center"
     },
@@ -391,6 +391,15 @@ const styles = new StyleSheet.create({
         fontFamily: fonts.medium,
         color: colors.blue,
         textAlign: "center"
+    },
+
+    businessForm: {
+        flex: 1
+    },
+    inventoryItemForm: {
+        flex: 1,
+        justifyContent: "space-between",
+        alignContent: "center",
     }
 })
 

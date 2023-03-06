@@ -1,4 +1,4 @@
-import { Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,11 +6,12 @@ import { createInventoryItem } from '../../firebaseFunctions'
 const convert = require('convert-units')
 import { setNavState } from '../../redux/actions';
 import { showInventory } from '../../navFunctions'
+import InputField from '../tags/InputField';
 import styles from '../style/styles';
 
 export default function InventoryItemForm() {
     const [inventoryItemName, setIventoryItemName] = useState("")
-    const [amountValue, setAmountValue] = useState(null)
+    const [amountValue, setAmountValue] = useState("")
     const [amountUnit, setAmountUnit] = useState(null)
     const [open, setOpen] = useState(false);
     const [unitArray , setUnitArray] = useState([{label:'grams', value:'grams'}, {label:'ounces', value:'ounces'}, {label:'pounds', value:'pounds'}])
@@ -20,35 +21,25 @@ export default function InventoryItemForm() {
 
     const submitCreate = async () => {
         const response = await createInventoryItem(inventoryItemName, amountValue, amountUnit, [], navState.business.businessName)
-        if(response.status){
-            console.log(response.data)
-            showInventory(navState, setNavStateAction)
-        }else{
-            console.log(response.data)
-        }
+        response.status ? showInventory(navState, setNavStateAction) : null
     }
 
     return (
-        <View style={styles.container}>
-            <Text>New Inventory Item:</Text>
-            <View>
-                <Text>Item Name: </Text>
-                <TextInput 
-                style={styles.input}
-                onChangeText={setIventoryItemName}
-                value={inventoryItemName}
-                placeholder="Ingredient Name"/>
-            </View>
+        <View style={styles.inventoryItemForm}>
+            <Text style={styles.title}>New Inventory Item:</Text>
+            <InputField 
+            onChangeText={setIventoryItemName}
+            value={inventoryItemName}
+            placeholder="Ingredient Name"/>
 
             <View>
-                <Text>How much do you have: </Text>
-                <TextInput 
-                style={styles.input}
+                <InputField 
                 onChangeText={setAmountValue}
                 value={amountValue}
-                keyboardType='numeric'
-                placeholder="quantity"/>
+                placeholder="Quantity"/>
+
                 <DropDownPicker
+                style={styles.dropDownPicker}
                 title="Unit"
                 open={open}
                 value={amountUnit}
