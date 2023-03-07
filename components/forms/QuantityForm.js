@@ -1,4 +1,4 @@
-import { Text, View, Button, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState  } from 'react';
 import styles from '../style/styles';
@@ -28,32 +28,46 @@ export default function QuantityForm(props) {
 
     if(show){
         return (
-            <View style={styles.container}>
-                <View style={styles.item} >  
-                    <Text>How much do you use?:</Text>
+            <View style={styles.quantityForm}>
+                <View style={styles.quantityFormLabelView}>
+                    <Text style={styles.quantityFormLabelText}>Amount:</Text>
+                </View>
+
+                <View style={styles.quantityFormInputArea} >  
                     <TextInput
-                    style={styles.input}
+                    style={styles.quantityFormInput}
                     onChangeText={setAmountUsed}
                     value={amountUsed}
-                    keyboardType='numeric'
-                    placeholder="Amount Used"/>
+                    keyboardType='numeric'/>
                     <DropDownPicker
-                    title="Unit"
+                    placeholder="Unit"
                     open={open}
                     value={amountUnit}
+                    containerStyle={styles.dropDownContainer}
+                    style={styles.dropDownStyle}
+                    labelStyle={styles.dropDownLabelStyle}
+                    itemStyle={styles.dropDownItemStyle}
+                    dropDownStyle={styles.dropDownStyle}
+                    dropDownItemStyle={styles.dropDownItemStyle}
+                    selectedLabelStyle={styles.dropDownLabelStyle}
                     items={unitArray}
                     setOpen={setOpen}
                     setValue={setAmountUnit}
                     setItems={setUnitArray}/>
                 </View>
     
-                <Button
-                title="Enter"
+                <TouchableOpacity
+                style={styles.quantityFormSubmit}
                 onPress={()=>{
                     setAmountUnit(null)
                     setAmountUsed(null)
                     props.handleSubmit ? props.handleSubmit(amountUsed, amountUnit, item) : handleSubmit()
-                }}/>
+                }}>
+                    <Text
+                    style={styles.quantityFormSubmitText}>
+                        Enter
+                    </Text>
+                </TouchableOpacity>
             </View>
         )
     }

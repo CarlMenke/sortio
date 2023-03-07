@@ -8,6 +8,7 @@ import { setNavState } from '../../redux/actions';
 import { showInventory } from '../../navFunctions'
 import InputField from '../tags/InputField';
 import styles from '../style/styles';
+import QuantityForm from './QuantityForm';
 
 export default function InventoryItemForm() {
     const [inventoryItemName, setIventoryItemName] = useState("")
@@ -32,22 +33,30 @@ export default function InventoryItemForm() {
             value={inventoryItemName}
             placeholder="Ingredient Name"/>
 
-            <View>
+            <QuantityForm
+            show={true}/>
+            {/* <View style={styles.container}>
                 <InputField 
                 onChangeText={setAmountValue}
                 value={amountValue}
                 placeholder="Quantity"/>
 
                 <DropDownPicker
-                style={styles.dropDownPicker}
                 title="Unit"
                 open={open}
+                containerStyle={styles.dropDownContainer}
+                style={styles.dropDownStyle}
+                labelStyle={styles.dropDownLabelStyle}
+                itemStyle={styles.dropDownItemStyle}
+                dropDownStyle={styles.dropDownStyle}
+                dropDownItemStyle={styles.dropDownItemStyle}
+                selectedLabelStyle={styles.dropDownLabelStyle}
                 value={amountUnit}
                 items={unitArray}
                 setOpen={setOpen}
                 setValue={setAmountUnit}
                 setItems={setUnitArray}/>
-            </View>
+            </View> */}
             <View>
                 <Button
                 style={styles.button}

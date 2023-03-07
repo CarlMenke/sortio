@@ -253,6 +253,7 @@ const styles = new StyleSheet.create({
         flexDirection: "column",
         alignContent: "space-around",
         justifyContent:"center",
+        width:"100%"
     },
     inputFieldText:{
         color: colors.darkGrey,
@@ -392,7 +393,6 @@ const styles = new StyleSheet.create({
         color: colors.blue,
         textAlign: "center"
     },
-
     businessForm: {
         flex: 1
     },
@@ -400,10 +400,67 @@ const styles = new StyleSheet.create({
         flex: 1,
         justifyContent: "space-between",
         alignContent: "center",
-    }
+    },
+    dropDownContainer: {
+        flex:.5,
+        marginLeft: 10, 
+        marginRight: 10
+      },
+    dropDownStyle: {
+        backgroundColor: '#fafafa',
+        borderWidth: 1,
+        borderColor: '#ddd'
+      },
+      dropDownLabelStyle: {
+        color: '#333',
+      },
+      dropDownItemStyle: {
+        justifyContent: 'flex-start',
+      },
+      dropDownItemSelectedStyle: {
+        backgroundColor: '#ddd',
+      },
+      quantityFormSubmitText: {
+        fontFamily: fonts.semiBold
+      },
+      quantityFormSubmit: {
+        flex: .18
+      },
+      quantityFormInput: {
+        flex: .5,
+        backgroundColor: colors.lightGrey,
+        borderRadius: 10,
+        padding: 5,
+        marginLeft: 10,
+        marginRight: 10,
+      },
+      quantityFormInputArea: {
+        flex: .64,
+        flexDirection: "row",
+        justifyContent: "space-between"
+      },
+      quantityForm: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        margin: 10,
+        padding: 10
+      },
+      quantityFormLabelText: {
+        fontFamily: fonts.medium,
+        color: colors.darkestGrey,
+        textAlign: "center"
+      },
+      quantityFormLabelView: {
+        flex: .18,
+        justifyContent: "center",
+        alignItems: "center"
+      },
+      dropDownView: {
+        alignItems: "center",
+        justifyContent:"center"
+      }
 })
-
-//NEXT TRY AND FIGURE OUT THE CUSTOM FONTS
 
 export default styles
 
