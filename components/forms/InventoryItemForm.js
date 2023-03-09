@@ -1,4 +1,4 @@
-import { Text, View, Button } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,42 +27,47 @@ export default function InventoryItemForm() {
 
     return (
         <View style={styles.inventoryItemForm}>
-            <Text style={styles.title}>New Inventory Item:</Text>
-            <InputField 
-            onChangeText={setIventoryItemName}
-            value={inventoryItemName}
-            placeholder="Ingredient Name"/>
-
-            <QuantityForm
-            show={true}/>
-            {/* <View style={styles.container}>
+            <View style={styles.containerNoFlex}>
+                <Text style={styles.title}>New Inventory Item:</Text>
                 <InputField 
-                onChangeText={setAmountValue}
-                value={amountValue}
-                placeholder="Quantity"/>
+                onChangeText={setIventoryItemName}
+                value={inventoryItemName}
+                placeholder="Item Name"/>
 
-                <DropDownPicker
-                title="Unit"
-                open={open}
-                containerStyle={styles.dropDownContainer}
-                style={styles.dropDownStyle}
-                labelStyle={styles.dropDownLabelStyle}
-                itemStyle={styles.dropDownItemStyle}
-                dropDownStyle={styles.dropDownStyle}
-                dropDownItemStyle={styles.dropDownItemStyle}
-                selectedLabelStyle={styles.dropDownLabelStyle}
-                value={amountUnit}
-                items={unitArray}
-                setOpen={setOpen}
-                setValue={setAmountUnit}
-                setItems={setUnitArray}/>
-            </View> */}
-            <View>
-                <Button
-                style={styles.button}
-                onPress={submitCreate}
-                title="Create" />
+                <QuantityForm
+                show={true}/>
+                {/* <View style={styles.container}>
+                    <InputField 
+                    onChangeText={setAmountValue}
+                    value={amountValue}
+                    placeholder="Quantity"/>
+
+                    <DropDownPicker
+                    title="Unit"
+                    open={open}
+                    containerStyle={styles.dropDownContainer}
+                    style={styles.dropDownStyle}
+                    labelStyle={styles.dropDownLabelStyle}
+                    itemStyle={styles.dropDownItemStyle}
+                    dropDownStyle={styles.dropDownStyle}
+                    dropDownItemStyle={styles.dropDownItemStyle}
+                    selectedLabelStyle={styles.dropDownLabelStyle}
+                    value={amountUnit}
+                    items={unitArray}
+                    setOpen={setOpen}
+                    setValue={setAmountUnit}
+                    setItems={setUnitArray}/>
+                </View> */}
             </View>
+            <TouchableOpacity
+            style={styles.submitButton}
+            onPress={submitCreate}
+            title="Create">
+                <Text 
+                style={styles.submitButtontext}>
+                    Create
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }

@@ -288,6 +288,7 @@ const styles = new StyleSheet.create({
         paddingTop: 50
     },
     submitButton: {
+        margin: 15,
         borderRadius: 10,
         backgroundColor: colors.lightGrey,
     },
@@ -396,10 +397,16 @@ const styles = new StyleSheet.create({
     businessForm: {
         flex: 1
     },
+    containerNoFlex:{
+        width: "100%",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center"
+    },
     inventoryItemForm: {
         flex: 1,
         justifyContent: "space-between",
-        alignContent: "center",
+        alignItems: "center",
     },
     dropDownContainer: {
         flex:.5,
