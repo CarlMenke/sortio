@@ -64,7 +64,7 @@ export default function QuantityForm(props) {
                     props.handleSubmit ? props.handleSubmit(amountUsed, amountUnit, item) : handleSubmit()
                 }}>
                     <Text
-                    style={styles.quantityFormSubmitText}>
+                    style={[styles.quantityFormSubmitText]}>
                         Enter
                     </Text>
                 </TouchableOpacity>

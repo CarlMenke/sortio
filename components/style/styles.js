@@ -411,30 +411,46 @@ const styles = new StyleSheet.create({
     dropDownContainer: {
         flex:.5,
         marginLeft: 10, 
-        marginRight: 10
+        marginRight: 10,
+        color: colors.darkGrey,
+        fontFamily: fonts.medium
       },
     dropDownStyle: {
-        backgroundColor: '#fafafa',
-        borderWidth: 1,
-        borderColor: '#ddd'
+        backgroundColor: colors.lightGrey,
+        borderColor: colors.lightGrey
+,        color: colors.darkGrey,
+        fontFamily: fonts.medium
       },
       dropDownLabelStyle: {
-        color: '#333',
+        color: colors.darkGrey,
+        fontFamily: fonts.medium,
+        backgroundColor: colors.lightGrey,
+        borderColor: colors.lightGrey
       },
       dropDownItemStyle: {
         justifyContent: 'flex-start',
+        color: colors.darkGrey,
+        fontFamily: fonts.medium,
+        backgroundColor: colors.lightGrey,
+        borderColor: colors.lightGrey
       },
       dropDownItemSelectedStyle: {
         backgroundColor: '#ddd',
+        color: colors.darkGrey,
+        fontFamily: fonts.medium,
+        backgroundColor: colors.lightGrey,
+        borderColor:"white"
       },
       quantityFormSubmitText: {
-        fontFamily: fonts.semiBold
+        fontFamily: fonts.semiBold,
+        color: colors.darkestGrey,
+        textAlign: "center"
       },
       quantityFormSubmit: {
-        flex: .18
+        flex: .2
       },
       quantityFormInput: {
-        flex: .5,
+        flex: .4,
         backgroundColor: colors.lightGrey,
         borderRadius: 10,
         padding: 5,
@@ -442,11 +458,12 @@ const styles = new StyleSheet.create({
         marginRight: 10,
       },
       quantityFormInputArea: {
-        flex: .64,
+        flex: .6,
         flexDirection: "row",
         justifyContent: "space-between"
       },
       quantityForm: {
+        width: "100%",
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
@@ -459,7 +476,7 @@ const styles = new StyleSheet.create({
         textAlign: "center"
       },
       quantityFormLabelView: {
-        flex: .18,
+        flex: .2,
         justifyContent: "center",
         alignItems: "center"
       },
