@@ -33,12 +33,13 @@ export default function QuantityForm(props) {
                     <Text style={styles.quantityFormLabelText}>Amount:</Text>
                 </View>
 
-                <View style={styles.quantityFormInputArea} >  
+                <View style={styles.quantityFormInputArea} > 
                     <TextInput
                     style={styles.quantityFormInput}
                     onChangeText={setAmountUsed}
                     value={amountUsed}
                     keyboardType='numeric'/>
+
                     <DropDownPicker
                     placeholder="Unit"
                     open={open}
@@ -54,20 +55,21 @@ export default function QuantityForm(props) {
                     setOpen={setOpen}
                     setValue={setAmountUnit}
                     setItems={setUnitArray}/>
+
+                    <TouchableOpacity
+                    style={styles.quantityFormSubmit}
+                    onPress={()=>{
+                        setAmountUnit(null)
+                        setAmountUsed(null)
+                        props.handleSubmit ? props.handleSubmit(amountUsed, amountUnit, item) : handleSubmit()
+                    }}>
+                        <Text
+                        style={[styles.quantityFormSubmitText]}>
+                            Enter
+                        </Text>
+                    </TouchableOpacity>
                 </View>
     
-                <TouchableOpacity
-                style={styles.quantityFormSubmit}
-                onPress={()=>{
-                    setAmountUnit(null)
-                    setAmountUsed(null)
-                    props.handleSubmit ? props.handleSubmit(amountUsed, amountUnit, item) : handleSubmit()
-                }}>
-                    <Text
-                    style={[styles.quantityFormSubmitText]}>
-                        Enter
-                    </Text>
-                </TouchableOpacity>
             </View>
         )
     }

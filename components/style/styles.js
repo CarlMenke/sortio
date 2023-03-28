@@ -447,38 +447,38 @@ const styles = new StyleSheet.create({
         textAlign: "center"
       },
       quantityFormSubmit: {
-        flex: .2
+        flex: .2,
+        justifyContent: "center",
+        alignItems: "center"
       },
       quantityFormInput: {
-        flex: .4,
+        flex: .3,
         backgroundColor: colors.lightGrey,
         borderRadius: 10,
-        padding: 5,
-        marginLeft: 10,
         marginRight: 10,
       },
       quantityFormInputArea: {
-        flex: .6,
         flexDirection: "row",
         justifyContent: "space-between"
       },
       quantityForm: {
         width: "100%",
-        flexDirection: "row",
-        justifyContent: "space-around",
-        alignItems: "center",
-        margin: 10,
-        padding: 10
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        paddingLeft: 30
       },
       quantityFormLabelText: {
-        fontFamily: fonts.medium,
+        fontFamily: fonts.light,
+        fontSize: 14,
         color: colors.darkestGrey,
         textAlign: "center"
       },
       quantityFormLabelView: {
-        flex: .2,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        padding: 3,
+        paddingLeft: 5
       },
       dropDownView: {
         alignItems: "center",
