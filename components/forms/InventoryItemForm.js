@@ -13,6 +13,7 @@ import QuantityForm from './QuantityForm';
 export default function InventoryItemForm() {
     const [inventoryItemName, setIventoryItemName] = useState("")
     const [amountValue, setAmountValue] = useState("")
+    const [inventoryItems , setInventoryItems] = useState("")
     const [amountUnit, setAmountUnit] = useState(null)
     const [open, setOpen] = useState(false);
     const [unitArray , setUnitArray] = useState([{label:'grams', value:'grams'}, {label:'ounces', value:'ounces'}, {label:'pounds', value:'pounds'}])
@@ -35,6 +36,9 @@ export default function InventoryItemForm() {
                 placeholder="Item Name"/>
 
                 <QuantityForm
+                inventoryItems={inventoryItems}
+                setInventoryItems={setInventoryItems}
+                item={{name: inventoryItemName}}
                 show={true}/>
                 {/* <View style={styles.container}>
                     <InputField 
